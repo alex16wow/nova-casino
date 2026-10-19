@@ -10,11 +10,13 @@ Open `index.html` locally or serve the repository root with any static web serve
 
 ## Features
 
-- Responsive navigation and a collapsible Lobby group
-- Search and a currency dropdown
-- Animated promotional and tournament banners
+- Responsive sidebar and category navigation
+- Search by game, provider and category, plus a currency dropdown
+- Layered banners with parallax and rotating tournaments
 - Looping game shelves and provider marquee
-- Rotating winners and activity records
+- Rotating winners and separate activity records for each tab
+- Account, notification and level reward dropdowns
+- Expandable FAQ and a seamless ambient video background
 - Accessible controls and reduced-motion support
 
 Deposit, account, play, and demo actions are prototype placeholders. Displayed balances and activity are sample data.

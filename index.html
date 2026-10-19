@@ -1238,6 +1238,11 @@ body{overflow-x:clip}
  .mobile-drawer-scroll-indicator>span{display:block;position:absolute;top:0;left:0;width:3px;border-radius:2px;background:#c4a3e766}
 }
 .mobile-drawer-scroll-indicator[hidden]{display:none!important}
+
+@media(max-width:1279px){
+ .currency-wrap .mobile-deposit{display:grid;place-items:center;line-height:0}
+ .currency-wrap .mobile-deposit>svg{display:block;position:static;inset:auto;width:20px;height:20px;margin:0;padding:0;transform:none;flex:none}
+}
 </style>
 </head>
 <body>
@@ -1637,11 +1642,11 @@ document.querySelectorAll('.game-row').forEach(row=>{
  const sync=()=>{
   if(mobile.matches&&!mounted){
    closePopups();while(dock.firstChild)originalDock.append(dock.firstChild);dock.classList.add('account-dock');dock.setAttribute('aria-label','Wallet and account');
-   [level,wallet].forEach(node=>dock.append(node));wallet.append(deposit);deposit.classList.add('mobile-deposit');deposit.innerHTML='<span aria-hidden="true">+</span>';deposit.setAttribute('aria-label','Deposit');mounted=true;
+   [level,wallet].forEach(node=>dock.append(node));wallet.append(deposit);deposit.classList.add('mobile-deposit');deposit.innerHTML='<svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>';deposit.setAttribute('aria-label','Deposit');mounted=true;
   }else if(!mobile.matches&&mounted){
    closePopups();nodes.forEach((node,i)=>anchors[i].after(node));depositAnchor.after(deposit);deposit.classList.remove('mobile-deposit');deposit.innerHTML=depositLabel;deposit.removeAttribute('aria-label');dock.classList.remove('account-dock');dock.setAttribute('aria-label','Mobile navigation');dock.append(originalDock);mounted=false;
   }
-  if(tablet.matches){wallet.append(deposit);deposit.classList.add('mobile-deposit');deposit.innerHTML='<span aria-hidden="true">+</span>';deposit.setAttribute('aria-label','Deposit')}
+  if(tablet.matches){wallet.append(deposit);deposit.classList.add('mobile-deposit');deposit.innerHTML='<svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>';deposit.setAttribute('aria-label','Deposit')}
   else if(!mobile.matches){depositAnchor.after(deposit);deposit.classList.remove('mobile-deposit');deposit.innerHTML=depositLabel;deposit.removeAttribute('aria-label')}
  };
  mobile.addEventListener('change',sync);tablet.addEventListener('change',sync);sync();

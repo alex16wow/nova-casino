@@ -1200,6 +1200,19 @@ body{overflow-x:clip}
  .topbar .top-actions .expandable-search input{font-size:11px}
  .topbar .top-actions .expandable-search input::placeholder{font-size:11px}
 }
+
+/* Keep the mobile dock intrinsic size stable as browser chrome changes. */
+@media(max-width:680px){
+ .mobile-nav.account-dock{
+  --dock-safe-bottom:clamp(0px,env(safe-area-inset-bottom,0px),32px);
+  position:fixed;top:auto;bottom:0;left:0;right:0;
+  box-sizing:border-box;height:calc(73px + var(--dock-safe-bottom));
+  min-height:calc(73px + var(--dock-safe-bottom));max-height:calc(73px + var(--dock-safe-bottom));
+  grid-template-rows:48px;grid-auto-rows:0;align-content:start;
+  padding:12px 10px calc(12px + var(--dock-safe-bottom));
+  margin:0;flex:none;transition:none;overflow:visible;
+ }
+}
 </style>
 </head>
 <body>

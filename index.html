@@ -1222,6 +1222,12 @@ body{overflow-x:clip}
 @media(max-width:680px){
  .mobile-nav.account-dock{transform:translate3d(0,0,0);backface-visibility:hidden;will-change:transform;isolation:isolate;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;}
 }
+
+/* Anchor to the visible viewport rather than Firefox's changing layout bottom. */
+@media(max-width:680px){
+ .mobile-nav.account-dock{height:73px;min-height:73px;max-height:73px;padding:12px 10px;grid-template-rows:48px;bottom:0}
+ .mobile-nav.account-dock.visual-viewport-dock{top:var(--dock-visible-top);bottom:auto}
+}
 </style>
 </head>
 <body>
@@ -1751,6 +1757,23 @@ document.querySelectorAll('.game-row').forEach(row=>{
  new ResizeObserver(update).observe(header);
  new MutationObserver(update).observe(search,{attributes:true,attributeFilter:['class']});
  window.addEventListener('resize',update);media.addEventListener('change',update);update();
+})();
+</script>
+
+<script id="mobile-visible-viewport-dock">
+(()=>{
+ const dock=document.querySelector('.mobile-nav'),mobile=matchMedia('(max-width:680px)'),viewport=window.visualViewport;
+ let frame=0;
+ const update=()=>{
+  frame=0;
+  if(!mobile.matches||!viewport){dock.classList.remove('visual-viewport-dock');dock.style.removeProperty('--dock-visible-top');return}
+  // Firefox browser chrome changes the visible viewport without reliably moving bottom:0.
+  dock.style.setProperty('--dock-visible-top',Math.max(0,viewport.offsetTop+viewport.height-73)+'px');
+  dock.classList.add('visual-viewport-dock');
+ };
+ const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)};
+ if(viewport){viewport.addEventListener('resize',schedule,{passive:true});viewport.addEventListener('scroll',schedule,{passive:true})}
+ window.addEventListener('resize',schedule,{passive:true});window.addEventListener('pageshow',schedule);mobile.addEventListener('change',schedule);schedule();
 })();
 </script>
 </body>

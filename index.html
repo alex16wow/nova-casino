@@ -1228,6 +1228,16 @@ body{overflow-x:clip}
  .mobile-nav.account-dock{height:73px;min-height:73px;max-height:73px;padding:12px 10px;grid-template-rows:48px;bottom:0}
  .mobile-nav.account-dock.visual-viewport-dock{top:var(--dock-visible-top);bottom:auto}
 }
+
+/* Mobile drawer owns its vertical scroll; its children must not shrink. */
+@media(max-width:680px){
+ .sidebar{height:var(--mobile-drawer-scroll-height,calc(100dvh - 141px));max-height:var(--mobile-drawer-scroll-height,calc(100dvh - 141px));min-height:0;bottom:auto;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:20px}
+ .sidebar::-webkit-scrollbar{display:none}
+ .sidebar>.nav-group,.sidebar>.sidebar-note{flex-shrink:0}
+ .mobile-drawer-scroll-indicator{position:fixed;z-index:55;width:3px;border-radius:2px;background:#ffffff0d;pointer-events:none;user-select:none}
+ .mobile-drawer-scroll-indicator>span{display:block;position:absolute;top:0;left:0;width:3px;border-radius:2px;background:#c4a3e766}
+}
+.mobile-drawer-scroll-indicator[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -1774,6 +1784,28 @@ document.querySelectorAll('.game-row').forEach(row=>{
  const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)};
  if(viewport){viewport.addEventListener('resize',schedule,{passive:true});viewport.addEventListener('scroll',schedule,{passive:true})}
  window.addEventListener('resize',schedule,{passive:true});window.addEventListener('pageshow',schedule);mobile.addEventListener('change',schedule);schedule();
+})();
+</script>
+
+<script id="mobile-drawer-scroll">
+(()=>{
+ const drawer=document.getElementById('sidebar'),header=document.querySelector('.topbar'),mobile=matchMedia('(max-width:680px)'),viewport=window.visualViewport;
+ const indicator=document.createElement('div'),thumb=document.createElement('span');indicator.className='mobile-drawer-scroll-indicator';indicator.setAttribute('aria-hidden','true');indicator.hidden=true;indicator.append(thumb);document.body.append(indicator);
+ let frame=0;
+ const update=()=>{
+  frame=0;
+  if(!mobile.matches){drawer.style.removeProperty('--mobile-drawer-scroll-height');indicator.hidden=true;return}
+  const available=(viewport?viewport.height:innerHeight)-header.offsetHeight-73;
+  drawer.style.setProperty('--mobile-drawer-scroll-height',Math.max(0,available)+'px');
+  const max=drawer.scrollHeight-drawer.clientHeight;
+  indicator.hidden=!drawer.classList.contains('is-mobile-open')||max<=1;
+  if(indicator.hidden)return;
+  const rect=drawer.getBoundingClientRect(),track=Math.max(0,rect.height-16),size=Math.min(track,Math.max(24,track*drawer.clientHeight/drawer.scrollHeight));
+  indicator.style.left=(rect.right-6)+'px';indicator.style.top=(rect.top+8)+'px';indicator.style.height=track+'px';thumb.style.height=size+'px';thumb.style.transform='translateY('+((track-size)*drawer.scrollTop/max)+'px)';
+ };
+ const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)};
+ drawer.addEventListener('scroll',schedule,{passive:true});new ResizeObserver(schedule).observe(drawer);new MutationObserver(schedule).observe(drawer,{attributes:true,attributeFilter:['class']});
+ window.addEventListener('resize',schedule,{passive:true});if(viewport)viewport.addEventListener('resize',schedule,{passive:true});mobile.addEventListener('change',schedule);schedule();
 })();
 </script>
 </body>

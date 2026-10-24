@@ -38,7 +38,7 @@ export default function LoyaltyPage() {
         <tbody>
           {loyaltyLevels.slice(page * PAGE, page * PAGE + PAGE).map((l) => (
             <tr key={l.level} className={`nv-levels-row--${l.status.toLowerCase()}`}>
-              <td>Level {l.level}</td><td>{l.xp.toLocaleString('en-US')} XP</td><td>{l.reward}</td>
+              <td><span className="nv-level-dot" />Level {l.level}</td><td>{l.xp.toLocaleString("en-US")} XP</td><td className="nv-level-reward">{l.reward}</td>
             </tr>
           ))}
         </tbody>

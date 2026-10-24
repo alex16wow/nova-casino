@@ -29,11 +29,12 @@ export default function PromotionsPage() {
           <div className="nv-promo-grid">
             {list.map((p) => (
               <article key={p.id} className="nv-promo-card">
+                <span className="nv-promo-tag">{p.type}</span>
                 <HeroBanner design={promotions.indexOf(p)} className="nv-promo-card-art" />
                 <div className="nv-promo-card-body">
                   <h2>{p.title}</h2>
                   <p>{p.offer}</p>
-                  <Button variant="secondary" size="sm" onClick={() => setOpenId(p.id)}>View details</Button>
+                  <Button variant="secondary" size="sm" block onClick={() => setOpenId(p.id)}>View details</Button>
                 </div>
               </article>
             ))}
@@ -75,7 +76,7 @@ export function PageTitle({ icon, children }) {
   return (
     <div className="section-head nv-catalog-head">
       <h1 className="section-title-with-icon">
-        <span className="section-title-icon" aria-hidden="true"><NavIcon name={icon} /></span>
+        <span className="section-title-icon nv-title-glyph" aria-hidden="true"><NavIcon name={icon} /></span>
         <span>{children}</span>
       </h1>
     </div>

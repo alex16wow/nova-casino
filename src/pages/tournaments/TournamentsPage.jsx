@@ -56,6 +56,7 @@ function Tournament({ t, now, design, open, onToggle }) {
           </div>
           {terms && <ul className="nv-tour-terms">{tournamentTerms.map((x) => <li key={x}>{x}</li>)}</ul>}
           <h3>Leaderboard</h3>
+          <div className="nv-table-scroll">
           <table className="nv-tour-board">
             <thead><tr><th>#</th><th>Player</th><th>Score</th><th>Prize</th></tr></thead>
             <tbody>
@@ -64,6 +65,7 @@ function Tournament({ t, now, design, open, onToggle }) {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </article>

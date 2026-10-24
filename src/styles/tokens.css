@@ -1,0 +1,86 @@
+/*
+  NOVA design tokens. New components and pages use these variables only.
+  Values are taken from the current lobby styles; the legacy layer still declares
+  its own copies of the short names (--bg, --panel, …) with the same values.
+*/
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --color-bg: #080c1d;
+  --color-surface: #10142c;
+  --color-surface-raised: #151932;
+  --color-surface-sunken: #080b1d;
+  --color-overlay: rgba(4, 6, 16, 0.72);
+
+  /* Lines */
+  --color-line: #3b3284;
+  --color-line-muted: #30345a;
+  --color-line-strong: #7040cb;
+  --color-banner-outline: #a653e8;
+  --color-focus: #dc72ef;
+
+  /* Text */
+  --color-text: #f7f6ff;
+  --color-text-muted: #a399de;
+  --color-text-subtle: #9aa2c7;
+
+  /* Brand & status */
+  --color-violet: #8b35ff;
+  --color-pink: #ef43e7;
+  --color-cyan: #3ed7ff;
+  --color-success: #42e6b2;
+  --color-danger: #ff5c7a;
+  --color-warning: #ffc451;
+
+  --gradient-primary: linear-gradient(110deg, #d13df2 0%, #a52df2 50%, #762cff 100%);
+  --gradient-surface: linear-gradient(135deg, #14132d, #0b1024);
+
+  /* Shape */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-resting: 0 2px 4px rgba(0, 0, 0, 0.33);
+  --shadow-hover-glow: 0 4px 12px #dc4cf52b, 0 0 12px #e35bfa3d, inset 0 0 12px #dc4cff0d;
+  --shadow-primary: 0 0 8px #d747ff9c, inset 0 1px 0 #fff8, inset 0 -4px 12px #5c17c577;
+  --shadow-popup: 0 18px 48px rgba(0, 0, 0, 0.55);
+
+  /* Spacing scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* Type */
+  --font-family: Inter, "Segoe UI", Arial, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 26px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 0.72, 0.17, 1);
+  --duration-fast: 0.2s;
+  --duration-base: 0.35s;
+
+  /* Layers */
+  --z-header: 30;
+  --z-drawer: 40;
+  --z-popup: 55;
+  --z-modal: 80;
+  --z-toast: 90;
+
+  /*
+    Breakpoints (media queries cannot read variables; listed for reference):
+    mobile ≤680px · tablet 681–1279px · desktop ≥1280px
+  */
+}

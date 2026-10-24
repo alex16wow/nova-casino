@@ -1,0 +1,213 @@
+/* Buttons, form fields and loading primitives for new UI. Built on tokens.css. */
+
+/* ---------- Buttons ---------- */
+.nv-btn {
+  --btn-h: 44px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--btn-h);
+  padding: 0 var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: var(--font-size-md);
+  font-weight: 650;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--color-text);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--duration-fast), filter var(--duration-fast), box-shadow var(--duration-fast), border-color var(--duration-fast), background var(--duration-fast), color var(--duration-fast);
+}
+.nv-btn--sm { --btn-h: 36px; padding: 0 var(--space-4); font-size: var(--font-size-sm); }
+.nv-btn--lg { --btn-h: 50px; padding: 0 var(--space-6); font-size: var(--font-size-lg); }
+.nv-btn--block { display: flex; width: 100%; }
+
+.nv-btn--primary {
+  border-color: #e698ff;
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+  text-shadow: 0 1px 5px #55117155;
+}
+.nv-btn--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.13);
+  box-shadow: 0 0 12px #e45dffcc, 0 7px 24px #a42eff78, inset 0 1px 0 #fff9, inset 0 -4px 12px #5c17c577;
+}
+
+.nv-btn--secondary {
+  border-color: var(--color-line-muted);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-resting);
+}
+.nv-btn--secondary:hover:not(:disabled) {
+  border-color: #b051ff;
+  color: #f5cbff;
+  box-shadow: 0 0 13px #9d42ff55;
+}
+
+.nv-btn--ghost { background: transparent; color: var(--color-text-muted); }
+.nv-btn--ghost:hover:not(:disabled) { color: var(--color-text); }
+
+.nv-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.nv-btn:disabled { cursor: not-allowed; opacity: .5; filter: saturate(.6); }
+.nv-btn.is-loading { opacity: 1; filter: none; cursor: progress; }
+
+.nv-spinner {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border: 2px solid #ffffff55;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: nv-spin .7s linear infinite;
+}
+@keyframes nv-spin { to { transform: rotate(360deg); } }
+
+.nv-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: #e5a8ff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #e5a8ff66;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.nv-link:hover { color: #f6d9ff; text-decoration-color: currentColor; }
+.nv-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: 3px; }
+
+/* ---------- Fields ---------- */
+.nv-field { display: grid; gap: 7px; }
+.nv-field > label { font-size: var(--font-size-sm); font-weight: 600; color: #d9d3fb; }
+.nv-field-control { position: relative; display: flex; align-items: center; }
+.nv-field input,
+.nv-field select {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-line-muted);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 15px;
+  transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+}
+.nv-field input::placeholder { color: #6d6a94; }
+.nv-field input:hover,
+.nv-field select:hover { border-color: #5a4a9e; }
+.nv-field input:focus,
+.nv-field select:focus { outline: none; border-color: #9d5cff; box-shadow: 0 0 0 3px #8b35ff33; }
+.nv-field-control:has(.nv-field-toggle) input,
+.nv-field-control:has(.nv-field-valid) input { padding-right: 48px; }
+
+.nv-field.is-error input { border-color: var(--color-danger); }
+.nv-field.is-error input:focus { box-shadow: 0 0 0 3px #ff5c7a33; }
+.nv-field.is-valid input { border-color: #2fae86; }
+
+.nv-field-select::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  width: 8px;
+  height: 8px;
+  border: solid #a7a4c9;
+  border-width: 0 1.7px 1.7px 0;
+  transform: translateY(-2px) rotate(45deg);
+  pointer-events: none;
+}
+.nv-field select { appearance: none; padding-right: 44px; cursor: pointer; }
+.nv-field select option { background: #12152b; }
+
+.nv-field-valid { position: absolute; right: 16px; color: var(--color-success); display: flex; }
+.nv-field-toggle {
+  position: absolute;
+  right: 6px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: #a7a4c9;
+  cursor: pointer;
+}
+.nv-field-toggle:hover { color: var(--color-text); }
+.nv-field-toggle:focus-visible { outline: 2px solid var(--color-focus); }
+
+.nv-field-error,
+.nv-field-hint { margin: 0; font-size: 12.5px; line-height: 1.4; }
+.nv-field-error { color: #ff8da2; }
+.nv-field-hint { color: var(--color-text-subtle); }
+
+.nv-strength { display: flex; align-items: center; gap: 10px; margin-top: -6px; font-size: 12.5px; color: var(--color-text-subtle); }
+.nv-strength-bars { display: flex; gap: 4px; }
+.nv-strength-bars i { width: 28px; height: 4px; border-radius: 2px; background: #2a2d50; transition: background var(--duration-fast); }
+.nv-strength--1 .nv-strength-bars i:nth-child(1) { background: var(--color-danger); }
+.nv-strength--2 .nv-strength-bars i:nth-child(-n+2) { background: var(--color-warning); }
+.nv-strength--3 .nv-strength-bars i { background: var(--color-success); }
+.nv-strength--1 b { color: #ff8da2; }
+.nv-strength--2 b { color: var(--color-warning); }
+.nv-strength--3 b { color: var(--color-success); }
+
+/* Checkbox */
+.nv-check { display: grid; gap: 6px; }
+.nv-check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.nv-check label { display: flex; align-items: flex-start; gap: 12px; font-size: var(--font-size-sm); line-height: 1.45; color: #cfcbef; cursor: pointer; }
+.nv-check-box {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #4b4580;
+  border-radius: 5px;
+  background: var(--color-surface-sunken);
+  color: transparent;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+.nv-check label:hover .nv-check-box { border-color: #9d5cff; }
+.nv-check input:checked + label .nv-check-box { border-color: #e698ff; background: var(--gradient-primary); color: #fff; }
+.nv-check input:focus-visible + label .nv-check-box { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.nv-check.is-error .nv-check-box { border-color: var(--color-danger); }
+.nv-check .nv-field-error { padding-left: 32px; }
+
+/* ---------- Skeletons ---------- */
+.nv-skeleton {
+  display: block;
+  border-radius: 6px;
+  background: linear-gradient(100deg, #1a1d3a 30%, #272a4f 50%, #1a1d3a 70%) 0 0 / 300% 100%;
+  animation: nv-shimmer 1.4s ease-in-out infinite;
+}
+.nv-skeleton--line { height: 12px; }
+.nv-skeleton--thin { height: 9px; margin-top: 7px; }
+.nv-skeleton--fill { position: absolute; inset: 0; border-radius: 0; }
+.nv-skeleton--thumb { width: 38px; height: 38px; flex: none; border-radius: 8px; }
+@keyframes nv-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+
+.game-card.is-skeleton { cursor: default; pointer-events: none; border-color: #2b2e55 !important; box-shadow: none !important; transform: none !important; }
+.game-card.is-skeleton .game-info { z-index: 2; display: block; }
+.game-card.is-skeleton .game-info .nv-skeleton { background-image: linear-gradient(100deg, #2a2d55 30%, #3d4075 50%, #2a2d55 70%); }
+.bets-body-table tr.is-skeleton td { vertical-align: middle; }
+.bets-body-table tr.is-skeleton .bet-game { display: flex; align-items: center; gap: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-skeleton, .nv-spinner { animation-duration: 0s !important; animation: none; }
+  .nv-spinner { border-top-color: #fff; }
+}
+
+/* Footer payment marks. */
+.pay-icon { display: inline-grid; place-items: center; vertical-align: middle; margin-right: 6px; width: 16px; height: 16px; border-radius: 50%; font-size: 9.5px; font-weight: 800; line-height: 1; color: #fff; }
+.pay-icon--visa { width: 18px; height: 12px; border-radius: 2.5px; background: linear-gradient(180deg, #1a1f71 0 62%, #f7b600 62% 100%); }
+.pay-icon--skrill { background: #862165; }
+.pay-icon--neteller { border-radius: 4px; background: #83ba3b; }
+.pay-icon--crypto { background: #f7931a; font-size: 10px; }

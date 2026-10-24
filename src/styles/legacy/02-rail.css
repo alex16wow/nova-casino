@@ -1,0 +1,18 @@
+    .right-rail{grid-template-rows:146px 155px;height:315px;min-height:0}
+    @media(max-width:1260px){.right-rail{grid-template-rows:132px 140px;height:286px;min-height:0}}
+    .rail-card{padding:10px 13px}
+    .rail-card h3{margin-bottom:5px;font-size:12px}
+    .rail-card .prize{font-size:26px}
+    .rail-card p{margin:4px 0 6px;font-size:10px}
+    .rail-card .primary{padding:7px 12px;font-size:10px}
+    .rail-card::after{display:none}
+    .rail-card:not(.winners)::after{display:block}
+    .rail-card.winners{padding:9px 12px}
+    .winners h3{margin-bottom:3px}
+    .winner{padding:3px 0;gap:7px}
+    .avatar{width:25px;height:25px}
+    .winner-name{font-size:9px}
+    .winner-name small{font-size:8px}
+    .hero-copy{animation:none;opacity:1}
+    .hero h1{text-shadow:0 2px 14px #080916}
+    .hero-copy .eyebrow,.hero-copy p{text-shadow:0 2px 12px #080916}

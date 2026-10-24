@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { bonusSlides } from '../../data/lobby.jsx';
-import { useAccountPreview } from '../../context/AuthContext.jsx';
+import { useAccountAction } from '../../context/AuthContext.jsx';
+import { usePlayer } from '../../context/PlayerContext.jsx';
 import { usePreviewAction } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
 import { preloadImages } from '../../lib/preload.js';
@@ -11,8 +12,9 @@ preloadImages(bonusSlides.flatMap((b) => [asset(`bonus-${b.art}-bg.webp`), asset
 // Rotating bonus banner. On phones its button sits below the banner.
 export default function BonusBanner({ mobile }) {
   const preview = usePreviewAction();
-  const accountPreview = useAccountPreview();
-  const actionFor = (b) => (b.needsAccount ? accountPreview : preview);
+  const gate = useAccountAction();
+  const { openDeposit } = usePlayer();
+  const actionFor = (b) => (b.needsAccount ? gate(openDeposit) : preview);
   const [current, setCurrent] = useState(0);
   const banner = (
     <section className="bonus" aria-label="Bonuses">

@@ -47,3 +47,11 @@ export async function requestPasswordReset() {
   if (getDemo().network === 'error') throw new ApiError('network', 'Connection problem. Try again in a moment.');
   return true;
 }
+
+// Payments: the card 4000 0000 0000 0002 is always declined, so the error state can be shown.
+export async function makeDeposit({ method, card }) {
+  await wait(method === 'crypto' ? 1600 : 1300);
+  if (getDemo().network === 'error') throw new ApiError('network', 'Connection problem. Your payment was not taken. Try again.');
+  if (method === 'card' && card?.number.replace(/\s/g, '') === '4000000000000002') throw new ApiError('declined', 'Your bank declined this payment. Try another card or method.');
+  return { id: `TX-${Date.now().toString(36).toUpperCase()}` };
+}

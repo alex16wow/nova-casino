@@ -1,0 +1,49 @@
+/* Deposit dialog: currency and amount chips, payment summary, crypto address. Built on tokens.css. */
+
+.nv-field-label { font-size: var(--font-size-sm); font-weight: 600; color: #d9d3fb; }
+
+.nv-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.nv-chips--fill .nv-chip { flex: 1; justify-content: center; }
+.nv-chips[role="radiogroup"] { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.nv-chips[role="radiogroup"] .nv-chip { justify-content: center; padding: 0 6px; gap: 6px; }
+.nv-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--color-line-muted);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  color: #d9d3fb;
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--duration-fast), background var(--duration-fast), color var(--duration-fast);
+}
+.nv-chip:hover { border-color: #6b55c4; color: #fff; }
+.nv-chip.is-selected { border-color: #c56bff; background: linear-gradient(120deg, #2a1650, #12152f); color: #fff; box-shadow: 0 0 12px #a742ff33; }
+.nv-chip:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.nv-chip .currency-dot { width: 22px; height: 22px; flex: none; font-size: 11px; }
+
+.nv-deposit-amount { display: grid; gap: 10px; }
+.nv-field-suffix { position: absolute; right: 16px; font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text-muted); pointer-events: none; }
+.nv-field-control:has(.nv-field-suffix) input { padding-right: 64px; }
+
+.nv-card-fields { display: grid; gap: var(--space-4); }
+
+.nv-summary { display: grid; gap: 8px; margin: 0; padding: 14px 16px; border: 1px solid var(--color-line-muted); border-radius: var(--radius-md); background: #0b0e22b3; }
+.nv-summary div { display: flex; justify-content: space-between; gap: 12px; font-size: var(--font-size-sm); }
+.nv-summary dt { color: var(--color-text-muted); }
+.nv-summary dd { margin: 0; font-weight: 650; color: #fff; text-align: right; overflow-wrap: anywhere; }
+.nv-summary dd.is-accent { color: #e5a8ff; }
+.nv-form--done .nv-summary { width: 100%; text-align: left; }
+
+.nv-address { display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 14px; border: 1px solid var(--color-line-muted); border-radius: var(--radius-sm); background: var(--color-surface-sunken); }
+.nv-address code { flex: 1; min-width: 0; font-size: 13px; line-height: 1.45; color: #f1ecff; overflow-wrap: anywhere; }
+.nv-note { margin: 0; padding: 10px 14px; border-left: 3px solid var(--color-warning); border-radius: 4px; background: #ffb4471a; font-size: 12.5px; line-height: 1.5; color: #f3dcb5; }
+
+@media (max-width: 680px) {
+  .nv-chips[role="radiogroup"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

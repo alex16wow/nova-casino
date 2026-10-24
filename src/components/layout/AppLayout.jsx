@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useBreakpoint } from '../../hooks/useMediaQuery.js';
 import AuthModal from '../auth/AuthModal.jsx';
 import DemoPanel from '../demo/DemoPanel.jsx';
+import DepositModal from '../wallet/DepositModal.jsx';
 import AccountDock from './AccountDock.jsx';
 import AmbientVideo from './AmbientVideo.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
@@ -76,6 +77,7 @@ export default function AppLayout() {
       {showDock && <AccountDock mobile={mobile} popups={popups} />}
       <DrawerScrollIndicator open={drawerOpen} />
       <AuthModal />
+      {!isGuest && <DepositModal />}
       <DemoPanel />
     </>
   );

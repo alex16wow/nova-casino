@@ -3,11 +3,14 @@ import { heroSlides, lobbyCategories } from '../../data/lobby.jsx';
 import { pageHref } from '../../data/navigation.js';
 import { usePreviewAction } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
+import { preloadImages } from '../../lib/preload.js';
 import ScrollIndicator from '../../components/ui/ScrollIndicator.jsx';
 import { ChevronLeft, ChevronRight } from '../../components/ui/icons.jsx';
 import RightRail from './RightRail.jsx';
 
 const SLIDE_MS = 6000;
+
+preloadImages(heroSlides.flatMap(({ art }) => [art.background, art.gifts, art.glow, art.character].filter(Boolean).map(asset)));
 
 function HeroSlide({ slide, phase }) {
   const preview = usePreviewAction();

@@ -3,7 +3,10 @@ import { bonusSlides } from '../../data/lobby.jsx';
 import { useAccountPreview } from '../../context/AuthContext.jsx';
 import { usePreviewAction } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
+import { preloadImages } from '../../lib/preload.js';
 import RotatingStage from '../../components/ui/RotatingStage.jsx';
+
+preloadImages(bonusSlides.flatMap((b) => [asset(`bonus-${b.art}-bg.webp`), asset(`bonus-${b.art}-object.webp`)]));
 
 // Rotating bonus banner. On phones its button sits below the banner.
 export default function BonusBanner({ mobile }) {

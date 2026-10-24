@@ -73,3 +73,19 @@ export async function makeDeposit({ method, card }) {
   if (method === 'card' && card?.number.replace(/\s/g, '') === '4000000000000002') throw new ApiError('declined', 'Your bank declined this payment. Try another card or method.');
   return { id: `TX-${Date.now().toString(36).toUpperCase()}` };
 }
+
+// Profile: loading follows the data mode; saving and the identity check reuse the same network switch.
+export const fetchProfile = () => respond(() => true);
+
+export async function saveProfile(patch) {
+  await wait(800);
+  if (getDemo().network === 'error') throw new ApiError('network', 'Connection problem. Your changes were not saved. Try again.');
+  return patch;
+}
+
+// The document is only checked here, never uploaded or stored.
+export async function submitVerification() {
+  await wait(1200);
+  if (getDemo().network === 'error') throw new ApiError('network', 'Connection problem. Try again in a moment.');
+  return { status: 'pending' };
+}

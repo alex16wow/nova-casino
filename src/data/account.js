@@ -31,11 +31,17 @@ export const levelRewards = [
   { id: 'welcome', title: 'Welcome reward', description: 'Your first level reward on NOVA Casino.', level: 'Unlocked at Level 5', claimed: true },
 ];
 
+// Account area sections (avatar menu and the tabs on account pages). `live` sections have a page; the rest show "coming soon".
+export const accountSections = [
+  { id: 'profile', label: 'My profile', icon: 'user', to: '/account/profile', live: true },
+  { id: 'wallet', label: 'Wallet', icon: 'wallet', to: '/account/wallet' },
+  { id: 'bonuses', label: 'Bonuses', icon: 'gift', to: '/account/bonuses' },
+  { id: 'history', label: 'Game history', icon: 'history', to: '/account/game-history' },
+  { id: 'settings', label: 'Settings', icon: 'settings', to: '/account/settings' },
+];
+export const accountSection = (id) => accountSections.find((s) => s.id === id);
+
 export const profileMenu = [
-  { label: 'My profile', icon: 'user' },
-  { label: 'Wallet', icon: 'wallet' },
-  { label: 'Bonuses', icon: 'gift' },
-  { label: 'Game history', icon: 'history' },
-  { label: 'Settings', icon: 'settings' },
+  ...accountSections,
   { label: 'Log out', icon: 'logout', signout: true },
 ];

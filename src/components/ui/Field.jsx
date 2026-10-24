@@ -75,16 +75,17 @@ export function Checkbox({ label, error, ...input }) {
   );
 }
 
-export function SelectField({ label, options, ...select }) {
+export function SelectField({ label, options, error, ...select }) {
   const id = useId();
   return (
-    <div className="nv-field">
+    <div className={`nv-field${error ? ' is-error' : ''}`}>
       <label htmlFor={id}>{label}</label>
       <div className="nv-field-control nv-field-select">
-        <select id={id} {...select}>
+        <select id={id} aria-invalid={Boolean(error) || undefined} aria-describedby={error ? `${id}-msg` : undefined} {...select}>
           {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </div>
+      {error && <p id={`${id}-msg`} className="nv-field-error" role="alert">{error}</p>}
     </div>
   );
 }

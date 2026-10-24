@@ -10,12 +10,14 @@
 @import './components/overlays.css';
 @import './components/wallet.css';
 @import './components/support.css';
+@import './components/account.css';
 
 /* Pages. */
 @import './pages/game.css';
 @import './pages/catalog.css';
 @import './pages/favorites.css';
 @import './pages/recent.css';
+@import './pages/profile.css';
 
 /* Oversized scene art must not be capped by host img resets (e.g. preview wrappers injecting img{max-width:100%}). */
 .hero-scene, .bonus-scene, .hero-glow, .bonus-object { max-width: none; }

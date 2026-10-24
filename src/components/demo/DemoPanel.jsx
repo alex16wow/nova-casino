@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { usePlayer } from '../../context/PlayerContext.jsx';
 import { categoryPage, providerPage } from '../../data/catalog.js';
+import { gameSets } from '../../data/games.js';
 import { demoEnabled, getDemo, setDemo } from '../../lib/demo.js';
 
 const networkModes = [
@@ -41,6 +43,7 @@ export default function DemoPanel() {
   // Each page lists only its own states.
   const onGame = pathname.startsWith('/game/');
   const onCatalog = isCatalog(pathname);
+  const onFavorites = pathname === '/favorites';
 
   // Read on every render: picks reset when the address changes.
   const { network } = getDemo();
@@ -66,6 +69,8 @@ export default function DemoPanel() {
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
           {onGame ? (
             <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
+          ) : onFavorites ? (
+            <FavoritesStates>{account}</FavoritesStates>
           ) : onCatalog ? (
             <>
               {account}
@@ -126,6 +131,26 @@ function GameStates({ network, chooseNetwork, missing, navigate, children }) {
         {providerModes.map(([mode, label]) => (
           <button key={mode} type="button" aria-pressed={provider === mode} onClick={() => chooseProvider(mode)}>{label}</button>
         ))}
+      </div>
+    </>
+  );
+}
+
+// Favorites page: fills or empties the real favorites list (no separate demo data).
+const sampleFavorites = [...gameSets.top.slice(0, 6), ...gameSets.fresh.slice(0, 3), ...gameSets.live.slice(0, 3)];
+function FavoritesStates({ children }) {
+  const { favorites, toggleFavorite, clearFavorites } = usePlayer();
+  const fill = () => {
+    clearFavorites();
+    [...sampleFavorites].reverse().forEach((g) => toggleFavorite(g.name));
+  };
+  return (
+    <>
+      {children}
+      <p className="nv-demo-title">Favorites</p>
+      <div className="nv-demo-options">
+        <button type="button" aria-pressed={favorites.length > 0} onClick={fill}>With games</button>
+        <button type="button" aria-pressed={!favorites.length} onClick={clearFavorites}>Empty</button>
       </div>
     </>
   );

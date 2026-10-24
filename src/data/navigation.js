@@ -37,7 +37,7 @@ export const mobileNav = [
   { to: '/lobby', label: 'Lobby', icon: 'dockLobby' },
   { to: '/top-games', label: 'Top games', icon: 'dockTop' },
   { to: '/live-games', label: 'Live', icon: 'dockLive' },
-  { href: '#favorites', label: 'Favorites', icon: 'dockFavorites' },
+  { to: '/favorites', label: 'Favorites', icon: 'dockFavorites' },
   { href: '#top', label: 'Account', icon: 'dockAccount' },
 ];
 
@@ -53,5 +53,5 @@ export const paymentMethods = ['VISA', 'Mastercard', 'Skrill', 'NETELLER', 'Cryp
 export const socialLinks = ['Discord', 'Telegram', 'X', 'YouTube'];
 
 // Pages that exist. Other nav slugs keep a placeholder address and do nothing on click.
-export const livePages = new Set(['lobby', 'top-games', 'new-games', 'live-games', 'table-games', 'roulette', 'game-shows']);
+export const livePages = new Set(['lobby', 'top-games', 'new-games', 'live-games', 'table-games', 'roulette', 'game-shows', 'favorites']);
 export const pageHref = (page) => (livePages.has(page) ? `/${page}` : `pages/${page}.html`);

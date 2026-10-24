@@ -10,11 +10,12 @@ const badges = { live: ['badge-live', 'LIVE'], fresh: ['tag-new', 'NEW'] };
 
 // Game tile with favorite and play actions. `copy` marks a decorative duplicate used by carousels.
 export default function GameCard({ game, copy, style }) {
-  const { favorites, toggleFavorite } = usePlayer();
+  const { isFavorite, toggleFavorite } = usePlayer();
   const toast = useToast();
   const gate = useAccountAction();
   const navigate = useNavigate();
-  const saved = favorites.has(game.name);
+  const saved = isFavorite(game.name);
+  const favorite = gate(() => toast(toggleFavorite(game.name) ? 'Added to favorites' : 'Removed from favorites'), 'login');
   const [badgeClass, badgeText] = badges[game.kind] ?? ['tag-new', ''];
 
   return (
@@ -33,9 +34,9 @@ export default function GameCard({ game, copy, style }) {
         {game.kind !== 'shows' && (
           <button
             className={`heart${saved ? ' saved' : ''}`}
-            aria-label={`Add ${game.name} to favorites`}
+            aria-label={`${saved ? 'Remove' : 'Add'} ${game.name} ${saved ? 'from' : 'to'} favorites`}
             aria-pressed={saved}
-            onClick={gate(() => toast(toggleFavorite(game.name) ? 'Added to favorites' : 'Removed from favorites'), 'login')}
+            onClick={(e) => { e.stopPropagation(); favorite(e); }}
           >
             <Heart />
           </button>

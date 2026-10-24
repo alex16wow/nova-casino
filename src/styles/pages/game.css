@@ -136,3 +136,28 @@ html.nv-game-pinned, html.nv-game-pinned body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .nv-game-progress span { animation: none; width: 100%; }
 }
+
+/* "Added to / Removed from Favorites" note under the heart. Floats over the stage, so nothing moves. */
+.nv-fav-anchor { position: relative; display: inline-grid; }
+.nv-fav-note {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 6;
+  padding: 7px 12px;
+  border: 1px solid #5b3ea8;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(160deg, #1d1840, #0f1329);
+  box-shadow: var(--shadow-popup);
+  color: #f3eaff;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity .2s, transform .2s var(--ease-out), visibility .2s;
+}
+.nv-fav-note.is-shown { opacity: 1; visibility: visible; transform: none; }
+@media (prefers-reduced-motion: reduce) { .nv-fav-note { transition: none; } }

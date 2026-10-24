@@ -189,3 +189,17 @@ table.nv-levels th:last-child, table.nv-levels td:last-child { text-align: right
   .nv-hero-banner .hero-slide--nova .hero-character { right: -22%; }
   .nv-hero-banner .hero-slide--nova .hero-glow { width: 70%; right: -22%; }
 }
+
+/* Chase and Limits designs: same treatment as Nova. */
+.nv-hero-banner .hero-slide--chase .hero-character { right: 8%; -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 99%); mask-image: linear-gradient(90deg, #000 78%, transparent 99%); }
+.nv-hero-banner .hero-slide--chase .hero-glow { width: 38%; right: 0; }
+.nv-hero-banner .hero-slide--limits .hero-character { right: 10%; }
+.nv-hero-banner .hero-slide--limits .hero-glow { width: 24%; right: 11%; }
+@media (max-width: 1279px) {
+  .nv-hero-banner .hero-slide--chase .hero-character, .nv-hero-banner .hero-slide--limits .hero-character { right: 0; }
+  .nv-hero-banner .hero-slide--chase .hero-glow, .nv-hero-banner .hero-slide--limits .hero-glow { width: 44%; right: 0; }
+}
+@media (max-width: 680px) {
+  .nv-hero-banner .hero-slide--chase .hero-character, .nv-hero-banner .hero-slide--limits .hero-character { right: -22%; }
+  .nv-hero-banner .hero-slide--chase .hero-glow, .nv-hero-banner .hero-slide--limits .hero-glow { width: 70%; right: -22%; }
+}

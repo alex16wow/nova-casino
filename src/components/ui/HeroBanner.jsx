@@ -6,7 +6,7 @@ export default function HeroBanner({ design = 0, className = '', children }) {
   const { art } = heroSlides[design % heroSlides.length];
   return (
     <div className={`hero nv-hero-banner ${className}`}>
-      <div className={['hero-slide', 'hero-slide--layered', art.variant && `hero-slide--${art.variant}`].filter(Boolean).join(' ')}>
+      <div className={['hero-slide', 'hero-slide--layered', `hero-slide--${art.variant || 'limits'}`].filter(Boolean).join(' ')}>
         <div className="hero-art-frame" aria-hidden="true">
           <img className="hero-scene" src={asset(art.background)} alt="" draggable="false" />
           <img className="hero-glow" src={asset(art.glow)} alt="" draggable="false" />

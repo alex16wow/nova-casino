@@ -10,10 +10,18 @@ const networkModes = [
   ['empty', 'Empty'],
 ];
 
+// Game page: how the page data and the provider's game behave.
+const gameDataModes = [
+  ['normal', 'Normal'],
+  ['slow', 'Slow (3s)'],
+  ['error', 'Error'],
+  ['empty', 'No similar games'],
+];
 const providerModes = [
   ['up', 'Game loads'],
   ['down', 'Game fails'],
 ];
+const MISSING_GAME = '/game/missing-game';
 
 // Prototype-only switcher for reviewing states. Shown in preview builds or with ?demo in the URL.
 export default function DemoPanel() {
@@ -22,9 +30,10 @@ export default function DemoPanel() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [network, setNetwork] = useState(() => getDemo().network);
-  const [provider, setProvider] = useState(() => getDemo().provider);
-  const onGame = pathname.startsWith('/game/');
   if (!demoEnabled()) return null;
+
+  // Each page lists only its own states.
+  const onGame = pathname.startsWith('/game/');
 
   const chooseNetwork = (mode) => {
     setNetwork(mode);
@@ -32,54 +41,75 @@ export default function DemoPanel() {
     location.reload();
   };
 
-  const chooseProvider = (mode) => {
-    setProvider(mode);
-    setDemo({ provider: mode });
-    location.reload();
-  };
+  const account = (
+    <>
+      <p className="nv-demo-title">Account</p>
+      <div className="nv-demo-options">
+        <button type="button" aria-pressed={!user} onClick={endSession}>Guest</button>
+        <button type="button" aria-pressed={Boolean(user)} onClick={() => startSession({ email: 'player@nova.casino', name: 'player' })}>Signed in</button>
+      </div>
+    </>
+  );
 
   return (
     <div className={`nv-demo${open ? ' is-open' : ''}`}>
       <button type="button" className="nv-demo-toggle" aria-expanded={open} onClick={() => setOpen(!open)}>States</button>
       {open && (
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
-          <p className="nv-demo-title">Page</p>
-          <div className="nv-demo-options">
-            <button type="button" aria-pressed={pathname === '/'} onClick={() => navigate('/')}>Lobby</button>
-            <button type="button" aria-pressed={onGame && pathname !== '/game/missing-game'} onClick={() => navigate('/game/gates-of-olympus')}>Game</button>
-            <button type="button" aria-pressed={pathname === '/game/missing-game'} onClick={() => navigate('/game/missing-game')}>Game not found</button>
-            <button type="button" aria-pressed={pathname !== '/' && !onGame} onClick={() => navigate('/missing-page')}>404</button>
-          </div>
-          <p className="nv-demo-title">Account</p>
-          <div className="nv-demo-options">
-            <button type="button" aria-pressed={!user} onClick={endSession}>Guest</button>
-            <button type="button" aria-pressed={Boolean(user)} onClick={() => startSession({ email: 'player@nova.casino', name: 'player' })}>Signed in</button>
-          </div>
-          <p className="nv-demo-title">Data</p>
-          <div className="nv-demo-options">
-            {networkModes.map(([mode, label]) => (
-              <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{label}</button>
-            ))}
-          </div>
-          {onGame && (
+          {onGame ? (
+            <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
+          ) : (
             <>
-              <p className="nv-demo-title">Game</p>
+              <p className="nv-demo-title">Page</p>
               <div className="nv-demo-options">
-                {providerModes.map(([mode, label]) => (
-                  <button key={mode} type="button" aria-pressed={provider === mode} onClick={() => chooseProvider(mode)}>{label}</button>
+                <button type="button" aria-pressed={pathname === '/'} onClick={() => navigate('/')}>Lobby</button>
+                <button type="button" aria-pressed={pathname !== '/'} onClick={() => navigate('/missing-page')}>404</button>
+              </div>
+              {account}
+              <p className="nv-demo-title">Data</p>
+              <div className="nv-demo-options">
+                {networkModes.map(([mode, label]) => (
+                  <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{label}</button>
                 ))}
               </div>
+              <p className="nv-demo-title">Dialogs</p>
+              <div className="nv-demo-options">
+                <button type="button" onClick={() => openAuth('login')}>Log in</button>
+                <button type="button" onClick={() => openAuth('register')}>Sign up</button>
+                <button type="button" onClick={() => openAuth('forgot')}>Reset</button>
+              </div>
+              <p className="nv-demo-hint">Wrong password: <code>wrongpass</code> · taken email: <code>taken@nova.casino</code></p>
             </>
           )}
-          <p className="nv-demo-title">Dialogs</p>
-          <div className="nv-demo-options">
-            <button type="button" onClick={() => openAuth('login')}>Log in</button>
-            <button type="button" onClick={() => openAuth('register')}>Sign up</button>
-            <button type="button" onClick={() => openAuth('forgot')}>Reset</button>
-          </div>
-          <p className="nv-demo-hint">Wrong password: <code>wrongpass</code> · taken email: <code>taken@nova.casino</code></p>
         </div>
       )}
     </div>
+  );
+}
+
+function GameStates({ network, chooseNetwork, missing, navigate, children }) {
+  const [provider, setProvider] = useState(() => getDemo().provider);
+  const chooseProvider = (mode) => {
+    setProvider(mode);
+    setDemo({ provider: mode });
+    location.reload();
+  };
+  return (
+    <>
+      {children}
+      <p className="nv-demo-title">Game page</p>
+      <div className="nv-demo-options">
+        {gameDataModes.map(([mode, label]) => (
+          <button key={mode} type="button" aria-pressed={!missing && network === mode} onClick={() => (missing ? (setDemo({ network: mode }), navigate('/game/gates-of-olympus')) : chooseNetwork(mode))}>{label}</button>
+        ))}
+        <button type="button" aria-pressed={missing} onClick={() => navigate(MISSING_GAME)}>Not found</button>
+      </div>
+      <p className="nv-demo-title">Game window</p>
+      <div className="nv-demo-options">
+        {providerModes.map(([mode, label]) => (
+          <button key={mode} type="button" aria-pressed={provider === mode} onClick={() => chooseProvider(mode)}>{label}</button>
+        ))}
+      </div>
+    </>
   );
 }

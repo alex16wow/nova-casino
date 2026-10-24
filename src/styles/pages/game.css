@@ -113,7 +113,7 @@ html.nv-game-pinned, html.nv-game-pinned body { overflow: hidden; }
   .nv-game-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-/* ---------- Mobile: portrait stage, compact toolbar and controls ---------- */
+/* ---------- Mobile: compact toolbar ---------- */
 @media (max-width: 680px) {
   .nv-game-page { gap: var(--space-4); }
   .nv-game { border-radius: var(--radius-md); }
@@ -122,7 +122,12 @@ html.nv-game-pinned, html.nv-game-pinned body { overflow: hidden; }
   .nv-game-title h1 { font-size: var(--font-size-md); }
   .nv-game-actions { gap: 6px; }
   .nv-game-actions .nv-btn { padding: 0 var(--space-3); }
-  .nv-game-stage { aspect-ratio: 3 / 4; max-height: calc(100svh - 190px); min-height: 420px; }
+  /* Same 16:9 window as on desktop, scaled to the screen width; the sign-in prompt takes the height it needs. */
+  .nv-game-stage { min-height: 0; max-height: none; }
+  .nv-game-stage.is-gate { aspect-ratio: auto; }
+  .nv-game-loader .nv-game-cover { display: none; }
+  .nv-game-loader, .nv-game-gate { gap: var(--space-2); padding: var(--space-4); }
+  .nv-game-gate h2 { font-size: var(--font-size-lg); }
   .nv-game-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nv-game-info { padding: var(--space-4); }
   .nv-game-gate-actions .nv-btn { min-width: 0; flex: 1; }

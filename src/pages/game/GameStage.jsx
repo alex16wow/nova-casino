@@ -62,7 +62,7 @@ export default function GameStage({ game }) {
         </div>
       )}
       {phase === 'error' && (
-        <StateMessage kind="error" title="The game didn’t load" text="The provider isn’t responding. Try again in a moment." action="Try again" onAction={() => setAttempt((n) => n + 1)} />
+        <StateMessage compact kind="error" title="The game didn’t load" text="The provider isn’t responding. Try again in a moment." action="Try again" onAction={() => setAttempt((n) => n + 1)} />
       )}
     </div>
   );

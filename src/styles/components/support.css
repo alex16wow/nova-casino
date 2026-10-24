@@ -164,15 +164,15 @@
   pointer-events: none;
   user-select: none;
 }
-/* The character stands to the right so the greeting on the left stays clear. */
-.nv-support-hero-character { width: 128%; left: auto; right: -40%; height: 128%; top: 2%; object-position: center top; }
+/* The character: fixed size, anchored right, waving hand above the greeting. Wider phones only add room on the left. */
+.nv-support-hero-character { inset: calc(var(--support-safe-top, 0px) - 21px) -136px auto auto; width: 465px; height: auto; object-fit: initial; }
 /* Readability: darken behind the text and blend the bottom edge into the panel. */
 .nv-support-hero::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, #0a0b20d9 0%, #0a0b2099 38%, #0a0b2000 66%),
+    linear-gradient(90deg, #0a0b20b3 0%, #0a0b2066 34%, #0a0b2000 55%),
     linear-gradient(180deg, #10142c00 58%, var(--color-surface) 100%);
 }
 .nv-support-hero .nv-support-avatar { position: absolute; top: calc(18px + var(--support-safe-top, 0px)); left: 20px; z-index: 1; }

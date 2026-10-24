@@ -8,10 +8,13 @@ import SupportHome from './SupportHome.jsx';
 import { SupportChat, SupportMessages } from './SupportMessages.jsx';
 import SupportNav from './SupportNav.jsx';
 
-// Visible element that opened the panel, or the drawer burger when Support sits in a closed drawer.
-const returnFocus = () => {
+const usable = (el) => el instanceof HTMLElement && document.contains(el) && el.offsetParent && !el.closest('[inert]');
+
+// Back to whatever opened the panel (sidebar or footer Support); when it is gone or sits in
+// a closed drawer, to sidebar Support, then the drawer burger.
+const returnFocus = (opener) => {
   const toggle = document.getElementById('supportToggle');
-  const target = toggle && toggle.offsetParent && !toggle.closest('[inert]') ? toggle : document.getElementById('menuToggle');
+  const target = [opener, toggle].find(usable) ?? document.getElementById('menuToggle');
   target?.focus({ preventScroll: true });
 };
 
@@ -28,12 +31,13 @@ export default function SupportWidget() {
 
   useEffect(() => {
     if (!open) return;
+    const opener = document.activeElement;
     panel.current.focus({ preventScroll: true });
     const onKey = (e) => { if (e.key === 'Escape') close(); };
     document.addEventListener('keydown', onKey);
     return () => {
       document.removeEventListener('keydown', onKey);
-      returnFocus();
+      returnFocus(opener);
     };
   }, [open, close]);
 

@@ -9,5 +9,13 @@ const defaults = { network: 'normal', provider: 'up' };
 // The site is an interactive prototype, so the States panel is always shown. Build with VITE_DEMO_PANEL=0 to hide it.
 export const demoEnabled = () => import.meta.env.VITE_DEMO_PANEL !== '0';
 
-export const getDemo = () => ({ ...defaults, ...readJSON(KEY, defaults) });
-export const setDemo = (patch) => writeJSON(KEY, { ...getDemo(), ...patch });
+// States belong to the page they were picked on: after moving to another address they reset to defaults.
+// Guest / signed in is the session itself (AuthContext) and carries across pages.
+const here = () => location.pathname;
+const stored = () => {
+  const saved = readJSON(KEY, null);
+  return saved?.page === here() ? saved : {};
+};
+
+export const getDemo = () => ({ ...defaults, ...stored(), page: here() });
+export const setDemo = (patch) => writeJSON(KEY, { ...getDemo(), ...patch, page: here() });

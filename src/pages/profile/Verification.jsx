@@ -23,7 +23,7 @@ export default function Verification() {
   const status = verificationStatus[state];
 
   return (
-    <section className={`nv-panel nv-profile-verify is-${state}`} aria-labelledby="verifyTitle">
+    <section id="verification" className={`nv-panel nv-profile-verify is-${state}`} aria-labelledby="verifyTitle">
       <div className="nv-panel-head">
         <h2 id="verifyTitle">Verification</h2>
         <StatusBadge tone={status.tone}>{status.label}</StatusBadge>

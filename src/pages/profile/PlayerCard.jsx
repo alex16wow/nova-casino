@@ -6,6 +6,7 @@ import { Check } from '../../components/ui/icons.jsx';
 import { useProfile } from '../../context/ProfileContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
 import { avatars, formatDate, verificationStatus } from '../../data/profile.js';
+import { copyText } from '../../lib/clipboard.js';
 import StatusBadge from './StatusBadge.jsx';
 
 const CopyIcon = () => (
@@ -14,22 +15,6 @@ const CopyIcon = () => (
 const PencilIcon = () => (
   <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m4 20 1-4L16 5l3 3L8 19l-4 1ZM14 7l3 3" /></svg>
 );
-
-async function copyText(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch {
-    // Clipboard API blocked (e.g. inside a frame): fall back to a temporary field.
-    const field = Object.assign(document.createElement('textarea'), { value: text });
-    field.style.cssText = 'position:fixed;opacity:0';
-    document.body.append(field);
-    field.select();
-    const ok = document.execCommand('copy');
-    field.remove();
-    return ok;
-  }
-}
 
 // Avatar, nickname, Player ID with copy, registration date and verification status.
 export default function PlayerCard() {

@@ -34,7 +34,7 @@ export const levelRewards = [
 // Account area sections (avatar menu and the tabs on account pages). `live` sections have a page; the rest show "coming soon".
 export const accountSections = [
   { id: 'profile', label: 'My profile', icon: 'user', to: '/account/profile', live: true },
-  { id: 'wallet', label: 'Wallet', icon: 'wallet', to: '/account/wallet' },
+  { id: 'wallet', label: 'Wallet', icon: 'wallet', to: '/account/wallet', live: true },
   { id: 'bonuses', label: 'Bonuses', icon: 'gift', to: '/account/bonuses' },
   { id: 'history', label: 'Game history', icon: 'history', to: '/account/game-history' },
   { id: 'settings', label: 'Settings', icon: 'settings', to: '/account/settings' },

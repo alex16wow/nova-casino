@@ -89,3 +89,22 @@ export async function submitVerification() {
   if (getDemo().network === 'error') throw new ApiError('network', 'Connection problem. Try again in a moment.');
   return { status: 'pending' };
 }
+
+// Wallet page. No real payment happens; the States panel can make payments fail.
+export const fetchWallet = () => respond((empty) => ({ empty }));
+
+export async function processDeposit({ method }) {
+  await wait(method === 'crypto' ? 1600 : 1300);
+  const { network, payment } = getDemo();
+  if (network === 'error') throw new ApiError('network', 'Connection problem. Your payment was not taken. Try again.');
+  if (payment === 'fail') throw new ApiError('declined', method === 'crypto' ? 'We couldn’t find your transfer yet. No funds were credited.' : 'The provider declined this payment. No funds were taken.');
+  return true;
+}
+
+export async function processWithdrawal() {
+  await wait(1300);
+  const { network, payment } = getDemo();
+  if (network === 'error') throw new ApiError('network', 'Connection problem. Your request was not sent. Try again.');
+  if (payment === 'fail') throw new ApiError('rejected', 'The payment system rejected this request. Nothing was reserved.');
+  return true;
+}

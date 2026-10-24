@@ -29,7 +29,7 @@ _Последнее обновление: 24.10.2026 — страница игр
 
 Переиспользуемые (`src/components/ui`): `GameCard`, `SectionHead`/`SectionTitle`, `RotatingStage`, `ScrollIndicator`, иконки `icons.jsx`, а также новые на токенах: `Modal`, `Button`, поля (`TextField`, `PasswordField`, `Checkbox`, `SelectField`), `StateMessage` (ошибка/пусто), `Skeleton`.
 
-Страница игры (`src/pages/game`): `GamePage` (крошки «Home / категория / игра», панель с избранным / полным экраном / Deposit, детали, «You may also like» на `GameShelf`), `GameStage` (гость — вход/регистрация; авторизованный — iframe с демо Gates of Olympus от Pragmatic Play под экраном загрузки; ошибка загрузки с «Try again»; у игры свой баланс, ставка и Spin), `useFullscreen` (нативный полный экран, иначе фиксированный оверлей), `useGameData`. Стили — `src/styles/pages/game.css`.
+Страница игры (`src/pages/game`): `GamePage` (крошки «Home / категория / игра», панель с избранным / полным экраном / Deposit, детали, «You may also like» на `GameShelf`), `GameStage` (гость — вход/регистрация; авторизованный — iframe с публичным демо игры под экраном загрузки (ссылки в `demoUrls`, `src/data/games.js`); ошибка загрузки с «Try again»; у игры свой баланс, ставка и Spin), `useFullscreen` (нативный полный экран, иначе фиксированный оверлей), `useGameData`. Стили — `src/styles/pages/game.css`.
 
 Главная (`src/pages/home`): `HeroSection`, `RightRail`, `GameShelf`, `PromoGrid`, `ProvidersTicker`, `ActivityTable`, `BonusBanner`, `FaqSection`.
 
@@ -63,7 +63,7 @@ _Последнее обновление: 24.10.2026 — страница игр
 - Join now, кнопки промо и бонусов — показывают сообщение «будет подключено позже».
 - Пункты меню профиля, ссылки меню, категорий и провайдеров.
 - Вход/регистрация — без настоящего сервера: любые корректные данные принимаются.
-- Любая карточка открывает одну и ту же игру — публичное демо Gates of Olympus (Pragmatic Play), не связано с нашим балансом; RTP, волатильность и т. п. — сгенерированные демо-цифры.
+- Демо подключены у 7 игр: Gates of Olympus, Sugar Rush 1000, Big Bass Bonanza, Wolf Gold, Wild West Gold, Sweet Bonanza 1000 (Pragmatic Play), Book of Dead (Play’n GO). У остальных (лайв, Hacksaw, NetEnt и др.) открытого демо нет — окно пробует загрузиться и показывает ошибку. Демо не связаны с нашим балансом; RTP, волатильность и т. п. — сгенерированные демо-цифры.
 - Баланс, уровень, история ставок — демо-данные (одинаковые для всех аккаунтов).
 - Пункты профиля (кроме «Log out»), ссылки Terms / Privacy в регистрации.
 

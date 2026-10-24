@@ -5,9 +5,10 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { asset } from '../../lib/asset.js';
 import { getDemo } from '../../lib/demo.js';
 
-// Every game opens the provider's public Gates of Olympus demo for now; the game has its own balance, bet and spin UI.
-const DEMO_URL = 'https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=vs20olympgate&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=EN&cur=USD';
+// Games open the provider's public demo (it has its own balance, bet and spin UI).
+// Without a demo the window tries for a moment and ends in the error state.
 const TIMEOUT_MS = 20000;
+const NO_DEMO_MS = 2500;
 
 // Provider game window: sign-in prompt for guests, then the game iframe behind a loading screen.
 export default function GameStage({ game }) {
@@ -19,9 +20,9 @@ export default function GameStage({ game }) {
     if (isGuest) return;
     if (getDemo().provider === 'down') { setPhase('error'); return; }
     setPhase('loading');
-    const timer = setTimeout(() => setPhase((p) => (p === 'loading' ? 'error' : p)), TIMEOUT_MS);
+    const timer = setTimeout(() => setPhase((p) => (p === 'loading' ? 'error' : p)), game.demo ? TIMEOUT_MS : NO_DEMO_MS);
     return () => clearTimeout(timer);
-  }, [isGuest, attempt]);
+  }, [isGuest, attempt, game.demo]);
 
   if (isGuest) {
     return (
@@ -43,11 +44,11 @@ export default function GameStage({ game }) {
   return (
     <div className={`nv-game-stage is-${phase}`}>
       <img className="nv-game-backdrop" src={asset(game.image)} alt="" aria-hidden="true" />
-      {phase !== 'error' && (
+      {phase !== 'error' && game.demo && (
         <iframe
           key={attempt}
           className="nv-game-frame"
-          src={DEMO_URL}
+          src={game.demo}
           title={game.name}
           allow="autoplay; fullscreen"
           allowFullScreen

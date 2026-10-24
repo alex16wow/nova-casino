@@ -110,6 +110,18 @@ export function similarGames(game, count = 12) {
     .slice(0, count);
 }
 
+// Public demo launchers. Games missing here have no free demo, so the game window ends in its error state.
+const pragmatic = (symbol) => `https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=${symbol}&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=EN&cur=USD`;
+const demoUrls = {
+  'Gates of Olympus': pragmatic('vs20olympgate'),
+  'Sugar Rush 1000': pragmatic('vs20sugarrushx'),
+  'Big Bass Bonanza': pragmatic('vs10bbbonanza'),
+  'Wolf Gold': pragmatic('vs25wolfgold'),
+  'Wild West Gold': pragmatic('vs40wildwest'),
+  'Sweet Bonanza 1000': pragmatic('vs20fruitswx'),
+  'Book of Dead': 'https://asccw.playngonetwork.com/casino/ContainerLauncher?pid=2&gid=bookofdead&lang=en_GB&practice=1&channel=desktop&demo=2',
+};
+
 const hash = (text) => [...text].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 const pick = (list, h) => list[h % list.length];
 
@@ -118,6 +130,7 @@ export function gameDetails(game) {
   const h = hash(game.name);
   const slot = game.kind === 'top' || game.kind === 'fresh';
   return {
+    demo: demoUrls[game.name] ?? null,
     rtp: `${(95.5 + (h % 200) / 100).toFixed(2)}%`,
     volatility: slot ? pick(['Medium', 'High', 'Very high'], h) : pick(['Low', 'Medium'], h),
     maxWin: `x${pick(slot ? [2100, 5000, 10000, 15000, 25000] : [500, 1000, 2000, 5000], h >>> 3).toLocaleString('en-US')}`,

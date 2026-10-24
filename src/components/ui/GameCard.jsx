@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { useAccountAction } from '../../context/AuthContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
+import { gameSlug } from '../../data/games.js';
 import { asset } from '../../lib/asset.js';
 import { Heart } from './icons.jsx';
 
@@ -11,6 +13,7 @@ export default function GameCard({ game, copy, style }) {
   const { favorites, toggleFavorite } = usePlayer();
   const toast = useToast();
   const gate = useAccountAction();
+  const navigate = useNavigate();
   const saved = favorites.has(game.name);
   const [badgeClass, badgeText] = badges[game.kind] ?? ['tag-new', ''];
 
@@ -37,7 +40,7 @@ export default function GameCard({ game, copy, style }) {
             <Heart />
           </button>
         )}
-        <div className="card-actions"><button className="play-game" data-game={game.name} onClick={gate(() => toast(`Play: ${game.name}`), 'login')}>Play</button></div>
+        <div className="card-actions"><button className="play-game" data-game={game.name} onClick={gate(() => navigate(`/game/${gameSlug(game.name)}`), 'login')}>Play</button></div>
       </div>
     </article>
   );

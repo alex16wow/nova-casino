@@ -1,0 +1,202 @@
+/* Game page (/game/:slug). Built on tokens.css. */
+
+.nv-game-page { display: grid; gap: var(--space-5); padding-bottom: var(--space-4); }
+.nv-game-page > .section { margin-bottom: 0; }
+
+/* ---------- Breadcrumbs ---------- */
+.nv-crumbs { display: flex; align-items: center; gap: var(--space-2); min-width: 0; font-size: var(--font-size-sm); color: var(--color-text-subtle); }
+.nv-crumbs > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-text); }
+.nv-crumbs-back { display: inline-flex; align-items: center; gap: var(--space-1); color: var(--color-text-muted); transition: color var(--duration-fast); }
+.nv-crumbs-back:hover { color: var(--color-text); }
+
+/* ---------- Frame: toolbar + stage ---------- */
+.nv-game {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-sunken);
+  box-shadow: 0 18px 48px #05030f99, 0 0 32px #8b35ff1f;
+}
+.nv-game-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 64px;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-line-muted);
+  background: var(--gradient-surface);
+}
+.nv-game-title { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.nv-game-title img { width: 40px; height: 40px; flex: none; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--color-line-muted); }
+.nv-game-title div { min-width: 0; }
+.nv-game-title h1 { margin: 0; font-size: var(--font-size-lg); font-weight: 750; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nv-game-title p { margin: 2px 0 0; font-size: var(--font-size-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nv-game-actions { display: flex; align-items: center; gap: var(--space-2); flex: none; }
+
+.nv-icon-btn {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-line-muted);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: #d8c9ff;
+  cursor: pointer;
+  transition: border-color var(--duration-fast), color var(--duration-fast), box-shadow var(--duration-fast);
+}
+.nv-icon-btn:hover { border-color: #b051ff; color: #f5cbff; box-shadow: 0 0 13px #9d42ff55; }
+.nv-icon-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.nv-icon-btn.is-saved { color: #ff62bd; }
+.nv-icon-btn.is-saved svg { fill: currentColor; }
+
+/* Stage keeps a 16:9 window and never grows past the viewport. */
+.nv-game-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  max-height: calc(100vh - 220px);
+  min-height: 360px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.nv-game-stage.is-empty { background: var(--color-surface-sunken); }
+.nv-game-backdrop { position: absolute; inset: -40px; z-index: -1; width: calc(100% + 80px); height: calc(100% + 80px); max-width: none; object-fit: cover; filter: blur(28px) saturate(1.2) brightness(.45); transform: scale(1.05); }
+.nv-game-stage::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at center, transparent 30%, #05030fcc 100%); }
+.nv-game-spinner { width: 34px; height: 34px; border-width: 3px; }
+
+.nv-game-cover { width: 120px; aspect-ratio: .78; object-fit: cover; border-radius: var(--radius-md); border: 1px solid #ffffff2a; box-shadow: 0 12px 32px #0009, 0 0 24px #8b35ff44; }
+
+.nv-game-gate, .nv-game-loader { display: grid; justify-items: center; gap: var(--space-3); padding: var(--space-6); text-align: center; }
+.nv-game-gate h2 { margin: var(--space-2) 0 0; font-size: var(--font-size-xl); }
+.nv-game-gate p, .nv-game-loader p { margin: 0; font-size: var(--font-size-md); color: var(--color-text-muted); }
+.nv-game-gate-actions { display: flex; gap: var(--space-3); margin-top: var(--space-2); }
+.nv-game-gate-actions .nv-btn { min-width: 120px; }
+
+.nv-game-progress { width: 200px; height: 6px; margin-top: var(--space-2); border-radius: var(--radius-pill); background: #ffffff1c; overflow: hidden; }
+.nv-game-progress span { display: block; height: 100%; border-radius: inherit; background: var(--gradient-primary); box-shadow: 0 0 10px #e45dff; animation: nv-game-load var(--load-ms) var(--ease-out) forwards; }
+@keyframes nv-game-load { from { width: 4%; } to { width: 100%; } }
+
+/* ---------- Sample game client ---------- */
+.nv-game-client { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.nv-game-screen { position: relative; flex: 1; min-height: 0; display: grid; place-items: center; padding: var(--space-5); }
+.nv-game-art { height: 100%; max-height: 420px; aspect-ratio: .78; object-fit: cover; border-radius: var(--radius-lg); border: 1px solid #ffffff30; box-shadow: 0 20px 60px #000a, 0 0 40px #8b35ff55; }
+.nv-game-art.is-spinning { animation: nv-game-spin .3s ease-in-out infinite alternate; }
+@keyframes nv-game-spin { from { transform: scale(1) rotate(-1.5deg); filter: brightness(1); } to { transform: scale(1.04) rotate(1.5deg); filter: brightness(1.35) saturate(1.3); } }
+
+.nv-game-result {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  min-width: 220px;
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-lg);
+  background: #120f2bec;
+  box-shadow: var(--shadow-popup);
+  text-align: center;
+  transform: translate(-50%, -50%);
+  animation: nv-game-pop .35s var(--ease-out);
+}
+.nv-game-result small { font-size: var(--font-size-xs); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-text-muted); }
+.nv-game-result strong { font-size: var(--font-size-xl); }
+.nv-game-result.is-win { border-color: var(--color-success); box-shadow: var(--shadow-popup), 0 0 32px #42e6b255; }
+.nv-game-result.is-win strong { font-size: var(--font-size-2xl); color: var(--color-success); }
+.nv-game-result.is-lose { animation: nv-game-pop .35s var(--ease-out), nv-game-fade .4s 1.6s forwards; }
+@keyframes nv-game-pop { from { opacity: 0; transform: translate(-50%, -40%) scale(.92); } }
+@keyframes nv-game-fade { to { opacity: 0; visibility: hidden; } }
+
+.nv-game-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid #ffffff14;
+  background: #07051acc;
+  backdrop-filter: blur(10px);
+}
+.nv-game-stat { display: grid; gap: 2px; min-width: 0; }
+.nv-game-stat small { font-size: var(--font-size-xs); color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: .08em; }
+.nv-game-stat strong { font-size: var(--font-size-lg); white-space: nowrap; }
+.nv-game-stat strong span { font-size: var(--font-size-xs); color: var(--color-text-muted); }
+.nv-game-bet { display: flex; align-items: center; gap: var(--space-3); }
+.nv-game-bet .nv-game-stat { min-width: 96px; text-align: center; }
+.nv-game-bet button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--color-line-muted);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.nv-game-bet button:hover:not(:disabled) { border-color: #b051ff; box-shadow: 0 0 13px #9d42ff55; }
+.nv-game-bet button:disabled { opacity: .35; cursor: default; }
+.nv-game-spin { min-width: 140px; }
+
+/* ---------- Fullscreen ---------- */
+.nv-game.is-fullscreen { border-radius: 0; border: 0; }
+.nv-game.is-fullscreen .nv-game-stage { flex: 1; aspect-ratio: auto; max-height: none; min-height: 0; }
+.nv-game.is-fullscreen .nv-game-art { max-height: 70vh; }
+.nv-game.is-pinned { position: fixed; inset: 0; z-index: calc(var(--z-modal) - 2); }
+html.nv-game-pinned, html.nv-game-pinned body { overflow: hidden; }
+
+/* ---------- Details ---------- */
+.nv-game-info {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-line-muted);
+  border-radius: var(--radius-lg);
+  background: var(--gradient-surface);
+}
+.nv-game-info p { margin: 0; font-size: var(--font-size-sm); line-height: 1.6; color: var(--color-text-muted); }
+.nv-game-facts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-3); margin: 0; }
+.nv-game-facts div { min-width: 0; }
+.nv-game-facts dt { font-size: var(--font-size-xs); color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: .08em; }
+.nv-game-facts dd { margin: 4px 0 0; font-size: var(--font-size-md); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1279px) {
+  .nv-game-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- Mobile: portrait stage, compact toolbar and controls ---------- */
+@media (max-width: 680px) {
+  .nv-game-page { gap: var(--space-4); }
+  .nv-game { border-radius: var(--radius-md); }
+  .nv-game-bar { min-height: 56px; padding: var(--space-2) var(--space-3); gap: var(--space-2); }
+  .nv-game-title img { width: 34px; height: 34px; }
+  .nv-game-title h1 { font-size: var(--font-size-md); }
+  .nv-game-actions { gap: 6px; }
+  .nv-game-actions .nv-btn { padding: 0 var(--space-3); }
+  .nv-game-stage { aspect-ratio: 3 / 4; max-height: calc(100svh - 190px); min-height: 420px; }
+  .nv-game-screen { padding: var(--space-4); }
+  .nv-game-art { max-height: none; height: auto; width: min(100%, 300px); max-height: 100%; }
+  .nv-game-controls { flex-wrap: wrap; gap: var(--space-3); padding: var(--space-3); }
+  .nv-game-controls > .nv-game-stat { order: 1; }
+  .nv-game-bet { order: 2; }
+  .nv-game-spin { order: 3; flex: 1 0 100%; }
+  .nv-game-bet .nv-game-stat { min-width: 80px; }
+  .nv-game-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nv-game-info { padding: var(--space-4); }
+  .nv-game-gate-actions .nv-btn { min-width: 0; flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-game-art.is-spinning, .nv-game-result { animation: none; }
+  .nv-game-progress span { animation-duration: 0s; }
+}

@@ -1,6 +1,6 @@
 // Fake backend for the prototype. Responses are sample data with a short delay;
 // the demo panel can make them slow, empty or failing.
-import { gameSets } from '../data/games.js';
+import { findGame, gameDetails, gameSets, similarGames } from '../data/games.js';
 import { activityTabs } from '../data/lobby.jsx';
 import { getDemo } from './demo.js';
 
@@ -25,6 +25,14 @@ export const fetchLobby = () =>
     games: Object.fromEntries(Object.keys(gameSets).map((k) => [k, empty ? [] : gameSets[k]])),
     activity: activityTabs.map((t) => ({ ...t, rows: empty ? [] : t.rows })),
   }));
+
+// Game page: one game with its details and similar titles. Unknown slugs fail with "not_found".
+export const fetchGame = (slug) =>
+  respond((empty) => {
+    const game = findGame(slug);
+    if (!game) throw new ApiError('not_found', 'Game not found');
+    return { game: { ...game, ...gameDetails(game) }, similar: empty ? [] : similarGames(game) };
+  });
 
 // Accounts: any well-formed email works. "taken@nova.casino" is already registered;
 // the password "wrongpass" is always rejected, so error states can be shown.

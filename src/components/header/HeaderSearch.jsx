@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { categoryKeywords, gameSets } from '../../data/games.js';
-import { useToast } from '../../context/ToastContext.jsx';
+import { useNavigate } from 'react-router-dom';
+import { categoryKeywords, gameSets, gameSlug } from '../../data/games.js';
 import { MOBILE, matches as mediaMatches } from '../../hooks/useMediaQuery.js';
 import { asset } from '../../lib/asset.js';
 import { Close, Search } from '../ui/icons.jsx';
@@ -32,7 +32,7 @@ const search = (q) => {
 
 // Expandable header search with a live game results listbox.
 export default function HeaderSearch({ open, setOpen, wrapRef, slotRef, closeOnOutsideClick }) {
-  const toast = useToast();
+  const navigate = useNavigate();
   const input = useRef(null), toggle = useRef(null), list = useRef(null);
   const [query, setQuery] = useState('');
   const [panelOn, setPanelOn] = useState(false);
@@ -99,7 +99,7 @@ export default function HeaderSearch({ open, setOpen, wrapRef, slotRef, closeOnO
     const game = results[i];
     if (!game) return;
     hide();
-    toast(`Play: ${game.name}`);
+    navigate(`/game/${gameSlug(game.name)}`);
   };
 
   const onInputKey = (e) => {

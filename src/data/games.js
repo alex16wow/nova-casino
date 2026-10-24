@@ -94,3 +94,36 @@ export const shelves = {
   roulette: { id: 'roulette', rowId: 'roulette-row', kind: 'roulette', title: 'Roulette', sub: 'Take a spin', icon: 'category-roulette.webp', label: 'roulette games', eight: true },
   shows: { id: 'game-shows', rowId: 'shows-row', kind: 'shows', title: 'Game Shows', sub: 'Big lights. Bigger moments.', icon: 'category-game-shows.webp', label: 'game shows' },
 };
+
+// Game page: URL slug, lookup and sample details.
+export const gameSlug = (name) => name.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const allGames = Object.values(gameSets).flat();
+
+export const findGame = (slug) => allGames.find((g) => gameSlug(g.name) === slug) ?? null;
+
+// Same category first, then top games, without the game itself or repeats.
+export function similarGames(game, count = 12) {
+  const seen = new Set([game.name]);
+  return [...gameSets[game.kind], ...gameSets.top, ...gameSets.fresh]
+    .filter((g) => !seen.has(g.name) && seen.add(g.name))
+    .slice(0, count);
+}
+
+const hash = (text) => [...text].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+const pick = (list, h) => list[h % list.length];
+
+// Stable sample figures per game, so a refresh shows the same numbers.
+export function gameDetails(game) {
+  const h = hash(game.name);
+  const slot = game.kind === 'top' || game.kind === 'fresh';
+  return {
+    rtp: `${(95.5 + (h % 200) / 100).toFixed(2)}%`,
+    volatility: slot ? pick(['Medium', 'High', 'Very high'], h) : pick(['Low', 'Medium'], h),
+    maxWin: `x${pick(slot ? [2100, 5000, 10000, 15000, 25000] : [500, 1000, 2000, 5000], h >>> 3).toLocaleString('en-US')}`,
+    format: slot ? 'Video slot' : game.kind === 'live' || game.kind === 'shows' ? 'Live show' : game.kind === 'roulette' ? 'Roulette' : 'Table game',
+    about: slot
+      ? `${game.name} by ${game.provider}: cascading wins, free spins and multipliers that stack during the bonus round.`
+      : `${game.name} by ${game.provider}: real dealers in HD, side bets and stats for every round.`,
+  };
+}

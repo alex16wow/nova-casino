@@ -14,3 +14,13 @@
 
 /* Promo titles: accent word on its own line so the text clears the artwork. */
 .promo-copy h3 span { display: block; }
+
+/* Characters, objects and their glow stay still a little left of their old starting point; only the scene drifts. */
+@keyframes heroForegroundDrift { from, to { transform: translateX(-25px); } }
+@keyframes heroGlowDrift { from, to { transform: translate(-25px, -50%); } }
+@keyframes mobileHeroCharacterDrift { from, to { transform: translateX(-10px); } }
+@keyframes mobileHeroGlowDrift { from, to { transform: translate(-10px, -50%); } }
+@keyframes mobileBonusArtworkDrift { from, to { transform: translateX(-8px); } }
+@keyframes mobileBonusCenteredDrift { from, to { transform: translateX(calc(-50% - 20px)); } }
+@keyframes tabletBonusArtworkDrift { from, to { transform: translateX(-20px); } }
+@keyframes tabletBonusLowerDrift { from, to { transform: translateX(-8px); } }

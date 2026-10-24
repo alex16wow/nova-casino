@@ -1,0 +1,91 @@
+/* Promotions, Tournaments and Loyalty Club. Banners reuse the lobby hero (.hero) via HeroBanner. Built on tokens.css. */
+
+.nv-promos, .nv-tournaments, .nv-loyalty { display: grid; gap: var(--space-5); padding-bottom: var(--space-8); }
+.nv-promos > *, .nv-tournaments > *, .nv-loyalty > * { min-width: 0; }
+.nv-page-filters { margin-top: calc(-1 * var(--space-2)); }
+.nv-page-filters .nv-chip { min-width: 84px; justify-content: center; }
+.nv-hero-banner .hero-slide--layered .hero-scene { animation: none; width: 100%; height: 100%; }
+.nv-hero-banner .hero-character, .nv-hero-banner .hero-glow, .nv-hero-banner .hero-gifts { animation: none; }
+.nv-hero-banner.hero { height: 300px; flex-shrink: 0; }
+.nv-tour-board td { height: auto; line-height: 1.2; }
+.nv-hero-banner h1 { font-size: clamp(24px, 2.6vw, 40px); }
+.nv-promo-subtitle { margin: var(--space-2) 0 0; font-size: 20px; font-weight: 760; }
+.nv-link-btn { padding: 0; border: 0; background: none; color: #e5a8ff; font-size: var(--font-size-sm); text-decoration: underline; cursor: pointer; }
+.nv-link-btn:hover { color: #fff; }
+
+/* Promotions grid */
+.nv-promo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+.nv-promo-card { display: grid; overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--gradient-surface); transition: border-color .2s, box-shadow .2s; }
+.nv-promo-card:hover { border-color: var(--color-line-strong); box-shadow: var(--shadow-hover-glow); }
+.nv-promo-card-art.hero { height: 170px; border: 0; border-radius: 0; }
+.nv-promo-card-art .hero-copy { display: none; }
+.nv-promo-card-body { display: grid; gap: 6px; padding: var(--space-4); }
+.nv-promo-card-body h2 { margin: 0; font-size: 17px; }
+.nv-promo-card-body p { margin: 0 0 var(--space-2); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.nv-promo-card-body .nv-btn { justify-self: start; }
+
+/* Promotion details */
+.nv-back-link { order: -2; }
+.nv-back-link { justify-self: start; padding: 0; border: 0; background: none; color: var(--color-text-muted); font-size: var(--font-size-sm); cursor: pointer; }
+.nv-back-link:hover { color: #fff; }
+.nv-promo-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+.nv-promo-steps li { display: grid; grid-template-columns: auto 1fr; gap: 4px var(--space-3); align-items: center; }
+.nv-promo-steps p { grid-column: 1 / -1; margin: 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.nv-step-num { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--gradient-primary); font-weight: 800; box-shadow: var(--shadow-primary); }
+.nv-promo-about h3, .nv-promo-terms h3 { margin: 0 0 var(--space-2); font-size: 16px; }
+.nv-promo-about p { margin: 0; color: var(--color-text-muted); }
+.nv-promo-terms ul, .nv-tour-terms { margin: 0 0 var(--space-3); padding-left: 18px; color: var(--color-text-muted); font-size: var(--font-size-sm); line-height: 1.7; }
+
+/* Tournaments */
+.nv-tour-list { display: grid; gap: var(--space-4); }
+.nv-tour { overflow: hidden; border: 1px solid var(--color-banner-outline); border-radius: var(--radius-lg); background: var(--gradient-surface); }
+.nv-tour-art.hero { height: 240px; border: 0; border-radius: 0; }
+.nv-tour-facts { line-height: 1.8; }
+.nv-tour-facts b { color: var(--color-warning); font-variant-numeric: tabular-nums; }
+.nv-tour-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 12px var(--space-4); border: 0; border-top: 1px solid var(--color-line); background: #12112c; color: #fff; font-weight: 700; cursor: pointer; }
+.nv-tour-toggle span { font-size: 10px; color: var(--color-text-muted); }
+.nv-tour-toggle:hover { background: #1a1640; }
+.nv-tour-details { display: grid; gap: var(--space-3); padding: var(--space-4); }
+.nv-tour-meta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); }
+.nv-tour-meta > div { display: grid; gap: 4px; justify-items: start; }
+.nv-tour-details h3 { margin: var(--space-2) 0 0; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; text-align: center; }
+.nv-tour-board, .nv-levels { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: var(--font-size-sm); font-variant-numeric: tabular-nums; }
+.nv-tour-board th, .nv-levels th { padding: 4px 12px; color: var(--color-text-subtle); font-size: 12px; font-weight: 600; text-align: left; }
+.nv-tour-board td, .nv-levels td { padding: 10px 12px; background: var(--color-surface-raised); }
+.nv-tour-board td:first-child, .nv-levels td:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.nv-tour-board td:last-child, .nv-levels td:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.nv-tour-board th:nth-child(n+3), .nv-tour-board td:nth-child(n+3) { text-align: right; }
+.nv-tour-board td:last-child { color: var(--color-warning); font-weight: 700; }
+.nv-place { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; font-weight: 800; font-size: 12px; }
+.nv-place--1 { background: linear-gradient(135deg, #fff2a8, #e0a020); color: #3a2400; }
+.nv-place--2 { background: linear-gradient(135deg, #fff, #9aa6c8); color: #1c2140; }
+.nv-place--3 { background: linear-gradient(135deg, #ffcf9e, #b5642a); color: #3a1a05; }
+
+/* Loyalty Club */
+.nv-loyalty-hero.hero { height: 260px; }
+.nv-status-row { display: grid; grid-template-columns: repeat(5, minmax(150px, 1fr)); gap: var(--space-3); }
+.nv-status { display: grid; justify-items: center; gap: 4px; padding: var(--space-4) var(--space-3); border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--gradient-surface); text-align: center; }
+.nv-status strong { font-size: 16px; letter-spacing: .04em; text-transform: uppercase; }
+.nv-status span { font-size: 12px; color: var(--color-cyan); }
+.nv-status-badge { width: 84px; height: 84px; margin-bottom: var(--space-2); }
+.nv-levels td:first-child { font-weight: 700; }
+.nv-levels-nav { display: flex; justify-content: center; align-items: center; gap: var(--space-4); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.nv-faq-list { display: grid; gap: var(--space-2); }
+.nv-faq-item { padding: 0; }
+.nv-faq-item button { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); width: 100%; padding: 14px var(--space-4); border: 0; background: none; color: #fff; font-weight: 650; text-align: left; cursor: pointer; }
+.nv-faq-item button span { font-size: 10px; color: var(--color-text-muted); transition: transform .2s; }
+.nv-faq-item.is-open button span { transform: rotate(180deg); }
+.nv-faq-item p { margin: 0; padding: 0 var(--space-4) 14px; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+
+@media (max-width: 1279px) {
+  .nv-promo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 680px) {
+  .nv-promo-grid, .nv-promo-steps { grid-template-columns: 1fr; }
+  .nv-promo-card-art.hero { height: 150px; }
+  .nv-tour-art.hero, .nv-loyalty-hero.hero, .nv-promo-hero.hero { height: 230px; }
+  .nv-status-row { display: flex; overflow-x: auto; margin: 0 -12px; padding: 0 12px 6px; scroll-snap-type: x mandatory; }
+  .nv-status { flex: 0 0 140px; scroll-snap-align: start; }
+  .nv-tour-meta { flex-wrap: wrap; }
+  .nv-tour-board th, .nv-tour-board td, .nv-levels th, .nv-levels td { padding: 8px; }
+}

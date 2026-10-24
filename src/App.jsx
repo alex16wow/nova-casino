@@ -16,6 +16,9 @@ import WalletPage from './pages/wallet/WalletPage.jsx';
 import BonusesPage from './pages/bonuses/BonusesPage.jsx';
 import SettingsPage from './pages/settings/SettingsPage.jsx';
 import RecentPage from './pages/recent/RecentPage.jsx';
+import PromotionsPage from './pages/promotions/PromotionsPage.jsx';
+import TournamentsPage from './pages/tournaments/TournamentsPage.jsx';
+import LoyaltyPage from './pages/loyalty/LoyaltyPage.jsx';
 import NotFoundPage from './pages/not-found/NotFoundPage.jsx';
 
 // Relative-base preview builds (vite build --base ./) are opened from unknown URLs, so they keep routes in memory.
@@ -42,6 +45,9 @@ export default function App() {
                       <Route path="game/:slug" element={<GamePage />} />
                       <Route path="favorites" element={<FavoritesPage />} />
                       <Route path="recently-played" element={<RecentPage />} />
+                      <Route path="promotions" element={<PromotionsPage />} />
+                      <Route path="tournaments" element={<TournamentsPage />} />
+                      <Route path="vip" element={<LoyaltyPage />} />
                       <Route path="account" element={<AccountLayout />}>
                         <Route index element={<Navigate to="profile" replace />} />
                         <Route path="profile" element={<ProfilePage />} />

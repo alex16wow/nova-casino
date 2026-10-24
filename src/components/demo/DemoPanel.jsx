@@ -53,6 +53,7 @@ export default function DemoPanel() {
   const onWallet = pathname === '/account/wallet';
   const onBonuses = pathname === '/account/bonuses';
   const onSettings = pathname === '/account/settings';
+  const onPromo = ['/promotions', '/tournaments', '/vip'].includes(pathname);
 
   // Read on every render: picks reset when the address changes.
   const { network } = getDemo();
@@ -76,7 +77,9 @@ export default function DemoPanel() {
       <button type="button" className="nv-demo-toggle" aria-expanded={open} onClick={() => setOpen(!open)}>States</button>
       {open && (
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
-          {onGame ? (
+          {onPromo ? (
+            account
+          ) : onGame ? (
             <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
           ) : onSettings ? (
             <SettingsStates network={network} chooseNetwork={chooseNetwork}>{account}</SettingsStates>

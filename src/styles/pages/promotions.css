@@ -177,3 +177,15 @@ table.nv-levels th:last-child, table.nv-levels td:last-child { text-align: right
   table.nv-tour-board th:first-child, table.nv-tour-board td:first-child { width: 40px; }
   .nv-level-dot { margin-right: 8px; }
 }
+
+/* Nova design on page banners: no gift boxes; character moved left and centred over a smaller glow. */
+.nv-hero-banner .hero-slide--nova .hero-character { right: 10%; }
+.nv-hero-banner .hero-slide--nova .hero-glow { width: 24%; right: 11%; }
+@media (max-width: 1279px) {
+  .nv-hero-banner .hero-slide--nova .hero-character { right: 0; }
+  .nv-hero-banner .hero-slide--nova .hero-glow { width: 44%; right: 0; }
+}
+@media (max-width: 680px) {
+  .nv-hero-banner .hero-slide--nova .hero-character { right: -22%; }
+  .nv-hero-banner .hero-slide--nova .hero-glow { width: 70%; right: -22%; }
+}

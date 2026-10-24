@@ -9,7 +9,6 @@ export default function HeroBanner({ design = 0, className = '', children }) {
       <div className={['hero-slide', 'hero-slide--layered', art.variant && `hero-slide--${art.variant}`].filter(Boolean).join(' ')}>
         <div className="hero-art-frame" aria-hidden="true">
           <img className="hero-scene" src={asset(art.background)} alt="" draggable="false" />
-          {art.gifts && <img className="hero-gifts" src={asset(art.gifts)} alt="" draggable="false" />}
           <img className="hero-glow" src={asset(art.glow)} alt="" draggable="false" />
         </div>
         <img className="hero-character" src={asset(art.character)} alt="" aria-hidden="true" draggable="false" />

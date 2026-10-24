@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { usePlayer } from '../../context/PlayerContext.jsx';
 import { demoEnabled, getDemo, setDemo } from '../../lib/demo.js';
 
 const networkModes = [
@@ -10,6 +11,12 @@ const networkModes = [
   ['empty', 'Empty'],
 ];
 
+const outcomes = [
+  ['random', 'Random'],
+  ['win', 'Always win'],
+  ['lose', 'Always lose'],
+];
+
 // Prototype-only switcher for reviewing states. Shown in preview builds or with ?demo in the URL.
 export default function DemoPanel() {
   const { user, startSession, endSession, openAuth } = useAuth();
@@ -17,12 +24,20 @@ export default function DemoPanel() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [network, setNetwork] = useState(() => getDemo().network);
+  const [outcome, setOutcome] = useState(() => getDemo().outcome);
+  const { currency, deposit } = usePlayer();
+  const onGame = pathname.startsWith('/game/');
   if (!demoEnabled()) return null;
 
   const chooseNetwork = (mode) => {
     setNetwork(mode);
     setDemo({ network: mode });
     location.reload();
+  };
+
+  const chooseOutcome = (mode) => {
+    setOutcome(mode);
+    setDemo({ outcome: mode });
   };
 
   return (
@@ -33,7 +48,9 @@ export default function DemoPanel() {
           <p className="nv-demo-title">Page</p>
           <div className="nv-demo-options">
             <button type="button" aria-pressed={pathname === '/'} onClick={() => navigate('/')}>Lobby</button>
-            <button type="button" aria-pressed={pathname !== '/'} onClick={() => navigate('/missing-page')}>404</button>
+            <button type="button" aria-pressed={onGame && pathname !== '/game/missing-game'} onClick={() => navigate('/game/gates-of-olympus')}>Game</button>
+            <button type="button" aria-pressed={pathname === '/game/missing-game'} onClick={() => navigate('/game/missing-game')}>Game not found</button>
+            <button type="button" aria-pressed={pathname !== '/' && !onGame} onClick={() => navigate('/missing-page')}>404</button>
           </div>
           <p className="nv-demo-title">Account</p>
           <div className="nv-demo-options">
@@ -46,6 +63,17 @@ export default function DemoPanel() {
               <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{label}</button>
             ))}
           </div>
+          {onGame && (
+            <>
+              <p className="nv-demo-title">Game</p>
+              <div className="nv-demo-options">
+                {outcomes.map(([mode, label]) => (
+                  <button key={mode} type="button" aria-pressed={outcome === mode} onClick={() => chooseOutcome(mode)}>{label}</button>
+                ))}
+                {user && <button type="button" onClick={() => deposit(currency.code, -currency.amount)}>Zero balance</button>}
+              </div>
+            </>
+          )}
           <p className="nv-demo-title">Dialogs</p>
           <div className="nv-demo-options">
             <button type="button" onClick={() => openAuth('login')}>Log in</button>

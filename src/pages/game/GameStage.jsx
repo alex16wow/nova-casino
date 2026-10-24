@@ -3,6 +3,7 @@ import Button from '../../components/ui/Button.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { asset } from '../../lib/asset.js';
+import { getDemo } from '../../lib/demo.js';
 
 // Sample bet ladders; crypto uses its own scale.
 const betSteps = {
@@ -11,6 +12,14 @@ const betSteps = {
   default: [0.2, 0.5, 1, 2, 5, 10, 20, 50, 100],
 };
 const multipliers = [0, 0, 0, 0, 0, 0.5, 1, 1.5, 2, 3, 5, 10, 25];
+const winning = multipliers.filter(Boolean);
+
+// The demo panel can force the result of every round.
+function roll() {
+  const { outcome } = getDemo();
+  const list = outcome === 'win' ? winning : outcome === 'lose' ? [0] : multipliers;
+  return list[Math.floor(Math.random() * list.length)];
+}
 const LOAD_MS = 1400;
 const ROUND_MS = 900;
 
@@ -75,7 +84,7 @@ function GameClient({ game, onDeposit }) {
     deposit(code, -bet);
     setRound((r) => ({ busy: true, result: null, id: r.id }));
     timer.current = setTimeout(() => {
-      const win = bet * multipliers[Math.floor(Math.random() * multipliers.length)];
+      const win = bet * roll();
       if (win) deposit(code, win);
       setRound((r) => ({ busy: false, result: win ? { type: 'win', text: `${formatBet(win)} ${code}` } : { type: 'lose' }, id: r.id + 1 }));
     }, ROUND_MS);

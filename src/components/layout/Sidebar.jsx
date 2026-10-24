@@ -8,10 +8,11 @@ const ignore = (e) => e.preventDefault();
 
 function NavLink({ link }) {
   const { pathname } = useLocation();
-  if (livePages.has(link.page)) {
-    const active = pathname === `/${link.page}`;
+  if (link.to || livePages.has(link.page)) {
+    const to = link.to ?? `/${link.page}`;
+    const active = pathname === to;
     return (
-      <Link className={`nav-link${active ? ' active' : ''}`} to={`/${link.page}`} aria-current={active ? 'page' : undefined}>
+      <Link className={`nav-link${active ? ' active' : ''}`} to={to} aria-current={active ? 'page' : undefined}>
         <NavIcon name={link.icon} />
         {link.wrap ? <span>{link.label}</span> : link.label}
       </Link>

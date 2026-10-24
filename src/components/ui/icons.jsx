@@ -82,7 +82,8 @@ export const MenuIcon = ({ name }) => <svg {...menu20}><path d={menuPaths[name]}
 
 // Sidebar navigation icons.
 const navIcons = {
-  lobby: <svg {...nav20}><path d="M3 10.5 12 3l9 7.5v10H3z" /><path d="M9 20v-6h6v6M7 7.4V5h3" /></svg>,
+  home: <svg {...nav20}><path d="M3 10.5 12 3l9 7.5v10H3z" /><path d="M9 20v-6h6v6M7 7.4V5h3" /></svg>,
+  lobby: <svg {...nav20}><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>,
   topGames: <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="m12 2.5 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z" /></svg>,
   newGames: <svg {...nav20}><path d="m12 2 2.8 6.4L22 9l-5.3 4.8 1.5 7L12 17.2 5.8 21l1.5-7L2 9l7.2-.6z" /></svg>,
   liveGames: <svg {...nav20}><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m10 9 5 3-5 3zM7 3h10" /></svg>,

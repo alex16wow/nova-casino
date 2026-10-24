@@ -5,6 +5,7 @@ export const sidebarGroups = [
     label: 'Main navigation',
     className: 'lobby-group',
     links: [
+      { page: 'home', to: '/', label: 'Home', icon: 'home', wrap: true },
       { page: 'lobby', label: 'Lobby', icon: 'lobby', wrap: true },
       { page: 'top-games', label: 'Top Games', icon: 'topGames' },
       { page: 'new-games', label: 'New Games', icon: 'newGames' },

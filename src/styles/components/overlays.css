@@ -197,8 +197,9 @@ html.modal-open { overflow: hidden; }
   justify-items: center;
   gap: var(--space-4);
   max-width: 560px;
-  margin: 8vh auto 12vh;
-  padding: 0 var(--space-4);
+  align-content: center;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
   text-align: center;
 }
 .nv-page-code {
@@ -214,6 +215,13 @@ html.modal-open { overflow: hidden; }
 }
 .nv-page-message h1 { margin: 0; font-size: clamp(24px, 3vw, 34px); letter-spacing: -.02em; }
 .nv-page-message p { margin: 0 0 var(--space-2); font-size: 16px; line-height: 1.55; color: var(--color-text-muted); }
+
+/* Pages without the desktop sidebar (404). */
+@media (min-width: 1280px) {
+  html.page-bare .shell { display: block; padding-left: 24px; }
+  html.page-bare .sidebar { display: none; }
+}
+html.page-bare .main { padding-bottom: 0; }
 
 /* ---------- Demo switcher (prototype only) ---------- */
 .nv-demo { position: fixed; left: 16px; bottom: 16px; z-index: calc(var(--z-modal) - 1); font-size: 13px; }

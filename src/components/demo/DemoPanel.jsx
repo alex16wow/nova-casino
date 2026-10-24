@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { categoryPage, providerPage } from '../../data/catalog.js';
 import { demoEnabled, getDemo, setDemo } from '../../lib/demo.js';
 
 const networkModes = [
@@ -23,6 +24,12 @@ const providerModes = [
 ];
 const MISSING_GAME = '/game/missing-game';
 
+// Category / provider pages.
+const isCatalog = (path) => {
+  const [, first, second] = path.split('/');
+  return first === 'providers' ? Boolean(providerPage(second)) : Boolean(categoryPage(first));
+};
+
 // Prototype-only switcher for reviewing states. Shown in preview builds or with ?demo in the URL.
 export default function DemoPanel() {
   const { user, startSession, endSession, openAuth } = useAuth();
@@ -33,6 +40,7 @@ export default function DemoPanel() {
 
   // Each page lists only its own states.
   const onGame = pathname.startsWith('/game/');
+  const onCatalog = isCatalog(pathname);
 
   // Read on every render: picks reset when the address changes.
   const { network } = getDemo();
@@ -58,11 +66,21 @@ export default function DemoPanel() {
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
           {onGame ? (
             <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
+          ) : onCatalog ? (
+            <>
+              {account}
+              <p className="nv-demo-title">Games</p>
+              <div className="nv-demo-options">
+                {networkModes.map(([mode, label]) => (
+                  <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{label}</button>
+                ))}
+              </div>
+            </>
           ) : (
             <>
               <p className="nv-demo-title">Page</p>
               <div className="nv-demo-options">
-                <button type="button" aria-pressed={pathname === '/'} onClick={() => navigate('/')}>Lobby</button>
+                <button type="button" aria-pressed={pathname === '/'} onClick={() => navigate('/')}>Main Page</button>
                 <button type="button" aria-pressed={pathname !== '/'} onClick={() => navigate('/missing-page')}>404</button>
               </div>
               {account}

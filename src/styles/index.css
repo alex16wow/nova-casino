@@ -12,6 +12,7 @@
 
 /* Pages. */
 @import './pages/game.css';
+@import './pages/catalog.css';
 
 /* Oversized scene art must not be capped by host img resets (e.g. preview wrappers injecting img{max-width:100%}). */
 .hero-scene, .bonus-scene, .hero-glow, .bonus-object { max-width: none; }

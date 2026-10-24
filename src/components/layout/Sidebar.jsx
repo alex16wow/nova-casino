@@ -1,11 +1,22 @@
 import { useEffect, useRef } from 'react';
-import { pageHref, sidebarGroups, supportLink } from '../../data/navigation.js';
+import { Link, useLocation } from 'react-router-dom';
+import { livePages, pageHref, sidebarGroups, supportLink } from '../../data/navigation.js';
 import { NavIcon } from '../ui/icons.jsx';
 
-// Inert until the destination pages exist.
+// Links to pages that don't exist yet stay inert.
 const ignore = (e) => e.preventDefault();
 
 function NavLink({ link }) {
+  const { pathname } = useLocation();
+  if (livePages.has(link.page)) {
+    const active = pathname === `/${link.page}`;
+    return (
+      <Link className={`nav-link${active ? ' active' : ''}`} to={`/${link.page}`} aria-current={active ? 'page' : undefined}>
+        <NavIcon name={link.icon} />
+        {link.wrap ? <span>{link.label}</span> : link.label}
+      </Link>
+    );
+  }
   return (
     <a className="nav-link" href={pageHref(link.page)} data-future-page={link.page} onClick={ignore}>
       <NavIcon name={link.icon} />

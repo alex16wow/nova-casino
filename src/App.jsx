@@ -3,6 +3,7 @@ import AppLayout from './components/layout/AppLayout.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { PlayerProvider } from './context/PlayerContext.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
+import CatalogPage from './pages/catalog/CatalogPage.jsx';
 import GamePage from './pages/game/GamePage.jsx';
 import HomePage from './pages/home/HomePage.jsx';
 import NotFoundPage from './pages/not-found/NotFoundPage.jsx';
@@ -23,6 +24,8 @@ export default function App() {
               <Route element={<AppLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="game/:slug" element={<GamePage />} />
+                <Route path="providers/:provider" element={<CatalogPage />} />
+                <Route path=":category" element={<CatalogPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>

@@ -1,0 +1,49 @@
+/* Category and provider pages (/lobby, /top-games, … /providers/:provider). Built on tokens.css. */
+
+.nv-catalog .categories { margin: 0 0 var(--space-8); }
+.nv-catalog-section { margin-bottom: 0; }
+.nv-catalog-head { margin-bottom: var(--space-5); }
+.nv-catalog-head h1 { margin: 0; font-size: 21px; letter-spacing: -.025em; font-weight: 760; }
+
+/* Provider logo in place of the category icon. */
+.nv-catalog-logo { flex: none; width: 96px; height: 44px; max-width: none; max-height: none; color: #f3eaff; }
+
+/* Grid: 8 cards per row on desktop, 6 on narrow desktop, 4 on tablet, 3 on phone. Game Shows: 4 / 3 / 2. */
+.nv-catalog-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 1.25cqw; padding-top: 6px; }
+.nv-catalog-grid.is-shows { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); }
+.nv-catalog-grid.is-shows .game-card { aspect-ratio: 744 / 466; }
+.nv-catalog-grid.is-shows .card-actions { top: 50%; transform: translateY(-50%); left: 30%; right: 30%; }
+.nv-catalog-grid .game-card:hover, .nv-catalog-grid .game-card:focus-within { border-color: var(--surface-hover-outline); transform: translateY(var(--surface-hover-lift)); box-shadow: var(--surface-hover-glow); }
+
+/* Show More: centred between two lines. */
+.nv-show-more { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); }
+.nv-show-more::before, .nv-show-more::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--color-line-strong)); }
+.nv-show-more::after { background: linear-gradient(90deg, var(--color-line-strong), transparent); }
+.nv-show-more .nv-btn { min-width: 150px; }
+.nv-show-more .nv-btn-label { display: inline-flex; align-items: center; gap: var(--space-2); }
+
+/* Current category stays highlighted in the touch strip too. */
+.mobile-category-scroll .category.current:not(.is-tapped) { border-color: var(--surface-hover-outline) !important; background: linear-gradient(145deg, #241948, #10152d) !important; box-shadow: var(--surface-hover-glow) !important; }
+.mobile-category-scroll .category.current:not(.is-tapped) .category-icon-frame::before { opacity: 1; }
+
+@media (max-width: 1260px) {
+  .nv-catalog-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+@media (max-width: 1279px) {
+  .nv-catalog .categories { margin-bottom: 0; }
+  .nv-catalog .mobile-category-scroll { margin-bottom: var(--space-6); }
+  .nv-catalog-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .nv-catalog-grid.is-shows { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .nv-catalog-head h1 .section-title-icon { width: 36px; height: 36px; flex-basis: 36px; }
+}
+@media (max-width: 680px) {
+  .nv-catalog .mobile-category-scroll { margin-bottom: var(--space-5); }
+  .nv-catalog-head { margin-bottom: var(--space-3); }
+  .nv-catalog-head h1 { font-size: 18px; }
+  .nv-catalog-head h1 .section-title-icon { width: 28px; height: 28px; flex-basis: 28px; }
+  .nv-catalog-logo { width: 72px; height: 32px; }
+  .nv-catalog-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .nv-catalog-grid.is-shows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .nv-catalog-grid.is-shows .card-actions { left: 18%; right: 18%; }
+  .nv-show-more { margin-top: var(--space-6); }
+}

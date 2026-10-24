@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { mobileNav } from '../../data/navigation.js';
 import CurrencySelect from '../header/CurrencySelect.jsx';
 import DepositButton from '../header/DepositButton.jsx';
@@ -44,7 +45,9 @@ export default function AccountDock({ mobile, popups }) {
           </CurrencySelect>
         </>
       ) : (
-        mobileNav.map((link) => <a key={link.label} href={link.href}><NavIcon name={link.icon} />{link.label}</a>)
+        mobileNav.map((link) => (link.to
+          ? <Link key={link.label} to={link.to}><NavIcon name={link.icon} />{link.label}</Link>
+          : <a key={link.label} href={link.href}><NavIcon name={link.icon} />{link.label}</a>))
       )}
     </nav>
   );

@@ -29,14 +29,14 @@ export default function DemoPanel() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
-  const [network, setNetwork] = useState(() => getDemo().network);
   if (!demoEnabled()) return null;
 
   // Each page lists only its own states.
   const onGame = pathname.startsWith('/game/');
 
+  // Read on every render: picks reset when the address changes.
+  const { network } = getDemo();
   const chooseNetwork = (mode) => {
-    setNetwork(mode);
     setDemo({ network: mode });
     location.reload();
   };
@@ -88,9 +88,8 @@ export default function DemoPanel() {
 }
 
 function GameStates({ network, chooseNetwork, missing, navigate, children }) {
-  const [provider, setProvider] = useState(() => getDemo().provider);
+  const { provider } = getDemo();
   const chooseProvider = (mode) => {
-    setProvider(mode);
     setDemo({ provider: mode });
     location.reload();
   };
@@ -100,7 +99,7 @@ function GameStates({ network, chooseNetwork, missing, navigate, children }) {
       <p className="nv-demo-title">Game page</p>
       <div className="nv-demo-options">
         {gameDataModes.map(([mode, label]) => (
-          <button key={mode} type="button" aria-pressed={!missing && network === mode} onClick={() => (missing ? (setDemo({ network: mode }), navigate('/game/gates-of-olympus')) : chooseNetwork(mode))}>{label}</button>
+          <button key={mode} type="button" aria-pressed={!missing && network === mode} onClick={() => (missing ? navigate('/game/gates-of-olympus') : chooseNetwork(mode))}>{label}</button>
         ))}
         <button type="button" aria-pressed={missing} onClick={() => navigate(MISSING_GAME)}>Not found</button>
       </div>

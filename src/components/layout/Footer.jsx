@@ -7,14 +7,14 @@ function PaymentIcon({ name }) {
   if (!kind) return null;
   return <span className={`pay-icon pay-icon--${kind}`} aria-hidden="true">{letter}</span>;
 }
-import { asset } from '../../lib/asset.js';
 import { SocialIcon } from '../ui/icons.jsx';
+import { Brand } from './Header.jsx';
 
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-brand">
-        <a className="brand" href="#top"><img className="brand-image" src={asset('nova-casino-logo.png')} alt="NOVA Casino" width="323" height="120" /></a>
+        <Brand />
       </div>
       {footerColumns.map((col) => (
         <div key={col.title}>

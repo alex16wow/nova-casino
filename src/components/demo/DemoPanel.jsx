@@ -98,6 +98,7 @@ export default function DemoPanel() {
                   <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{label}</button>
                 ))}
               </div>
+              <RecentStates title="Continue Playing" />
               <p className="nv-demo-title">Dialogs</p>
               <div className="nv-demo-options">
                 <button type="button" onClick={() => openAuth('login')}>Log in</button>
@@ -159,17 +160,24 @@ function FavoritesStates({ children }) {
   );
 }
 
-// Recently Played: fills or empties the real history (no separate demo data).
+// Recently Played page and the Lobby "Continue Playing" shelf: fills or empties the real history (no separate demo data).
+// History is shown only to signed-in players, so "With games" also signs in.
 const sampleRecent = [...gameSets.top.slice(2, 6), ...gameSets.live.slice(0, 2), ...gameSets.fresh.slice(1, 4), ...gameSets.roulette.slice(0, 1)];
-function RecentStates({ children }) {
+function RecentStates({ title = 'History', children }) {
   const { recent, setRecentList, clearRecent } = usePlayer();
+  const { user, startSession } = useAuth();
+  const fill = () => {
+    if (!user) startSession({ email: 'player@nova.casino', name: 'player' });
+    setRecentList(sampleRecent.map((g) => g.name));
+  };
+  const filled = Boolean(user) && recent.length > 0;
   return (
     <>
       {children}
-      <p className="nv-demo-title">History</p>
+      <p className="nv-demo-title">{title}</p>
       <div className="nv-demo-options">
-        <button type="button" aria-pressed={recent.length > 0} onClick={() => setRecentList(sampleRecent.map((g) => g.name))}>With games</button>
-        <button type="button" aria-pressed={!recent.length} onClick={clearRecent}>Empty</button>
+        <button type="button" aria-pressed={filled} onClick={fill}>With games</button>
+        <button type="button" aria-pressed={!filled} onClick={clearRecent}>Empty</button>
       </div>
     </>
   );

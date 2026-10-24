@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { demoEnabled, getDemo, setDemo } from '../../lib/demo.js';
 
@@ -12,6 +13,8 @@ const networkModes = [
 // Prototype-only switcher for reviewing states. Shown in preview builds or with ?demo in the URL.
 export default function DemoPanel() {
   const { user, startSession, endSession, openAuth } = useAuth();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [network, setNetwork] = useState(() => getDemo().network);
   if (!demoEnabled()) return null;
@@ -27,6 +30,11 @@ export default function DemoPanel() {
       <button type="button" className="nv-demo-toggle" aria-expanded={open} onClick={() => setOpen(!open)}>States</button>
       {open && (
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
+          <p className="nv-demo-title">Page</p>
+          <div className="nv-demo-options">
+            <button type="button" aria-pressed={pathname === '/'} onClick={() => navigate('/')}>Lobby</button>
+            <button type="button" aria-pressed={pathname !== '/'} onClick={() => navigate('/missing-page')}>404</button>
+          </div>
           <p className="nv-demo-title">Account</p>
           <div className="nv-demo-options">
             <button type="button" aria-pressed={!user} onClick={endSession}>Guest</button>

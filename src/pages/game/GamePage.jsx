@@ -11,6 +11,7 @@ import { categoryKeywords, shelves } from '../../data/games.js';
 import { useBreakpoint } from '../../hooks/useMediaQuery.js';
 import { asset } from '../../lib/asset.js';
 import GameShelf from '../home/GameShelf.jsx';
+import NotFoundPage from '../not-found/NotFoundPage.jsx';
 import GameStage from './GameStage.jsx';
 import { useFullscreen } from './useFullscreen.js';
 import { useGameData } from './useGameData.js';
@@ -29,13 +30,7 @@ export default function GamePage() {
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
   if (status === 'error' && error.code === 'not_found') {
-    return (
-      <section className="nv-page-message" aria-labelledby="gameMissingTitle">
-        <h1 id="gameMissingTitle">Game not found</h1>
-        <p>This game is no longer available or the link is broken. Pick another one on the main page.</p>
-        <Link className="nv-btn nv-btn--primary nv-btn--lg" to="/"><span className="nv-btn-label">Back to Main Page</span></Link>
-      </section>
-    );
+    return <NotFoundPage />;
   }
 
   const game = data?.game;

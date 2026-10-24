@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useBreakpoint } from '../../hooks/useMediaQuery.js';
 import { asset } from '../../lib/asset.js';
@@ -11,11 +12,12 @@ import PlayerLevel from '../header/PlayerLevel.jsx';
 import ProfileMenu from '../header/ProfileMenu.jsx';
 import { Burger } from '../ui/icons.jsx';
 
+// Logo link to the main page from every page (header and footer); on the main page it scrolls back to the top.
 export function Brand() {
   return (
-    <a className="brand" href="#top" aria-label="NOVA Casino home">
+    <Link className="brand" to="/" aria-label="NOVA Casino home" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
       <img className="brand-image" src={asset('nova-casino-logo.png')} alt="NOVA Casino" width="323" height="120" />
-    </a>
+    </Link>
   );
 }
 

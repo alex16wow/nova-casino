@@ -1,16 +1,9 @@
 /* Favorites page (/favorites). Reuses the catalog head and grid; only the heart badge is its own. */
 
 .nv-favorites .nv-catalog-head { min-height: 48px; }
-/* Heart in place of the category artwork, same size as the other page icons. */
-.section-title-with-icon .nv-favorites-icon {
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ff62bd33, #8b35ff14 70%);
-  color: #ff62bd;
-  filter: drop-shadow(0 0 8px #ff62bd66);
-}
-.nv-favorites-icon svg { display: block; width: 55%; height: 55%; fill: currentColor; }
+/* Outline heart from the sidebar, with the same glow, at the size of the category title icons. */
+.section-title-with-icon .nv-favorites-icon { display: grid; place-items: center; }
+.nv-favorites-icon svg { display: block; width: 80%; height: 80%; stroke-width: 1.6; color: #e4ceff; filter: drop-shadow(0 0 7px #ab54ff); }
 .nv-favorites .nv-catalog-head > .nv-btn { margin-left: auto; }
 /* Empty state: full-width centred column — title, short text, button. No icon. */
 .nv-favorites .nv-state { flex-direction: column; justify-content: center; gap: var(--space-4); min-height: 260px; padding: var(--space-10, 40px) var(--space-6); text-align: center; }

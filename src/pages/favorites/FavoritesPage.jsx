@@ -4,7 +4,7 @@ import Button from '../../components/ui/Button.jsx';
 import GameCard from '../../components/ui/GameCard.jsx';
 import Modal from '../../components/ui/Modal.jsx';
 import StateMessage from '../../components/ui/StateMessage.jsx';
-import { Heart } from '../../components/ui/icons.jsx';
+import { NavIcon } from '../../components/ui/icons.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { findGame } from '../../data/games.js';
 
@@ -24,7 +24,7 @@ export default function FavoritesPage() {
       <section className="section nv-catalog-section">
         <div className="section-head nv-catalog-head">
           <h1 className="section-title-with-icon">
-            <span className="section-title-icon nv-favorites-icon" aria-hidden="true"><Heart /></span>
+            <span className="section-title-icon nv-favorites-icon" aria-hidden="true"><NavIcon name="favorites" /></span>
             <span>Favorites</span>
           </h1>
           <span className="spacer" />

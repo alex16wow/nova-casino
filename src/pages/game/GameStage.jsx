@@ -12,7 +12,7 @@ const betSteps = {
   default: [0.2, 0.5, 1, 2, 5, 10, 20, 50, 100],
 };
 const multipliers = [0, 0, 0, 0, 0, 0.5, 1, 1.5, 2, 3, 5, 10, 25];
-const winning = multipliers.filter(Boolean);
+const winning = multipliers.filter((m) => m > 1);
 
 // The demo panel can force the result of every round.
 function roll() {

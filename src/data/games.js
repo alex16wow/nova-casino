@@ -120,7 +120,7 @@ export function gameDetails(game) {
   return {
     rtp: `${(95.5 + (h % 200) / 100).toFixed(2)}%`,
     volatility: slot ? pick(['Medium', 'High', 'Very high'], h) : pick(['Low', 'Medium'], h),
-    maxWin: `x${pick(slot ? [2100, 5000, 10000, 15000, 25000] : [500, 1000, 2000, 5000], h >> 3).toLocaleString('en-US')}`,
+    maxWin: `x${pick(slot ? [2100, 5000, 10000, 15000, 25000] : [500, 1000, 2000, 5000], h >>> 3).toLocaleString('en-US')}`,
     format: slot ? 'Video slot' : game.kind === 'live' || game.kind === 'shows' ? 'Live show' : game.kind === 'roulette' ? 'Roulette' : 'Table game',
     about: slot
       ? `${game.name} by ${game.provider}: cascading wins, free spins and multipliers that stack during the bonus round.`

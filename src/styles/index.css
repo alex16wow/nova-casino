@@ -1,0 +1,6 @@
+/* Design tokens first; the lobby styles below are carried over from the static page in their original cascade order. */
+@import './tokens.css';
+@import './legacy/01-base.css';
+@import './legacy/02-rail.css';
+@import './legacy/03-revision-2.css';
+@import './legacy/04-layout-corrections.css';

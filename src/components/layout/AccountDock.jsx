@@ -1,16 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { useAuth } from '../../context/AuthContext.jsx';
 import { mobileNav } from '../../data/navigation.js';
 import CurrencySelect from '../header/CurrencySelect.jsx';
 import DepositButton from '../header/DepositButton.jsx';
-import GuestActions from '../header/GuestActions.jsx';
 import PlayerLevel from '../header/PlayerLevel.jsx';
 import { NavIcon } from '../ui/icons.jsx';
 
-// Fixed bottom bar: section links on tablets, level + wallet on phones (Log in / Sign up for guests).
+// Fixed bottom bar: section links on tablets, level + wallet on phones. Not shown to guests on phones.
 export default function AccountDock({ mobile, popups }) {
   const dock = useRef(null);
-  const { isGuest } = useAuth();
 
   // Firefox browser chrome changes the visible viewport without reliably moving bottom:0.
   useEffect(() => {
@@ -39,9 +36,7 @@ export default function AccountDock({ mobile, popups }) {
 
   return (
     <nav ref={dock} className={`mobile-nav${mobile ? ' account-dock' : ''}`} aria-label={mobile ? 'Wallet and account' : 'Mobile navigation'}>
-      {mobile && isGuest ? (
-        <GuestActions dock />
-      ) : mobile ? (
+      {mobile ? (
         <>
           <PlayerLevel open={popups.rewards} setOpen={popups.set('rewards')} />
           <CurrencySelect open={popups.currency} setOpen={popups.set('currency')}>

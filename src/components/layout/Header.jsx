@@ -20,7 +20,7 @@ export function Brand() {
 }
 
 // Top bar. On mobile the level and wallet move to the bottom dock (see AccountDock).
-// Guests see Log in / Sign up instead of the level, wallet and account controls.
+// Guests see Log in / Sign up instead of the level, wallet and account controls, and get no bottom dock on phones.
 export default function Header({ popups, drawerOpen, onBurger, searchOpen, setSearchOpen }) {
   const { mobile, tablet, touch } = useBreakpoint();
   const { isGuest } = useAuth();
@@ -54,7 +54,7 @@ export default function Header({ popups, drawerOpen, onBurger, searchOpen, setSe
       <div className={`top-actions${isGuest ? ' is-guest' : ''}`}>
         <HeaderSearch open={searchOpen} setOpen={setSearchOpen} wrapRef={search} slotRef={slot} closeOnOutsideClick={touch} />
         {isGuest ? (
-          !mobile && <GuestActions />
+          <GuestActions />
         ) : (
           <>
             {!mobile && (

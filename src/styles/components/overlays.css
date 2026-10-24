@@ -128,15 +128,31 @@ html.modal-open { overflow: hidden; }
 .nv-bonus-option.is-selected .nv-bonus-radio { border: 6px solid #d04cf5; background: #fff; }
 .nv-bonus-option:has(input:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 
-/* ---------- Guest actions in the header and dock ---------- */
-.guest-actions { display: flex; align-items: center; gap: 12px; }
-.guest-actions .nv-btn { --btn-h: 48px; min-width: 112px; font-size: 16px; }
-@media (min-width: 1280px) and (max-width: 1450px) { .guest-actions .nv-btn { --btn-h: 46px; min-width: 100px; font-size: 14px; } }
-@media (max-width: 1279px) { .guest-actions { gap: 10px; } .guest-actions .nv-btn { --btn-h: 42px; min-width: 0; padding: 0 16px; font-size: 13px; } }
-.top-actions.is-guest { gap: 16px; }
-
-.mobile-nav.account-dock .guest-actions--dock { grid-column: 1 / -1; width: 100%; gap: 10px; }
-.guest-actions--dock .nv-btn { flex: 1; --btn-h: 48px; font-size: 15px; }
+/* ---------- Guest actions in the header ---------- */
+/* Buttons stretch to the search box, so they match its height at every width. */
+.top-actions.is-guest { gap: 16px; align-items: stretch; }
+.guest-actions { display: flex; align-items: stretch; gap: 12px; }
+.guest-actions .nv-btn { height: auto; min-height: 36px; min-width: 112px; font-size: 16px; }
+@media (min-width: 1280px) and (max-width: 1450px) { .guest-actions .nv-btn { min-width: 100px; font-size: 14px; } }
+@media (max-width: 1279px) { .guest-actions { gap: 10px; } .guest-actions .nv-btn { min-width: 0; padding: 0 16px; font-size: 13px; } }
+@media (max-width: 680px) {
+  /* Phones: compact buttons between the logo and the search, which sits at the right edge. */
+  .top-actions.is-guest { justify-content: flex-end; gap: 0; margin-left: auto; margin-right: 44px; }
+  .topbar .top-actions.is-guest .search-slot { flex: 0 0 0; width: 0; min-width: 0; }
+  .guest-actions { gap: 6px; }
+  .guest-actions .nv-btn { height: 36px; padding: 0 10px; border-radius: 8px; font-size: 12px; font-weight: 600; }
+  .topbar .top-actions.is-guest .expandable-search,
+  .topbar .top-actions.is-guest .expandable-search.is-open { right: 12px; }
+  .topbar .top-actions.is-guest .expandable-search.is-open { width: calc(100% - 24px); }
+  .topbar.is-mobile-search-open .guest-actions { visibility: hidden; pointer-events: none; }
+}
+@media (max-width: 359px) {
+  .topbar:has(.top-actions.is-guest) > .brand { width: 72px; }
+  .topbar:has(.top-actions.is-guest) > .brand .brand-image { width: 72px; height: auto; }
+  .top-actions.is-guest { margin-right: 50px; }
+  .guest-actions { gap: 4px; }
+  .guest-actions .nv-btn { padding: 0 8px; font-size: 11px; }
+}
 
 /* ---------- State messages ---------- */
 .nv-state {
@@ -238,4 +254,7 @@ html.modal-open { overflow: hidden; }
 .nv-demo-options button[aria-pressed="true"] { border-color: #c56bff; background: #2a1650; color: #fff; }
 .nv-demo-hint { margin: 0; font-size: 11.5px; line-height: 1.5; color: #8f8ab8; }
 .nv-demo-hint code { color: #e5b6ff; }
-@media (max-width: 680px) { .nv-demo { bottom: 88px; left: 10px; } }
+@media (max-width: 680px) { .nv-demo { bottom: 88px; left: 10px; } html.no-account-dock .nv-demo { bottom: 16px; } }
+
+/* Phones without the bottom dock (guests) drop the space reserved for it. */
+@media (max-width: 680px) { html.no-account-dock .footer { padding-bottom: 0; } }

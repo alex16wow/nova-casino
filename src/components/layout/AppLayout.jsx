@@ -31,6 +31,11 @@ export default function AppLayout() {
   useEffect(() => setOpen(closed), [mobile, isGuest]);
   useEffect(() => setDrawerOpen(false), [touch]);
 
+  const showDock = !(mobile && isGuest);
+  useEffect(() => {
+    document.documentElement.classList.toggle('no-account-dock', !showDock);
+  }, [showDock]);
+
   useEffect(() => {
     document.documentElement.classList.toggle('mobile-drawer-open', touch && drawerOpen);
   }, [touch, drawerOpen]);
@@ -68,7 +73,7 @@ export default function AppLayout() {
         </main>
       </div>
       <Footer />
-      <AccountDock mobile={mobile} popups={popups} />
+      {showDock && <AccountDock mobile={mobile} popups={popups} />}
       <DrawerScrollIndicator open={drawerOpen} />
       <AuthModal />
       <DemoPanel />

@@ -1,4 +1,12 @@
 import { footerColumns, paymentMethods, socialLinks } from '../../data/navigation.js';
+
+// Small brand-coloured marks next to the payment names (Mastercard keeps its two circles).
+const paymentMarks = { VISA: ['visa', ''], Skrill: ['skrill', 'S'], NETELLER: ['neteller', 'N'], Crypto: ['crypto', '₿'] };
+function PaymentIcon({ name }) {
+  const [kind, letter] = paymentMarks[name] ?? [];
+  if (!kind) return null;
+  return <span className={`pay-icon pay-icon--${kind}`} aria-hidden="true">{letter}</span>;
+}
 import { asset } from '../../lib/asset.js';
 import { SocialIcon } from '../ui/icons.jsx';
 
@@ -18,7 +26,7 @@ export default function Footer() {
         <h4>Payments</h4>
         <div className="payment-buttons">
           {paymentMethods.map((m) => (
-            <button key={m}>{m === 'Mastercard' && <span className="mc-circles"><i /><i /></span>}{m}</button>
+            <button key={m}>{m === 'Mastercard' ? <span className="mc-circles"><i /><i /></span> : <PaymentIcon name={m} />}{m}</button>
           ))}
         </div>
       </div>

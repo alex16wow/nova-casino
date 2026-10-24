@@ -204,3 +204,10 @@
   .nv-skeleton, .nv-spinner { animation-duration: 0s !important; animation: none; }
   .nv-spinner { border-top-color: #fff; }
 }
+
+/* Footer payment marks. */
+.pay-icon { display: inline-grid; place-items: center; vertical-align: middle; margin-right: 6px; width: 16px; height: 16px; border-radius: 50%; font-size: 9.5px; font-weight: 800; line-height: 1; color: #fff; }
+.pay-icon--visa { width: 18px; height: 12px; border-radius: 2.5px; background: linear-gradient(180deg, #1a1f71 0 62%, #f7b600 62% 100%); }
+.pay-icon--skrill { background: #862165; }
+.pay-icon--neteller { border-radius: 4px; background: #83ba3b; }
+.pay-icon--crypto { background: #f7931a; font-size: 10px; }

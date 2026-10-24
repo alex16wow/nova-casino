@@ -1,6 +1,9 @@
 import { useRef, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import Button from '../../components/ui/Button.jsx';
+import { Checkbox } from '../../components/ui/Field.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
+import { depositBonusAmount, offers } from '../../data/bonuses.js';
 import { cryptoNetworks, demoAddress, depositRules, isCrypto, walletDepositMethods } from '../../data/wallet.js';
 import { processDeposit } from '../../lib/api.js';
 import { AmountField, ChipChoice, CopyButton, OptionCards, ResultScreen, money, parseAmount } from './parts.jsx';
@@ -20,7 +23,10 @@ function amountError(value, code) {
 // Deposit: method, currency (and network for crypto), amount → demo address or provider page → processing → result.
 // One attempt has one transaction id, so a repeated click can't credit twice.
 export default function DepositTab({ onHistory }) {
-  const { currencies, currency, deposit, recordFailure, setCurrencyCode } = usePlayer();
+  const { currencies, currency, deposit, recordFailure, setCurrencyCode, bonuses, activeMoneyBonus, activateDepositBonus } = usePlayer();
+  const [params] = useSearchParams();
+  const offer = offers.deposit100;
+  const [withBonus, setWithBonus] = useState(params.get('bonus') === offer.id);
   const [method, setMethod] = useState(isCrypto(currency.code) ? 'crypto' : 'card');
   const [code, setCode] = useState(currency.code);
   const [network, setNetwork] = useState(cryptoNetworks[currency.code]?.[0].id);
@@ -35,6 +41,10 @@ export default function DepositTab({ onHistory }) {
   const rules = depositRules[code];
   const error = amountError(amount, code);
   const value = error ? 0 : parseAmount(amount);
+  // Deposit bonus (see Bonuses): offered once, for its currencies, and only without another active money bonus.
+  const offerOpen = !bonuses.some((b) => b.offerId === offer.id) && offer.currencies.includes(code);
+  const bonusOn = offerOpen && withBonus && !activeMoneyBonus && value >= offer.minDeposit;
+  const bonusValue = bonusOn ? depositBonusAmount(offer, value) : 0;
 
   const chooseCode = (next) => {
     setCode(next);
@@ -64,8 +74,10 @@ export default function DepositTab({ onHistory }) {
       // The id is fixed for this attempt: deposit() ignores a second call with the same id.
       attempt.current ??= `DP-${Date.now().toString(36).toUpperCase().slice(-8)}`;
       const id = deposit(code, value, { id: attempt.current, method, network: order.network });
+      // activateDepositBonus refuses a second activation, so a repeated call adds nothing.
+      const bonus = bonusOn ? activateDepositBonus(code, value) : null;
       setCurrencyCode(code);
-      setResult({ ...order, id });
+      setResult({ ...order, id, bonus: bonus?.ok ? bonus.bonus : null });
       setStep('done');
     } catch (err) {
       const id = recordFailure({ type: 'deposit', ...order, failReason: err.message });
@@ -85,7 +97,7 @@ export default function DepositTab({ onHistory }) {
         title="Deposit successful"
         actions={<><Button variant="secondary" onClick={onHistory}>View transactions</Button><Button onClick={restart}>New deposit</Button></>}
       >
-        <p><b>{money(result.code, result.amount)}</b> has been added to your real balance.</p>
+        <p><b>{money(result.code, result.amount)}</b> has been added to your real balance.{result.bonus && <> Your bonus of <b>{money(result.bonus.code, result.bonus.amount)}</b> is active in <Link to="/account/bonuses?tab=active">Bonuses</Link>.</>}</p>
         <dl className="nv-summary">
           <div><dt>New real balance</dt><dd>{money(result.code, balance.amount)}</dd></div>
           <div><dt>Transaction ID</dt><dd>{result.id}</dd></div>
@@ -176,10 +188,16 @@ export default function DepositTab({ onHistory }) {
         hint={`From ${money(code, rules.min)} to ${money(code, rules.max)}`}
         presets={rules.presets}
       />
+      {offerOpen && (activeMoneyBonus ? (
+        <p className="nv-note">{offer.title} can’t be added: you already have an active bonus ({activeMoneyBonus.title}). Finish or cancel it in <Link to="/account/bonuses?tab=active">Bonuses</Link> first.</p>
+      ) : (
+        <Checkbox checked={withBonus} onChange={(e) => setWithBonus(e.target.checked)} label={<>Activate <b>{offer.title}</b>: {offer.match}% up to {money(code, offer.cap)}, wagering {offer.wager}× the bonus</>} />
+      ))}
       <dl className="nv-summary">
         <div><dt>You deposit</dt><dd>{value ? money(code, value) : '—'}</dd></div>
+        {bonusValue > 0 && <div><dt>Bonus</dt><dd className="is-accent">+{money(code, bonusValue)}</dd></div>}
         <div><dt>Fee</dt><dd>Free</dd></div>
-        <div><dt>Credited to</dt><dd>Real balance</dd></div>
+        <div><dt>Credited to</dt><dd>Real balance{bonusValue > 0 && ' + bonus balance'}</dd></div>
       </dl>
       <Button type="submit" size="lg" block>{method === 'crypto' ? 'Show deposit address' : 'Continue to payment'}</Button>
     </form>

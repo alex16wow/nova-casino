@@ -39,7 +39,7 @@ export default function AccountDock({ mobile, popups }) {
     <nav ref={dock} className={`mobile-nav${mobile ? ' account-dock' : ''}`} aria-label={mobile ? 'Wallet and account' : 'Mobile navigation'}>
       {mobile ? (
         <>
-          <PlayerLevel open={popups.rewards} setOpen={popups.set('rewards')} />
+          <PlayerLevel />
           <CurrencySelect open={popups.currency} setOpen={popups.set('currency')}>
             <DepositButton compact />
           </CurrencySelect>

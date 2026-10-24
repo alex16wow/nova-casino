@@ -267,6 +267,7 @@ html.page-bare .main { padding-bottom: 0; }
   cursor: pointer;
 }
 .nv-demo-options button[aria-pressed="true"] { border-color: #c56bff; background: #2a1650; color: #fff; }
+.nv-demo-options button:disabled { opacity: .4; cursor: not-allowed; }
 .nv-demo-hint { margin: 0; font-size: 11.5px; line-height: 1.5; color: #8f8ab8; }
 .nv-demo-hint code { color: #e5b6ff; }
 @media (max-width: 680px) { .nv-demo { bottom: 88px; left: 10px; } html.no-account-dock .nv-demo { bottom: 16px; } }

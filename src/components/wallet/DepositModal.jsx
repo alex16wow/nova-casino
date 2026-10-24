@@ -55,7 +55,10 @@ function DepositForm({ wallet, initial, onAddress, onDone }) {
   const rules = depositRules[code];
   const [amount, setAmount] = useState(String(initial.amount ?? rules.presets[1]));
   const [method, setMethod] = useState(initial.method ?? rules.methods[0]);
+  const { bonuses, activeMoneyBonus } = usePlayer();
   const [bonus, setBonus] = useState(initial.bonus == null ? true : initial.bonus > 0);
+  // The deposit bonus (offers.deposit100) is given once and never next to another active money bonus.
+  const bonusOpen = rules.bonusCap && !bonuses.some((b) => b.offerId === 'deposit100');
   const [card, setCard] = useState({ number: '', expiry: '', cvc: '' });
   const [touched, setTouched] = useState({});
   const [busy, setBusy] = useState(false);
@@ -74,7 +77,7 @@ function DepositForm({ wallet, initial, onAddress, onDone }) {
   const cardErrors = method === 'card' ? validateCard(card) : {};
   const shown = (key, error) => (touched[key] ? error : '');
   const value = amountError ? 0 : parseAmount(amount);
-  const bonusValue = rules.bonusCap && bonus ? Math.min(value, rules.bonusCap) : 0;
+  const bonusValue = bonusOpen && !activeMoneyBonus && bonus ? Math.min(value, rules.bonusCap) : 0;
   const cardField = (key) => ({
     value: card[key],
     onBlur: () => setTouched((t) => ({ ...t, [key]: true })),
@@ -151,9 +154,11 @@ function DepositForm({ wallet, initial, onAddress, onDone }) {
         </div>
       )}
 
-      {rules.bonusCap && (
+      {bonusOpen && (activeMoneyBonus ? (
+        <p className="nv-note">The deposit bonus can’t be added while {activeMoneyBonus.title} is active.</p>
+      ) : (
         <Checkbox checked={bonus} onChange={(e) => setBonus(e.target.checked)} label={<>Get a 100% deposit bonus up to {rules.bonusCap} {code}</>} />
-      )}
+      ))}
 
       <dl className="nv-summary">
         <div><dt>You deposit</dt><dd>{value ? `${formatAmount(code, value)} ${code}` : '—'}</dd></div>
@@ -236,7 +241,7 @@ const titles = {
 
 // Wallet top-up: currency, amount and method, then a crypto address or card payment, then a receipt.
 export default function DepositModal() {
-  const { depositOpen, closeDeposit, currencies, currency, deposit, setCurrencyCode } = usePlayer();
+  const { depositOpen, closeDeposit, currencies, currency, deposit, setCurrencyCode, activateDepositBonus } = usePlayer();
   const [step, setStep] = useState({ view: 'form' });
   const [session, setSession] = useState(0);
 
@@ -246,9 +251,10 @@ export default function DepositModal() {
     setSession((n) => n + 1);
   };
   const done = (result) => {
-    deposit(result.code, result.amount, { id: result.id, method: result.method, bonus: result.bonus, network: result.method === 'crypto' ? depositRules[result.code].network : null });
+    deposit(result.code, result.amount, { id: result.id, method: result.method, network: result.method === 'crypto' ? depositRules[result.code].network : null });
+    const bonus = result.bonus > 0 ? activateDepositBonus(result.code, result.amount) : null;
     setCurrencyCode(result.code);
-    setStep({ view: 'done', result });
+    setStep({ view: 'done', result: { ...result, bonus: bonus?.ok ? bonus.bonus.amount : 0 } });
   };
 
   const [title, subtitle] = titles[step.view];

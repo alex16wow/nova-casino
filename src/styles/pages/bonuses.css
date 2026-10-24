@@ -1,0 +1,107 @@
+/* Bonuses (/account/bonuses): active bonus, promo code, offer cards, bonus list and terms. Built on tokens.css. */
+
+.nv-bonuses { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+.nv-bonuses > * { min-width: 0; }
+.nv-bonuses-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: var(--space-5); align-items: start; }
+
+/* Active bonus */
+.nv-active-bonus { position: relative; display: grid; gap: var(--space-4); overflow: hidden; border-color: #7040cb; background: radial-gradient(ellipse at 100% 0%, #7a2fd535, transparent 55%), var(--gradient-surface); box-shadow: var(--shadow-resting), inset 0 0 30px #8b35ff1f; }
+.nv-active-bonus > * { position: relative; }
+.nv-active-bonus-art { position: absolute !important; right: -18px; top: -14px; width: 190px; max-width: none; opacity: .9; pointer-events: none; filter: drop-shadow(0 0 18px #a742ff55); }
+.nv-active-bonus-top { display: flex; align-items: center; gap: var(--space-3); }
+.nv-active-bonus-eyebrow { font-size: 12px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: #e5a8ff; }
+.nv-active-bonus h2 { margin: 0; font-size: var(--font-size-xl); max-width: calc(100% - 170px); }
+.nv-active-bonus-facts { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); max-width: calc(100% - 150px); }
+.nv-active-bonus-facts div { display: grid; gap: 2px; }
+.nv-active-bonus-facts span { font-size: 12px; color: var(--color-text-subtle); }
+.nv-active-bonus-facts strong { font-size: var(--font-size-lg); color: #fff; font-variant-numeric: tabular-nums; }
+.nv-active-bonus-facts small { font-size: 12px; color: var(--color-warning); }
+.nv-wager { display: grid; gap: 8px; }
+.nv-wager-line { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); font-size: var(--font-size-sm); color: var(--color-text-muted); }
+.nv-wager-line strong { color: #fff; font-variant-numeric: tabular-nums; }
+.nv-wager .nv-field-hint { margin: 0; }
+.nv-active-bonus-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.nv-active-bonus.is-empty { grid-template-columns: minmax(0, 1fr) auto; align-items: center; border-color: var(--color-line); box-shadow: var(--shadow-resting); }
+.nv-active-bonus.is-empty h2 { max-width: none; font-size: var(--font-size-lg); }
+.nv-active-bonus.is-empty p { margin: 4px 0 0; font-size: var(--font-size-sm); color: var(--color-text-muted); }
+
+.nv-btn--danger { border-color: #ff8da2; background: linear-gradient(110deg, #e2456a, #b0285a); box-shadow: 0 0 8px #ff5c7a66; }
+.nv-btn--danger:hover:not(:disabled) { filter: brightness(1.1); }
+.nv-btn--danger-text { color: #ff8da2; }
+.nv-btn--danger-text:hover:not(:disabled) { color: #ffc2cd; }
+
+/* Promo code */
+.nv-promo { display: grid; gap: var(--space-3); }
+.nv-promo-form { display: flex; align-items: flex-start; gap: var(--space-2); }
+.nv-promo-field { flex: 1; min-width: 0; }
+.nv-promo-field > label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.nv-promo-field input { height: 44px; text-transform: uppercase; letter-spacing: .06em; }
+.nv-promo-form .nv-btn { flex: none; }
+.nv-promo-done { margin: 0; font-size: var(--font-size-sm); line-height: 1.45; color: var(--color-success); }
+
+/* Tabs counters */
+.nv-tab-count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; margin-left: 8px; padding: 0 6px; border-radius: var(--radius-pill); background: #ffffff14; font-size: 11.5px; font-weight: 700; }
+.nv-wallet-tab.is-current .nv-tab-count { background: #ffffff2a; }
+
+/* Offer cards */
+.nv-offer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-4); }
+.nv-offer { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--color-line-muted); border-radius: var(--radius-md); background: var(--color-surface-sunken); transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
+.nv-offer:hover { border-color: #7040cb; box-shadow: var(--shadow-hover-glow); }
+.nv-offer-art { position: relative; overflow: hidden; display: grid; place-items: center; height: 120px; background: radial-gradient(ellipse at 50% 80%, #8b35ff40, transparent 65%), linear-gradient(160deg, #1a1540, #0d1129); color: #e4ceff; }
+.nv-offer-art img { max-width: 78%; max-height: 104px; object-fit: contain; filter: drop-shadow(0 6px 14px #0008); }
+.nv-offer-art img.is-game { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; opacity: .85; filter: none; }
+.nv-offer-art svg { width: 44px; height: 44px; filter: drop-shadow(0 0 8px #ab54ff); }
+.nv-offer-type { position: absolute; left: 10px; top: 10px; padding: 3px 9px; border: 1px solid #ffffff2a; border-radius: var(--radius-pill); background: #0b0e22cc; font-size: 11px; font-weight: 700; color: #f4c3ff; }
+.nv-offer-body { display: grid; gap: 6px; padding: var(--space-4) var(--space-4) 0; }
+.nv-offer-body h3 { margin: 0; font-size: var(--font-size-lg); color: #fff; }
+.nv-offer-value { font-size: 20px; font-weight: 760; color: #f4c3ff; }
+.nv-offer-body p { margin: 0; font-size: var(--font-size-sm); line-height: 1.45; color: var(--color-text-muted); }
+.nv-offer-terms { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; padding: 0; list-style: none; }
+.nv-offer-terms li { padding: 3px 8px; border: 1px solid var(--color-line-muted); border-radius: 6px; font-size: 11.5px; color: #cfc9f3; }
+.nv-offer-body .nv-offer-until { font-size: 12px; color: var(--color-text-subtle); }
+.nv-offer-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: auto; padding: var(--space-4); }
+.nv-offer-actions .nv-btn { flex: 1 1 auto; padding: 0 var(--space-3); }
+.nv-offer.is-upcoming .nv-offer-art { filter: saturate(.6); }
+
+/* Bonus list (Active, History) */
+.nv-bonus-list { display: grid; gap: 6px; }
+.nv-bonus-row { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto auto; align-items: center; gap: var(--space-3); width: 100%; padding: 10px var(--space-4); border: 1px solid var(--color-line-muted); border-radius: var(--radius-sm); background: var(--color-surface-sunken); color: var(--color-text); font: inherit; text-align: left; cursor: pointer; transition: border-color var(--duration-fast), background var(--duration-fast); }
+.nv-bonus-row:hover { border-color: #7040cb; background: #12122e; }
+.nv-bonus-row:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.nv-bonus-row-icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: #1d1640; color: #e4ceff; }
+.nv-bonus-row-main { display: grid; gap: 2px; min-width: 0; }
+.nv-bonus-row-main strong { font-size: var(--font-size-md); }
+.nv-bonus-row-main small { font-size: 12px; color: var(--color-text-subtle); }
+.nv-bonus-row-value { font-size: var(--font-size-sm); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* Terms */
+.nv-terms { display: grid; gap: 0; margin: 0; }
+.nv-terms div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: var(--space-3); padding: 10px 0; border-bottom: 1px solid #ffffff0f; font-size: var(--font-size-sm); }
+.nv-terms dt { color: var(--color-text-subtle); }
+.nv-terms dd { margin: 0; line-height: 1.45; color: #fff; }
+.nv-games-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; margin: 0; padding: 0; list-style: none; font-size: var(--font-size-sm); }
+.nv-games-list li { padding: 8px 10px; border: 1px solid var(--color-line-muted); border-radius: 6px; background: var(--color-surface-sunken); }
+.nv-loss-list { display: grid; gap: 8px; margin: 0; padding-left: 18px; font-size: var(--font-size-sm); line-height: 1.5; color: #d7d1f7; }
+.nv-modal-text { margin: 0; font-size: var(--font-size-md); line-height: 1.5; color: #d7d1f7; }
+
+@container (max-width: 900px) {
+  .nv-bonuses-top { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 680px) {
+  .nv-bonuses { gap: var(--space-4); }
+  .nv-active-bonus-art { width: 120px; right: -14px; top: -8px; opacity: .55; }
+  .nv-active-bonus h2, .nv-active-bonus-facts { max-width: none; }
+  .nv-active-bonus h2 { padding-right: 70px; }
+  .nv-active-bonus-facts { gap: var(--space-3) var(--space-5); }
+  .nv-active-bonus-actions .nv-btn { flex: 1 1 auto; }
+  .nv-active-bonus.is-empty { grid-template-columns: minmax(0, 1fr); }
+  .nv-bonus-row { grid-template-columns: 36px minmax(0, 1fr) auto; grid-template-areas: "icon main value" "icon main status"; row-gap: 4px; }
+  .nv-bonus-row-icon { grid-area: icon; }
+  .nv-bonus-row-main { grid-area: main; }
+  .nv-bonus-row-value { grid-area: value; justify-self: end; }
+  .nv-bonus-row .nv-badge { grid-area: status; justify-self: end; }
+  .nv-terms div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .nv-bonuses-main .nv-wallet-tab { white-space: nowrap; }
+  .nv-tab-count { min-width: 18px; height: 18px; margin-left: 5px; padding: 0 5px; font-size: 11px; }
+  .nv-games-list { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,6 +1,8 @@
 /* Category and provider pages (/lobby, /top-games, … /providers/:provider). Built on tokens.css. */
 
 .nv-catalog .categories { margin: 0 0 var(--space-8); }
+/* Same button height as the home strip, which sits in a 7.5cqw grid row there. */
+@media (min-width: 1280px) { .nv-catalog .categories { height: 7.5cqw; } }
 .nv-catalog-section { margin-bottom: 0; }
 .nv-catalog-head { margin-bottom: var(--space-5); }
 .nv-catalog-head h1 { margin: 0; font-size: 21px; letter-spacing: -.025em; font-weight: 760; }

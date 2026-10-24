@@ -1,3 +1,4 @@
+import { useSupport } from '../../context/SupportContext.jsx';
 import { footerColumns, paymentMethods, socialLinks } from '../../data/navigation.js';
 
 // Small brand-coloured marks next to the payment names (Mastercard keeps its two circles).
@@ -11,6 +12,9 @@ import { SocialIcon } from '../ui/icons.jsx';
 import { Brand } from './Header.jsx';
 
 export default function Footer() {
+  const { toggle } = useSupport();
+  // Footer "Support" opens the support panel, like Support in the sidebar.
+  const onLink = (label) => (label === 'Support' ? (e) => { e.preventDefault(); toggle(); } : undefined);
   return (
     <footer className="footer">
       <div className="footer-brand">
@@ -19,7 +23,7 @@ export default function Footer() {
       {footerColumns.map((col) => (
         <div key={col.title}>
           <h4>{col.title}</h4>
-          {col.links.map(([label, href]) => <a key={label} href={href}>{label}</a>)}
+          {col.links.map(([label, href]) => <a key={label} href={href} onClick={onLink(label)}>{label}</a>)}
         </div>
       ))}
       <div className="footer-payments">

@@ -9,6 +9,7 @@
 @import './components/controls.css';
 @import './components/overlays.css';
 @import './components/wallet.css';
+@import './components/support.css';
 
 /* Pages. */
 @import './pages/game.css';

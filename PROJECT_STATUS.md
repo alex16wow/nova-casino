@@ -2,7 +2,7 @@
 
 Память о ходе разработки. Обновляется после каждого крупного этапа.
 
-_Последнее обновление: 24.10.2026 — страница Recently Played (`/recently-played`) и полка «Continue Playing» на Lobby. Ранее — страница Favorites и общее избранное (sessionStorage), фавикон сайта (`public/favicon.*`, `apple-touch-icon.png`). Ранее — страницы категорий и провайдеров (Lobby, Top/New/Live/Table Games, Roulette, Game Shows, /providers/:provider). Ранее — страница игры (`/game/:slug`) с демо Gates of Olympus, States по страницам. Ранее — главная утверждена и выложена: состояния, модалки аккаунта, пополнение, 404, панель States._
+_Последнее обновление: 24.10.2026 — виджет поддержки (Support в боковом меню). Ранее — страница Recently Played (`/recently-played`) и полка «Continue Playing» на Lobby. Ранее — страница Favorites и общее избранное (sessionStorage), фавикон сайта (`public/favicon.*`, `apple-touch-icon.png`). Ранее — страницы категорий и провайдеров (Lobby, Top/New/Live/Table Games, Roulette, Game Shows, /providers/:provider). Ранее — страница игры (`/game/:slug`) с демо Gates of Olympus, States по страницам. Ранее — главная утверждена и выложена: состояния, модалки аккаунта, пополнение, 404, панель States._
 
 ## Стек
 
@@ -21,7 +21,8 @@ _Последнее обновление: 24.10.2026 — страница Recent
 | Избранное | `/favorites` | Готова (прототип): заголовок с сердечком, Clear All с подтверждением, сетка каталога, пустое состояние с Explore Games |
 | Recently Played | `/recently-played` | Готова (прототип): заголовок с часами, Clear History с подтверждением, сетка каталога, пусто → All Games, гость → Log In |
 | 404 | любой неизвестный адрес | Готова |
-| Остальные (Promotions, Tournaments, VIP, Support, профиль…) | — | Не начаты. Их ссылки в меню пока ничего не делают |
+| Виджет поддержки | Support в боковом меню (панель поверх любой страницы) | Готов (прототип): Home, Messages (демо-диалог), Help (категории, поиск, статьи) |
+| Остальные (Promotions, Tournaments, VIP, профиль…) | — | Не начаты. Их ссылки в меню пока ничего не делают |
 
 ## Компоненты
 
@@ -40,6 +41,8 @@ _Последнее обновление: 24.10.2026 — страница Recent
 Избранное (`src/pages/favorites`): `FavoritesPage` — сетка `.nv-catalog-grid` без полосы категорий, `StateMessage` для пустого состояния, `Modal` (размер `confirm` — компактный и на телефоне) для Clear All. Стили — `src/styles/pages/favorites.css`.
 
 Recently Played (`src/pages/recent`): `RecentPage` — разметка и стили Favorites (`.nv-favorites`) плюс `src/styles/pages/recent.css` (значок-часы `.nv-title-glyph`, одна строка полки на телефоне). `SectionTitle`/`SectionHead` принимают `glyph` — иконку бокового меню вместо картинки.
+
+Поддержка (`src/components/support`): `SupportWidget` (оболочка: справа снизу 380×640 на десктопе и планшете — над нижней панелью; на телефоне на весь видимый экран с учётом клавиатуры и safe area, страница под ней не прокручивается, кнопка States скрыта), `SupportNav` (Home / Messages / Help), `SupportHome` (шапка в 3 слоя: `support-hero-bg/character/shading.webp`), `SupportMessages` (пусто / карточка диалога, `SupportChat` — демо-переписка с одним автоответом), `SupportHelp` (поиск, категории, `SupportCategory`), `SupportArticle` (связанные статьи, оценка), `SupportFrame` (шапка, закрытие, прокрутка с запоминанием позиции). Состояние — `SupportContext` (`sessionStorage`: `nova-support`, `nova-support-scroll`): история экранов по вкладкам, запрос поиска, переписка, черновик, оценки. Тексты — `src/data/support.js` (4 категории × 2 статьи). Стили — `src/styles/components/support.css`. Support — кнопка (`#supportToggle`), повторное нажатие закрывает; Support в футере тоже открывает панель; Escape закрывает, фокус возвращается на кнопку, открывшую панель (если она скрыта — на бургер).
 
 Общие (`src/components/ui`): `CategoryNav` — полоса категорий главной и страниц категорий.
 

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useSupport } from '../../context/SupportContext.jsx';
 import { livePages, pageHref, sidebarGroups, supportLink } from '../../data/navigation.js';
 import { NavIcon } from '../ui/icons.jsx';
 
@@ -23,6 +24,17 @@ function NavLink({ link }) {
       <NavIcon name={link.icon} />
       {link.wrap ? <span>{link.label}</span> : link.label}
     </a>
+  );
+}
+
+// Support opens the floating support panel instead of a page; pressing it again closes the panel.
+function SupportButton({ link }) {
+  const { open, toggle } = useSupport();
+  return (
+    <button type="button" className={`nav-link nav-link--button${open ? ' active' : ''}`} id="supportToggle" aria-expanded={open} aria-controls="supportPanel" onClick={toggle}>
+      <NavIcon name={link.icon} />
+      <span>{link.label}</span>
+    </button>
   );
 }
 
@@ -50,7 +62,7 @@ export default function Sidebar({ touch, open, setOpen }) {
       className={`sidebar${touch && open ? ' is-mobile-open' : ''}`}
       id="sidebar"
       aria-hidden={touch ? String(!open) : undefined}
-      onClick={(e) => { if (touch && e.target.closest('a')) setOpen(false); }}
+      onClick={(e) => { if (touch && e.target.closest('a, button')) setOpen(false); }}
       onPointerDown={(e) => start(e.clientX, e.clientY, e.pointerId)}
       onPointerUp={(e) => end(e.clientX, e.clientY, e.pointerId)}
       onPointerCancel={() => { swipe.current = null; }}
@@ -62,7 +74,7 @@ export default function Sidebar({ touch, open, setOpen }) {
           {group.links.map((link) => <NavLink key={link.page} link={link} />)}
         </nav>
       ))}
-      <NavLink link={supportLink} />
+      <SupportButton link={supportLink} />
       <div className="sidebar-note"><b>Play brighter. Play <span>responsibly.</span></b>Set a limit and keep every session in balance.</div>
     </aside>
   );

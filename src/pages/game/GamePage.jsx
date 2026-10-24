@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Button from '../../components/ui/Button.jsx';
 import { SkeletonLine } from '../../components/ui/Skeleton.jsx';
@@ -6,7 +6,6 @@ import StateMessage from '../../components/ui/StateMessage.jsx';
 import { Heart } from '../../components/ui/icons.jsx';
 import { useAccountAction, useAuth } from '../../context/AuthContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
-import { useToast } from '../../context/ToastContext.jsx';
 import { categoryKeywords, shelves } from '../../data/games.js';
 import { useBreakpoint } from '../../hooks/useMediaQuery.js';
 import { asset } from '../../lib/asset.js';
@@ -83,16 +82,16 @@ export default function GamePage() {
 function GameFrame({ game }) {
   const frame = useRef(null);
   const fullscreen = useFullscreen(frame);
-  const { favorites, toggleFavorite, openDeposit } = usePlayer();
-  const toast = useToast();
+  const { isFavorite, toggleFavorite, openDeposit } = usePlayer();
   const gate = useAccountAction();
   const { isGuest } = useAuth();
-  const saved = favorites.has(game.name);
+  const saved = isFavorite(game.name);
+  const note = useFavoriteNote();
 
   // Dialogs render outside the frame, so native fullscreen is left before one opens.
   const leaveNative = () => document.fullscreenElement && document.exitFullscreen();
   const deposit = gate(() => { leaveNative(); openDeposit(); }, 'register');
-  const favorite = gate(() => toast(toggleFavorite(game.name) ? 'Added to favorites' : 'Removed from favorites'), 'login');
+  const favorite = gate(() => note.show(toggleFavorite(game.name) ? 'Added to Favorites' : 'Removed from Favorites'), 'login');
 
   const cls = ['nv-game', fullscreen.active && 'is-fullscreen', fullscreen.pinned && 'is-pinned'].filter(Boolean).join(' ');
   return (
@@ -106,9 +105,12 @@ function GameFrame({ game }) {
           </div>
         </div>
         <div className="nv-game-actions">
-          <button type="button" className={`nv-icon-btn${saved ? ' is-saved' : ''}`} aria-label={saved ? 'Remove from favorites' : 'Add to favorites'} aria-pressed={saved} onClick={(e) => { leaveNative(); favorite(e); }}>
-            <Heart />
-          </button>
+          <span className="nv-fav-anchor">
+            <button type="button" className={`nv-icon-btn${saved ? ' is-saved' : ''}`} aria-label={saved ? 'Remove from favorites' : 'Add to favorites'} aria-pressed={saved} onClick={(e) => { if (isGuest) leaveNative(); favorite(e); }}>
+              <Heart />
+            </button>
+            <span className={`nv-fav-note${note.visible ? ' is-shown' : ''}`} role="status" aria-live="polite">{note.text}</span>
+          </span>
           <button type="button" className="nv-icon-btn" aria-label={fullscreen.active ? 'Exit fullscreen' : 'Fullscreen'} onClick={fullscreen.toggle}>
             {fullscreen.active ? <Collapse /> : <Expand />}
           </button>
@@ -118,4 +120,19 @@ function GameFrame({ game }) {
       <GameStage game={game} />
     </section>
   );
+}
+
+// Small note under the heart button that hides itself after 2.5 s. Lives inside the frame, so it shows in fullscreen too.
+function useFavoriteNote() {
+  const [note, setNote] = useState({ text: '', visible: false });
+  const timer = useRef();
+  useEffect(() => () => clearTimeout(timer.current), []);
+  return {
+    ...note,
+    show(text) {
+      setNote({ text, visible: true });
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => setNote((n) => ({ ...n, visible: false })), 2500);
+    },
+  };
 }

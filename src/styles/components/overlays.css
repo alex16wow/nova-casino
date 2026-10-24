@@ -31,6 +31,10 @@ html.modal-open { overflow: hidden; }
   animation: nv-rise .26s var(--ease-out);
 }
 .nv-modal--sm { max-width: 380px; }
+/* Short yes/no question: stays a compact card on phones too. */
+.nv-modal--confirm { max-width: 400px; padding: var(--space-6); }
+.nv-modal--confirm .nv-modal-head { margin-bottom: var(--space-5); }
+.nv-modal--confirm .nv-modal-head h2 { font-size: 20px; }
 .nv-modal-head { margin: 0 32px var(--space-6) 0; }
 .nv-modal-head h2 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -.02em; color: #fff; }
 .nv-modal-head p { margin: var(--space-2) 0 0; font-size: var(--font-size-md); line-height: 1.45; color: var(--color-text-muted); }
@@ -67,6 +71,9 @@ html.modal-open { overflow: hidden; }
   }
   .nv-modal-close { top: 16px; right: 16px; }
   .nv-modal-head { margin-right: 0; }
+  .nv-modal-backdrop:has(.nv-modal--confirm) { padding: var(--space-4); place-items: center; }
+  .nv-modal--confirm { min-height: 0; padding: var(--space-5); border: 1px solid #5b3ea8; border-radius: var(--radius-lg); }
+  .nv-modal--confirm .nv-modal-head { margin-right: 36px; }
 }
 
 /* ---------- Auth forms ---------- */

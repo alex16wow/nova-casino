@@ -1,0 +1,20 @@
+/* Favorites page (/favorites). Reuses the catalog head and grid; only the heart badge is its own. */
+
+.nv-favorites .nv-catalog-head { min-height: 48px; }
+/* Outline heart from the sidebar, with the same glow, at the size of the category title icons. */
+.section-title-with-icon .nv-favorites-icon { display: grid; place-items: center; }
+.nv-favorites-icon svg { display: block; width: 80%; height: 80%; stroke-width: 1.6; color: #e4ceff; filter: drop-shadow(0 0 7px #ab54ff); }
+.nv-favorites .nv-catalog-head > .nv-btn { margin-left: auto; }
+/* Empty state: full-width centred column — title, short text, button. No icon. */
+.nv-favorites .nv-state { flex-direction: column; justify-content: center; gap: var(--space-4); min-height: 260px; padding: var(--space-10, 40px) var(--space-6); text-align: center; }
+.nv-favorites .nv-state-icon { display: none; }
+.nv-favorites .nv-state-copy { flex: none; max-width: 440px; }
+.nv-favorites .nv-state-copy strong { font-size: 20px; }
+.nv-favorites .nv-state-copy p { margin-top: var(--space-2); font-size: var(--font-size-sm); }
+.nv-favorites .nv-state > .nv-btn { min-width: 160px; }
+
+@media (max-width: 680px) {
+  .nv-favorites .nv-catalog-head { min-height: 36px; }
+  .nv-favorites .nv-state { min-height: 220px; padding: var(--space-8) var(--space-5); }
+  .nv-favorites .nv-state > .nv-btn { width: auto; }
+}

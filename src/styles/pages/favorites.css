@@ -12,9 +12,16 @@
 }
 .nv-favorites-icon svg { display: block; width: 55%; height: 55%; fill: currentColor; }
 .nv-favorites .nv-catalog-head > .nv-btn { margin-left: auto; }
-.nv-favorites .nv-state { max-width: 640px; }
-.nv-state--favorites .nv-state-icon { background: #ff62bd1c; color: #ff8fd0; }
+/* Empty state: full-width centred column — title, short text, button. No icon. */
+.nv-favorites .nv-state { flex-direction: column; justify-content: center; gap: var(--space-4); min-height: 260px; padding: var(--space-10, 40px) var(--space-6); text-align: center; }
+.nv-favorites .nv-state-icon { display: none; }
+.nv-favorites .nv-state-copy { flex: none; max-width: 440px; }
+.nv-favorites .nv-state-copy strong { font-size: 20px; }
+.nv-favorites .nv-state-copy p { margin-top: var(--space-2); font-size: var(--font-size-sm); }
+.nv-favorites .nv-state > .nv-btn { min-width: 160px; }
 
 @media (max-width: 680px) {
   .nv-favorites .nv-catalog-head { min-height: 36px; }
+  .nv-favorites .nv-state { min-height: 220px; padding: var(--space-8) var(--space-5); }
+  .nv-favorites .nv-state > .nv-btn { width: auto; }
 }

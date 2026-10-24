@@ -36,7 +36,7 @@ export default function FavoritesPage() {
           </div>
         ) : (
           <StateMessage
-            kind="favorites"
+            kind="empty"
             title="No Favorites Yet"
             text="You haven’t added any games to your favorites. Click the heart icon on any game to save it here."
             action="Explore Games"

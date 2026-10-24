@@ -1,0 +1,205 @@
+/* Promotions, Tournaments and Loyalty Club. Banners reuse the lobby hero (.hero) via HeroBanner. Built on tokens.css. */
+
+.nv-promos, .nv-tournaments, .nv-loyalty { display: grid; gap: var(--space-5); padding-bottom: var(--space-8); }
+.nv-promos > *, .nv-tournaments > *, .nv-loyalty > * { min-width: 0; }
+.nv-page-filters { margin-top: calc(-1 * var(--space-2)); }
+.nv-page-filters .nv-chip { min-width: 84px; justify-content: center; }
+.nv-hero-banner .hero-slide--layered .hero-scene { animation: none; width: 100%; height: 100%; }
+.nv-hero-banner .hero-character, .nv-hero-banner .hero-glow, .nv-hero-banner .hero-gifts { animation: none; }
+.nv-hero-banner.hero { height: 300px; flex-shrink: 0; }
+.nv-tour-board td { height: auto; line-height: 1.2; }
+.nv-hero-banner h1 { font-size: clamp(24px, 2.6vw, 40px); }
+.nv-promo-subtitle { margin: var(--space-2) 0 0; font-size: 20px; font-weight: 760; }
+.nv-link-btn { padding: 0; border: 0; background: none; color: #e5a8ff; font-size: var(--font-size-sm); text-decoration: underline; cursor: pointer; }
+.nv-link-btn:hover { color: #fff; }
+
+/* Promotions grid */
+.nv-promo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+.nv-promo-card { display: grid; overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--gradient-surface); transition: border-color .2s, box-shadow .2s; }
+.nv-promo-card:hover { border-color: var(--color-line-strong); box-shadow: var(--shadow-hover-glow); }
+.nv-promo-card-art.hero { height: 170px; border: 0; border-radius: 0; }
+.nv-promo-card-art .hero-copy { display: none; }
+.nv-promo-card-body { display: grid; gap: 6px; padding: var(--space-4); }
+.nv-promo-card-body h2 { margin: 0; font-size: 17px; }
+.nv-promo-card-body p { margin: 0 0 var(--space-2); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.nv-promo-card-body .nv-btn { justify-self: start; }
+
+/* Promotion details */
+.nv-back-link { order: -2; }
+.nv-back-link { justify-self: start; padding: 0; border: 0; background: none; color: var(--color-text-muted); font-size: var(--font-size-sm); cursor: pointer; }
+.nv-back-link:hover { color: #fff; }
+.nv-promo-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+.nv-promo-steps li { display: grid; grid-template-columns: auto 1fr; gap: 4px var(--space-3); align-items: center; }
+.nv-promo-steps p { grid-column: 1 / -1; margin: 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.nv-step-num { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--gradient-primary); font-weight: 800; box-shadow: var(--shadow-primary); }
+.nv-promo-about h3, .nv-promo-terms h3 { margin: 0 0 var(--space-2); font-size: 16px; }
+.nv-promo-about p { margin: 0; color: var(--color-text-muted); }
+.nv-promo-terms ul, .nv-tour-terms { margin: 0 0 var(--space-3); padding-left: 18px; color: var(--color-text-muted); font-size: var(--font-size-sm); line-height: 1.7; }
+
+/* Tournaments */
+.nv-tour-list { display: grid; gap: var(--space-4); }
+.nv-tour { overflow: hidden; border: 1px solid var(--color-banner-outline); border-radius: var(--radius-lg); background: var(--gradient-surface); }
+.nv-tour-art.hero { height: 240px; border: 0; border-radius: 0; }
+.nv-tour-facts { line-height: 1.8; }
+.nv-tour-facts b { color: var(--color-warning); font-variant-numeric: tabular-nums; }
+.nv-tour-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 12px var(--space-4); border: 0; border-top: 1px solid var(--color-line); background: #12112c; color: #fff; font-weight: 700; cursor: pointer; }
+.nv-tour-toggle span { font-size: 10px; color: var(--color-text-muted); }
+.nv-tour-toggle:hover { background: #1a1640; }
+.nv-tour-details { display: grid; gap: var(--space-3); padding: var(--space-4); }
+.nv-tour-meta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); }
+.nv-tour-meta > div { display: grid; gap: 4px; justify-items: start; }
+.nv-tour-details h3 { margin: var(--space-2) 0 0; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; text-align: center; }
+.nv-tour-board, .nv-levels { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: var(--font-size-sm); font-variant-numeric: tabular-nums; }
+.nv-tour-board th, .nv-levels th { padding: 4px 12px; color: var(--color-text-subtle); font-size: 12px; font-weight: 600; text-align: left; }
+.nv-tour-board td, .nv-levels td { padding: 10px 12px; background: var(--color-surface-raised); }
+.nv-tour-board td:first-child, .nv-levels td:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.nv-tour-board td:last-child, .nv-levels td:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.nv-tour-board th:nth-child(n+3), .nv-tour-board td:nth-child(n+3) { text-align: right; }
+.nv-tour-board td:last-child { color: var(--color-warning); font-weight: 700; }
+.nv-place { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; font-weight: 800; font-size: 12px; }
+.nv-place--1 { background: linear-gradient(135deg, #fff2a8, #e0a020); color: #3a2400; }
+.nv-place--2 { background: linear-gradient(135deg, #fff, #9aa6c8); color: #1c2140; }
+.nv-place--3 { background: linear-gradient(135deg, #ffcf9e, #b5642a); color: #3a1a05; }
+
+/* Loyalty Club */
+.nv-loyalty-hero.hero { height: 260px; }
+.nv-status-row { display: grid; grid-template-columns: repeat(5, minmax(150px, 1fr)); gap: var(--space-3); }
+.nv-status { display: grid; justify-items: center; gap: 4px; padding: var(--space-4) var(--space-3); border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--gradient-surface); text-align: center; }
+.nv-status strong { font-size: 16px; letter-spacing: .04em; text-transform: uppercase; }
+.nv-status span { font-size: 12px; color: var(--color-cyan); }
+.nv-status-badge { width: 84px; height: 84px; margin-bottom: var(--space-2); }
+.nv-levels td:first-child { font-weight: 700; }
+.nv-levels-nav { display: flex; justify-content: center; align-items: center; gap: var(--space-4); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.nv-faq-list { display: grid; gap: var(--space-2); }
+.nv-faq-item { padding: 0; }
+.nv-faq-item button { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); width: 100%; padding: 14px var(--space-4); border: 0; background: none; color: #fff; font-weight: 650; text-align: left; cursor: pointer; }
+.nv-faq-item button span { font-size: 10px; color: var(--color-text-muted); transition: transform .2s; }
+.nv-faq-item.is-open button span { transform: rotate(180deg); }
+.nv-faq-item p { margin: 0; padding: 0 var(--space-4) 14px; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+
+@media (max-width: 1279px) {
+  .nv-promo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 680px) {
+  .nv-promo-grid, .nv-promo-steps { grid-template-columns: 1fr; }
+  .nv-promo-card-art.hero { height: 150px; }
+  .nv-tour-art.hero, .nv-loyalty-hero.hero, .nv-promo-hero.hero { height: 230px; }
+  .nv-status-row { display: flex; overflow-x: auto; margin: 0 -12px; padding: 0 12px 6px; scroll-snap-type: x mandatory; }
+  .nv-status { flex: 0 0 140px; scroll-snap-align: start; }
+  .nv-tour-meta { flex-wrap: wrap; }
+  .nv-tour-board th, .nv-tour-board td, .nv-levels th, .nv-levels td { padding: 8px; }
+}
+
+/* ---- Polish ---- */
+.nv-promos .nv-catalog-head, .nv-tournaments .nv-catalog-head { margin-bottom: 0; }
+.nv-page-filters { margin-top: calc(-1 * var(--space-1)); }
+.nv-page-filters .nv-chip { min-width: 0; padding: 0 18px; }
+
+/* Banners: clipped to the frame, a left scrim keeps copy readable over any art. */
+.nv-hero-banner.hero { overflow: hidden; }
+.nv-hero-banner .hero-slide { overflow: hidden; }
+.nv-hero-banner .hero-art-frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #070920e6 0%, #07092099 38%, transparent 70%); pointer-events: none; }
+.nv-hero-banner .hero-copy { max-width: 52%; }
+.nv-hero-banner .hero-copy p { margin-bottom: 18px; }
+.nv-hero-banner .hero-copy p:last-child { margin-bottom: 0; }
+.nv-hero-banner .hero-cta { width: auto; min-width: 180px; height: 46px; padding: 0 28px; }
+
+/* Promo cards */
+.nv-promo-card { position: relative; grid-template-rows: auto 1fr; }
+.nv-promo-card-art.hero { height: 180px; border-bottom: 1px solid var(--color-line); }
+.nv-promo-card-art .hero-art-frame::after { background: linear-gradient(0deg, #0b1024cc, transparent 55%); }
+.nv-promo-tag { position: absolute; z-index: 4; top: 12px; left: 12px; padding: 4px 10px; border: 1px solid #ffffff2a; border-radius: var(--radius-pill); background: #0a0c22b3; backdrop-filter: blur(6px); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #e5c8ff; }
+.nv-promo-card-body { grid-template-rows: auto 1fr auto; gap: 4px; padding: var(--space-4) var(--space-4) var(--space-5); }
+.nv-promo-card-body p { margin: 0 0 var(--space-4); color: #e5a8ff; font-weight: 600; }
+
+/* Promo details */
+.nv-promo-steps li { align-content: start; padding: var(--space-5); }
+.nv-promo-steps strong { font-size: 16px; }
+.nv-promo-steps p { margin-top: 6px; }
+.nv-promo-about, .nv-promo-terms { padding: var(--space-5); }
+.nv-promo-about p { font-size: var(--font-size-sm); line-height: 1.6; }
+
+/* Tables (leaderboard, levels): override the lobby activity table defaults. */
+.nv-table-scroll { overflow-x: auto; }
+table.nv-tour-board, table.nv-levels { min-width: 0; table-layout: auto; border-collapse: separate; border-spacing: 0 6px; }
+table.nv-tour-board td, table.nv-levels td { height: 48px; padding: 0 16px; white-space: nowrap; background: var(--color-surface-raised); color: var(--color-text); }
+table.nv-tour-board th, table.nv-levels th { padding: 0 16px 2px; text-transform: uppercase; letter-spacing: .06em; font-size: 11px; }
+table.nv-tour-board th:first-child, table.nv-tour-board td:first-child { width: 56px; }
+table.nv-tour-board tbody tr:nth-child(-n+3) td { background: #1d1a42; }
+.nv-tour-details h3 { margin: var(--space-3) 0 -2px; font-size: 13px; text-align: left; color: var(--color-text-muted); }
+.nv-tour-details { padding: var(--space-5); gap: var(--space-2); }
+.nv-tour-meta strong { font-size: 16px; }
+.nv-tour-terms { margin: 0; padding: var(--space-3) var(--space-3) var(--space-3) 30px; border: 1px solid var(--color-line-muted); border-radius: var(--radius-md); background: var(--color-surface-sunken); }
+.nv-tour.is-open .nv-tour-toggle { background: #1a1640; }
+
+/* Levels */
+.nv-level-dot { display: inline-block; width: 8px; height: 8px; margin-right: 12px; border-radius: 50%; vertical-align: 1px; }
+.nv-levels-row--bronze .nv-level-dot { background: #e08a45; box-shadow: 0 0 8px #ff9a4d; }
+.nv-levels-row--silver .nv-level-dot { background: #cfd8ff; box-shadow: 0 0 8px #cfd8ff; }
+.nv-levels-row--gold .nv-level-dot { background: #ffd34d; box-shadow: 0 0 8px #ffd34d; }
+.nv-levels-row--platinum .nv-level-dot { background: #6ee7ff; box-shadow: 0 0 8px #6ee7ff; }
+.nv-levels-row--diamond .nv-level-dot { background: #ef43e7; box-shadow: 0 0 8px #ef43e7; }
+table.nv-levels td.nv-level-reward { color: #e5a8ff; font-weight: 650; }
+table.nv-levels th:last-child, table.nv-levels td:last-child { text-align: right; }
+.nv-levels-nav { margin-top: calc(-1 * var(--space-2)); }
+.nv-levels-nav span { min-width: 90px; text-align: center; }
+
+/* Statuses */
+.nv-status { padding: var(--space-5) var(--space-3); transition: transform .2s, border-color .2s, box-shadow .2s; }
+.nv-status:hover { transform: translateY(-3px); border-color: var(--color-line-strong); box-shadow: var(--shadow-hover-glow); }
+.nv-status span { font-weight: 600; }
+.nv-loyalty .nv-promo-subtitle { margin-top: var(--space-3); margin-bottom: calc(-1 * var(--space-1)); }
+
+/* FAQ */
+.nv-faq-item { transition: border-color .2s; }
+.nv-faq-item:hover, .nv-faq-item.is-open { border-color: var(--color-line-strong); }
+.nv-faq-item p { line-height: 1.6; }
+
+@media (max-width: 1279px) {
+  .nv-hero-banner .hero-copy { max-width: 60%; }
+}
+@media (max-width: 680px) {
+  .nv-page-filters { flex-wrap: nowrap; overflow-x: auto; margin: 0 -12px; padding: 0 12px; scrollbar-width: none; }
+  .nv-page-filters .nv-chip { flex: 0 0 auto; }
+  .nv-hero-banner.hero { height: 220px; }
+  .nv-hero-banner .hero-copy { left: 18px; max-width: 64%; }
+  .nv-hero-banner h1 { font-size: 24px; line-height: 1.05; }
+  .nv-hero-banner .eyebrow { font-size: 10px; margin-bottom: 8px; }
+  .nv-hero-banner .hero-copy p { font-size: 11px; margin-bottom: 14px; }
+  .nv-hero-banner .hero-cta { min-width: 0; height: 40px; padding: 0 20px; font-size: 13px; }
+  .nv-hero-banner .hero-character { right: -30%; }
+  .nv-hero-banner .hero-art-frame::after { background: linear-gradient(90deg, #070920f0 0%, #070920b0 50%, #07092033 100%); }
+  .nv-promo-card-art.hero { height: 160px; }
+  .nv-tour-details { padding: var(--space-4); }
+  .nv-tour-meta .nv-btn { width: 100%; }
+  table.nv-tour-board td, table.nv-levels td { height: 44px; padding: 0 10px; font-size: 13px; }
+  table.nv-tour-board th, table.nv-levels th { padding: 0 10px 2px; }
+  table.nv-tour-board th:first-child, table.nv-tour-board td:first-child { width: 40px; }
+  .nv-level-dot { margin-right: 8px; }
+}
+
+/* Nova design on page banners: no gift boxes; character moved left and centred over a smaller glow. */
+.nv-hero-banner .hero-slide--nova .hero-character { right: 10%; }
+.nv-hero-banner .hero-slide--nova .hero-glow { width: 24%; right: 11%; }
+@media (max-width: 1279px) {
+  .nv-hero-banner .hero-slide--nova .hero-character { right: 0; }
+  .nv-hero-banner .hero-slide--nova .hero-glow { width: 44%; right: 0; }
+}
+@media (max-width: 680px) {
+  .nv-hero-banner .hero-slide--nova .hero-character { right: -22%; }
+  .nv-hero-banner .hero-slide--nova .hero-glow { width: 70%; right: -22%; }
+}
+
+/* Chase and Limits designs: same treatment as Nova. */
+.nv-hero-banner .hero-slide--chase .hero-character { right: 8%; -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 99%); mask-image: linear-gradient(90deg, #000 78%, transparent 99%); }
+.nv-hero-banner .hero-slide--chase .hero-glow { width: 38%; right: 0; }
+.nv-hero-banner .hero-slide--limits .hero-character { right: 10%; }
+.nv-hero-banner .hero-slide--limits .hero-glow { width: 24%; right: 11%; }
+@media (max-width: 1279px) {
+  .nv-hero-banner .hero-slide--chase .hero-character, .nv-hero-banner .hero-slide--limits .hero-character { right: 0; }
+  .nv-hero-banner .hero-slide--chase .hero-glow, .nv-hero-banner .hero-slide--limits .hero-glow { width: 44%; right: 0; }
+}
+@media (max-width: 680px) {
+  .nv-hero-banner .hero-slide--chase .hero-character, .nv-hero-banner .hero-slide--limits .hero-character { right: -22%; }
+  .nv-hero-banner .hero-slide--chase .hero-glow, .nv-hero-banner .hero-slide--limits .hero-glow { width: 70%; right: -22%; }
+}

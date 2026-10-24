@@ -54,5 +54,5 @@ export const paymentMethods = ['VISA', 'Mastercard', 'Skrill', 'NETELLER', 'Cryp
 export const socialLinks = ['Discord', 'Telegram', 'X', 'YouTube'];
 
 // Pages that exist. Other nav slugs keep a placeholder address and do nothing on click.
-export const livePages = new Set(['lobby', 'top-games', 'new-games', 'live-games', 'table-games', 'roulette', 'game-shows', 'favorites', 'recently-played']);
+export const livePages = new Set(['lobby', 'top-games', 'new-games', 'live-games', 'table-games', 'roulette', 'game-shows', 'favorites', 'recently-played', 'promotions', 'tournaments', 'vip']);
 export const pageHref = (page) => (livePages.has(page) ? `/${page}` : `pages/${page}.html`);

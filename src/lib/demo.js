@@ -5,8 +5,8 @@ import { readJSON, writeJSON } from './storage.js';
 const KEY = 'nova-demo';
 const defaults = { network: 'normal' };
 
-export const demoEnabled = () =>
-  import.meta.env.VITE_DEMO_PANEL === '1' || new URLSearchParams(location.search).has('demo') || readJSON(KEY, defaults).panel === true;
+// The site is an interactive prototype, so the States panel is always shown. Build with VITE_DEMO_PANEL=0 to hide it.
+export const demoEnabled = () => import.meta.env.VITE_DEMO_PANEL !== '0';
 
 export const getDemo = () => ({ ...defaults, ...readJSON(KEY, defaults) });
 export const setDemo = (patch) => writeJSON(KEY, { ...getDemo(), ...patch });

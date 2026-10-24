@@ -28,7 +28,7 @@ src/
     header/           search, wallet, notifications, level rewards, profile menu
     ui/               reusable pieces: GameCard, Modal, Button, fields, StateMessage, Skeleton, icons
     auth/             login, sign-up, password reset and logout dialogs
-    demo/             States switcher (prototype only)
+    demo/             States switcher (shown on every page)
   pages/home/         lobby sections
   pages/not-found/    404
   context/            ToastContext, AuthContext (session, dialogs), PlayerContext (wallet, notifications, rewards, favorites)
@@ -44,7 +44,7 @@ docs/                 design references
 
 ## States demo
 
-Add `?demo` to the URL (or build with `VITE_DEMO_PANEL=1`) to show the **States** switcher: guest / signed in, data mode (normal, slow, error, empty) and the account dialogs. Test values: password `wrongpass` fails login, email `taken@nova.casino` is already registered.
+The **States** button (bottom left) is part of the prototype and is always shown (build with `VITE_DEMO_PANEL=0` to hide it). It switches guest / signed in, data mode (normal, slow, error, empty) and the account dialogs. Every new page adds its own states to this panel. Test values: password `wrongpass` fails login, email `taken@nova.casino` is already registered, card `4000 0000 0000 0002` is declined.
 
 ## Adding a page
 

@@ -18,7 +18,7 @@ export default function SupportHome({ screenKey }) {
           <img className="nv-support-hero-layer" src={asset('support-hero-shading.webp')} alt="" />
           <span className="nv-support-avatar" aria-hidden="true"><AgentIcon /></span>
           <h2 className="nv-support-hero-title" id="nv-support-title">
-            <span>Hi there 👋</span>
+            <span>Hi there!</span>
             How can we help?
           </h2>
         </div>

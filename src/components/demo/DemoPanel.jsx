@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
+import { useProfile } from '../../context/ProfileContext.jsx';
 import { categoryPage, providerPage } from '../../data/catalog.js';
 import { gameSets } from '../../data/games.js';
+import { verificationStatus } from '../../data/profile.js';
 import { demoEnabled, getDemo, setDemo } from '../../lib/demo.js';
 
 const networkModes = [
@@ -45,6 +47,7 @@ export default function DemoPanel() {
   const onCatalog = isCatalog(pathname);
   const onFavorites = pathname === '/favorites';
   const onRecent = pathname === '/recently-played';
+  const onProfile = pathname === '/account/profile';
 
   // Read on every render: picks reset when the address changes.
   const { network } = getDemo();
@@ -70,6 +73,8 @@ export default function DemoPanel() {
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
           {onGame ? (
             <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
+          ) : onProfile ? (
+            <ProfileStates network={network} chooseNetwork={chooseNetwork}>{account}</ProfileStates>
           ) : onRecent ? (
             <RecentStates>{account}</RecentStates>
           ) : onFavorites ? (
@@ -177,6 +182,37 @@ function RecentStates({ children }) {
       <div className="nv-demo-options">
         <button type="button" aria-pressed={filled} onClick={fill}>With games</button>
         <button type="button" aria-pressed={!filled} onClick={clearRecent}>Empty</button>
+      </div>
+    </>
+  );
+}
+
+// My profile: loading of the page and the real verification status (no separate demo data).
+const profileDataModes = [
+  ['normal', 'Normal'],
+  ['slow', 'Slow (3s)'],
+  ['error', 'Error'],
+];
+function ProfileStates({ network, chooseNetwork, children }) {
+  const { profile, setVerification, resetProfile } = useProfile();
+  return (
+    <>
+      {children}
+      <p className="nv-demo-title">Profile data</p>
+      <div className="nv-demo-options">
+        {profileDataModes.map(([mode, label]) => (
+          <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{label}</button>
+        ))}
+      </div>
+      <p className="nv-demo-title">Verification</p>
+      <div className="nv-demo-options">
+        {Object.entries(verificationStatus).map(([id, { label }]) => (
+          <button key={id} type="button" aria-pressed={profile.verification === id} onClick={() => setVerification(id)}>{label}</button>
+        ))}
+      </div>
+      <p className="nv-demo-title">Demo profile</p>
+      <div className="nv-demo-options">
+        <button type="button" onClick={resetProfile}>Reset to defaults</button>
       </div>
     </>
   );

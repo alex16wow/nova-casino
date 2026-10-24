@@ -107,8 +107,10 @@
 .nv-field-control:has(.nv-field-toggle) input,
 .nv-field-control:has(.nv-field-valid) input { padding-right: 48px; }
 
-.nv-field.is-error input { border-color: var(--color-danger); }
-.nv-field.is-error input:focus { box-shadow: 0 0 0 3px #ff5c7a33; }
+.nv-field.is-error input,
+.nv-field.is-error select { border-color: var(--color-danger); }
+.nv-field.is-error input:focus,
+.nv-field.is-error select:focus { box-shadow: 0 0 0 3px #ff5c7a33; }
 .nv-field.is-valid input { border-color: #2fae86; }
 
 .nv-field-select::after {

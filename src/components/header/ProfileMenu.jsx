@@ -1,16 +1,20 @@
 import { useRef } from 'react';
 import { flushSync } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { profileMenu } from '../../data/account.js';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useProfile } from '../../context/ProfileContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
 import { useDismiss } from '../../hooks/useDismiss.js';
-import { asset } from '../../lib/asset.js';
+import Avatar from '../ui/Avatar.jsx';
 import { MenuIcon } from '../ui/icons.jsx';
 
 // Avatar button with the account menu.
 export default function ProfileMenu({ open, setOpen }) {
   const toast = useToast();
   const { openAuth } = useAuth();
+  const { profile } = useProfile();
+  const navigate = useNavigate();
   const toggle = useRef(null), menu = useRef(null);
   const items = () => [...menu.current.querySelectorAll('[role="menuitem"]')];
 
@@ -32,13 +36,14 @@ export default function ProfileMenu({ open, setOpen }) {
     setOpen(false);
     toggle.current.focus();
     if (item.signout) openAuth('logout');
+    else if (item.live) navigate(item.to);
     else toast(`${item.label}: coming soon`);
   };
 
   return (
     <>
       <button ref={toggle} className="profile" id="profileToggle" aria-label="Account menu" aria-haspopup="menu" aria-expanded={open} aria-controls="profileMenu" onClick={() => setOpen(!open)} onKeyDown={onToggleKey}>
-        <img src={asset('user-avatar.webp')} alt="User avatar" width="74" height="74" />
+        <Avatar profile={profile} />
       </button>
       <div ref={menu} className="profile-menu" id="profileMenu" role="menu" aria-label="Account" hidden={!open} onKeyDown={onMenuKey}>
         {profileMenu.map((item) => (

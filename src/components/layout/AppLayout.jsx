@@ -7,6 +7,7 @@ import DemoPanel from '../demo/DemoPanel.jsx';
 import DepositModal from '../wallet/DepositModal.jsx';
 import AccountDock from './AccountDock.jsx';
 import AmbientVideo from './AmbientVideo.jsx';
+import SupportWidget from '../support/SupportWidget.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx';
@@ -78,6 +79,7 @@ export default function AppLayout() {
       <DrawerScrollIndicator open={drawerOpen} />
       <AuthModal />
       {!isGuest && <DepositModal />}
+      <SupportWidget />
       <DemoPanel />
     </>
   );

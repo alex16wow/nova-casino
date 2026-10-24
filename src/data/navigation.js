@@ -5,8 +5,8 @@ export const sidebarGroups = [
     label: 'Main navigation',
     className: 'lobby-group',
     links: [
-      { page: 'home', to: '/', label: 'Home', icon: 'home', wrap: true },
-      { page: 'lobby', label: 'Lobby', icon: 'lobby', wrap: true },
+      { page: 'home', to: '/', label: 'Lobby', icon: 'home', wrap: true },
+      { page: 'lobby', label: 'All Games', icon: 'lobby', wrap: true },
       { page: 'top-games', label: 'Top Games', icon: 'topGames' },
       { page: 'new-games', label: 'New Games', icon: 'newGames' },
       { page: 'live-games', label: 'Live Games', icon: 'liveGames' },
@@ -35,7 +35,7 @@ export const sidebarGroups = [
 export const supportLink = { page: 'support', label: 'Support', icon: 'support', wrap: true };
 
 export const mobileNav = [
-  { to: '/lobby', label: 'Lobby', icon: 'dockLobby' },
+  { to: '/', label: 'Lobby', icon: 'dockLobby' },
   { to: '/top-games', label: 'Top games', icon: 'dockTop' },
   { to: '/live-games', label: 'Live', icon: 'dockLive' },
   { to: '/favorites', label: 'Favorites', icon: 'dockFavorites' },

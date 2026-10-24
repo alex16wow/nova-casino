@@ -165,7 +165,7 @@
   user-select: none;
 }
 /* The character: fixed size, anchored right, waving hand above the greeting. Wider phones only add room on the left. */
-.nv-support-hero-character { inset: calc(var(--support-safe-top, 0px) - 21px) -136px auto auto; width: 465px; height: auto; object-fit: initial; }
+.nv-support-hero-character { inset: calc(var(--support-safe-top, 0px) + 18px) -102px auto auto; width: 349px; height: auto; object-fit: initial; }
 /* Readability: darken behind the text and blend the bottom edge into the panel. */
 .nv-support-hero::after {
   content: "";

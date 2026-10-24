@@ -32,8 +32,8 @@ export default function GamePage() {
     return (
       <section className="nv-page-message" aria-labelledby="gameMissingTitle">
         <h1 id="gameMissingTitle">Game not found</h1>
-        <p>This game is no longer available or the link is broken. Pick another one in the lobby.</p>
-        <Link className="nv-btn nv-btn--primary nv-btn--lg" to="/"><span className="nv-btn-label">Back to lobby</span></Link>
+        <p>This game is no longer available or the link is broken. Pick another one on the main page.</p>
+        <Link className="nv-btn nv-btn--primary nv-btn--lg" to="/"><span className="nv-btn-label">Back to Main Page</span></Link>
       </section>
     );
   }
@@ -45,7 +45,7 @@ export default function GamePage() {
   return (
     <div className="nv-game-page">
       <nav className="nv-crumbs" aria-label="Breadcrumbs">
-        <Link to="/" className="nv-crumbs-back"><Back />Lobby</Link>
+        <Link to="/" className="nv-crumbs-back"><Back />Home</Link>
         <span aria-hidden="true">/</span>
         {game ? <><span>{categoryKeywords[kind][0]}</span><span aria-hidden="true">/</span><span aria-current="page">{game.name}</span></> : <SkeletonLine width="120px" />}
       </nav>

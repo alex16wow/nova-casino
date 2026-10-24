@@ -29,7 +29,7 @@ _Последнее обновление: 24.10.2026 — главная утве
 
 Переиспользуемые (`src/components/ui`): `GameCard`, `SectionHead`/`SectionTitle`, `RotatingStage`, `ScrollIndicator`, иконки `icons.jsx`, а также новые на токенах: `Modal`, `Button`, поля (`TextField`, `PasswordField`, `Checkbox`, `SelectField`), `StateMessage` (ошибка/пусто), `Skeleton`.
 
-Страница игры (`src/pages/game`): `GamePage` (крошки, панель с избранным / полным экраном / Deposit, детали, «You may also like» на `GameShelf`), `GameStage` (гость — вход/регистрация; загрузка; демо-клиент: баланс, ставка −/+, Spin списывает ставку и случайно платит выигрыш), `useFullscreen` (нативный полный экран, иначе фиксированный оверлей), `useGameData`. Стили — `src/styles/pages/game.css`.
+Страница игры (`src/pages/game`): `GamePage` (крошки «Home / категория / игра», панель с избранным / полным экраном / Deposit, детали, «You may also like» на `GameShelf`), `GameStage` (гость — вход/регистрация; загрузка; демо-клиент: баланс, ставка −/+, Spin списывает ставку и случайно платит выигрыш), `useFullscreen` (нативный полный экран, иначе фиксированный оверлей), `useGameData`. Стили — `src/styles/pages/game.css`.
 
 Главная (`src/pages/home`): `HeroSection`, `RightRail`, `GameShelf`, `PromoGrid`, `ProvidersTicker`, `ActivityTable`, `BonusBanner`, `FaqSection`.
 

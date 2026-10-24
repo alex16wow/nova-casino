@@ -12,7 +12,7 @@ export default function CurrencySelect({ open, setOpen, children }) {
   return (
     <div className="currency-wrap" ref={wrap}>
       <button className="balance" id="currencyToggle" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen(!open)}>
-        <span className="coin" id="currencyCoin">{currency.symbol}</span>
+        <span className={`coin coin--${currency.dot}`} id="currencyCoin">{currency.symbol}</span>
         <span className="currency-code" id="currencyCode">{currency.code}</span>
         <CurrencyChevron />
         <b id="currencyBalance">{currency.balance}</b>

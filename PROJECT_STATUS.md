@@ -2,7 +2,7 @@
 
 Память о ходе разработки. Обновляется после каждого крупного этапа.
 
-_Последнее обновление: 24.10.2026 — страница Favorites и общее избранное (sessionStorage). Ранее — страницы категорий и провайдеров (Lobby, Top/New/Live/Table Games, Roulette, Game Shows, /providers/:provider). Ранее — страница игры (`/game/:slug`) с демо Gates of Olympus, States по страницам. Ранее — главная утверждена и выложена: состояния, модалки аккаунта, пополнение, 404, панель States._
+_Последнее обновление: 24.10.2026 — страница Favorites и общее избранное (sessionStorage), фавикон сайта (`public/favicon.*`, `apple-touch-icon.png`). Ранее — страницы категорий и провайдеров (Lobby, Top/New/Live/Table Games, Roulette, Game Shows, /providers/:provider). Ранее — страница игры (`/game/:slug`) с демо Gates of Olympus, States по страницам. Ранее — главная утверждена и выложена: состояния, модалки аккаунта, пополнение, 404, панель States._
 
 ## Стек
 

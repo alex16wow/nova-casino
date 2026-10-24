@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { heroSlides } from '../../data/lobby.jsx';
+import { useSettings } from '../../context/SettingsContext.jsx';
 import { usePreviewAction } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
 import { preloadImages } from '../../lib/preload.js';
@@ -34,12 +35,13 @@ function HeroSlide({ slide, phase }) {
   );
 }
 
-// Auto-advancing banner. Every change slides the new banner in from the right.
+// Auto-advancing banner (paused with reduced motion). Every change slides the new banner in from the right.
 function useHeroCarousel() {
   const [stage, setStage] = useState([{ key: 0, index: 0, phase: 'current' }]);
   const [slide, setSlideIndex] = useState(0);
   const [cycle, setCycle] = useState(0);
   const s = useRef({ slide: 0, key: 0, transitioning: false });
+  const { reduceMotion } = useSettings();
 
   const go = useCallback((n) => {
     const st = s.current, next = (n + heroSlides.length) % heroSlides.length;
@@ -61,9 +63,10 @@ function useHeroCarousel() {
   }, []);
 
   useEffect(() => {
+    if (reduceMotion) return;
     const timer = setTimeout(() => go(s.current.slide + 1), SLIDE_MS);
     return () => clearTimeout(timer);
-  }, [cycle, go]);
+  }, [cycle, go, reduceMotion]);
 
   return { stage, slide, cycle, go };
 }

@@ -34,8 +34,9 @@ src/
   pages/profile/      My profile (/account/profile)
   pages/wallet/       Wallet (/account/wallet): balances, deposit, withdraw, transactions
   pages/bonuses/      Bonuses (/account/bonuses): active bonus, offers, promo code, history
+  pages/settings/     Settings (/account/settings): preferences, notifications, security, responsible gaming, account
   pages/not-found/    404
-  context/            ToastContext, AuthContext (session, dialogs), PlayerContext (wallet, notifications, rewards, favorites), ProfileContext (demo player profile)
+  context/            ToastContext, AuthContext (session, dialogs), PlayerContext (wallet, notifications, rewards, favorites), ProfileContext (demo player profile), SettingsContext (settings, play restrictions)
   lib/                fake API, storage, demo modes
   hooks/              breakpoints, popup dismissal, scroll indicators
   data/               sample content

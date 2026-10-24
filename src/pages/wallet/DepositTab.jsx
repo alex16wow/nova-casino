@@ -6,6 +6,8 @@ import { usePlayer } from '../../context/PlayerContext.jsx';
 import { depositBonusAmount, offers } from '../../data/bonuses.js';
 import { cryptoNetworks, demoAddress, depositRules, isCrypto, walletDepositMethods } from '../../data/wallet.js';
 import { processDeposit } from '../../lib/api.js';
+import RestrictionNotice from '../../components/account/RestrictionNotice.jsx';
+import useDepositGuard from '../../hooks/useDepositGuard.js';
 import { AmountField, ChipChoice, CopyButton, OptionCards, ResultScreen, money, parseAmount } from './parts.jsx';
 
 const cryptoCodes = Object.keys(cryptoNetworks);
@@ -37,9 +39,11 @@ export default function DepositTab({ onHistory }) {
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState(null);
   const attempt = useRef(null);
+  const { restriction, limitInfo, limitError } = useDepositGuard();
 
   const rules = depositRules[code];
-  const error = amountError(amount, code);
+  const error = amountError(amount, code) || limitError(code, parseAmount(amount));
+  const limit = limitInfo(code);
   const value = error ? 0 : parseAmount(amount);
   // Deposit bonus (see Bonuses): offered once, for its currencies, and only without another active money bonus.
   const offerOpen = !bonuses.some((b) => b.offerId === offer.id) && offer.currencies.includes(code);
@@ -89,6 +93,8 @@ export default function DepositTab({ onHistory }) {
   };
 
   const restart = () => { setStep('form'); setResult(null); setTried(false); attempt.current = null; };
+
+  if (restriction && step !== 'done') return <RestrictionNotice restriction={restriction} what="Deposits are" />;
 
   if (step === 'done') {
     const balance = currencies.find((c) => c.code === result.code);
@@ -185,7 +191,7 @@ export default function DepositTab({ onHistory }) {
         value={amount}
         onChange={setAmount}
         error={tried ? error : ''}
-        hint={`From ${money(code, rules.min)} to ${money(code, rules.max)}`}
+        hint={`From ${money(code, rules.min)} to ${money(code, rules.max)}${limit ? ` · ${limit.period.label} limit: ${money(code, limit.left)} left` : ''}`}
         presets={rules.presets}
       />
       {offerOpen && (activeMoneyBonus ? (

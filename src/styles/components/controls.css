@@ -52,6 +52,14 @@
 .nv-btn--ghost { background: transparent; color: var(--color-text-muted); }
 .nv-btn--ghost:hover:not(:disabled) { color: var(--color-text); }
 
+/* Destructive actions: filled for the final confirm, text / outline where the action is only offered. */
+.nv-btn--danger { border-color: #ff8da2; background: linear-gradient(110deg, #e2456a, #b0285a); box-shadow: 0 0 8px #ff5c7a66; }
+.nv-btn--danger:hover:not(:disabled) { filter: brightness(1.1); }
+.nv-btn--danger-text { color: #ff8da2; }
+.nv-btn--danger-text:hover:not(:disabled) { color: #ffc2cd; }
+.nv-btn--danger-outline { border-color: #ff5c7a66; color: #ff9fb1; }
+.nv-btn--danger-outline:hover:not(:disabled) { border-color: #ff8da2; background: #ff5c7a14; color: #ffc2cd; }
+
 .nv-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .nv-btn:disabled { cursor: not-allowed; opacity: .5; filter: saturate(.6); }
 .nv-btn.is-loading { opacity: 1; filter: none; cursor: progress; }
@@ -201,6 +209,10 @@
 .game-card.is-skeleton .game-info .nv-skeleton { background-image: linear-gradient(100deg, #2a2d55 30%, #3d4075 50%, #2a2d55 70%); }
 .bets-body-table tr.is-skeleton td { vertical-align: middle; }
 .bets-body-table tr.is-skeleton .bet-game { display: flex; align-items: center; gap: 14px; }
+
+/* Reduced motion from Settings: the same as the device setting (see legacy base rule). */
+html.nv-reduce-motion *, html.nv-reduce-motion *::before, html.nv-reduce-motion *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+html.nv-reduce-motion .dot.on .dot-progress { animation: none; width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   .nv-skeleton, .nv-spinner { animation-duration: 0s !important; animation: none; }

@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { useProfile } from '../../context/ProfileContext.jsx';
+import { useSettings } from '../../context/SettingsContext.jsx';
+import { TEST_2FA_CODE, breakOptions, exclusionOptions } from '../../data/settings.js';
 import { categoryPage, providerPage } from '../../data/catalog.js';
 import { gameSets } from '../../data/games.js';
 import { verificationStatus } from '../../data/profile.js';
@@ -50,6 +52,7 @@ export default function DemoPanel() {
   const onProfile = pathname === '/account/profile';
   const onWallet = pathname === '/account/wallet';
   const onBonuses = pathname === '/account/bonuses';
+  const onSettings = pathname === '/account/settings';
 
   // Read on every render: picks reset when the address changes.
   const { network } = getDemo();
@@ -75,6 +78,8 @@ export default function DemoPanel() {
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
           {onGame ? (
             <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
+          ) : onSettings ? (
+            <SettingsStates network={network} chooseNetwork={chooseNetwork}>{account}</SettingsStates>
           ) : onBonuses ? (
             <BonusesStates network={network} chooseNetwork={chooseNetwork}>{account}</BonusesStates>
           ) : onWallet ? (
@@ -284,6 +289,37 @@ function BonusesStates({ network, chooseNetwork, children }) {
         <button type="button" onClick={resetBonuses}>Reset bonuses and rewards</button>
       </div>
       <p className="nv-demo-hint">Working promo code: <code>NOVA25</code>. Complete moves the bonus funds to the real balance.</p>
+    </>
+  );
+}
+
+// Settings: page data, the real restriction state (it affects games and Deposit site-wide) and shortcuts
+// for flows that would otherwise need waiting (limit increase, session reminder).
+function SettingsStates({ network, chooseNetwork, children }) {
+  const { restriction, takeBreak, selfExclude, settings, openReminder, demo } = useSettings();
+  return (
+    <>
+      {children}
+      <p className="nv-demo-title">Settings data</p>
+      <div className="nv-demo-options">
+        {profileDataModes.map(([mode, label]) => (
+          <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{label}</button>
+        ))}
+      </div>
+      <p className="nv-demo-title">Play restriction (site-wide)</p>
+      <div className="nv-demo-options">
+        <button type="button" aria-pressed={!restriction} onClick={demo.clearRestriction}>None</button>
+        <button type="button" aria-pressed={restriction?.type === 'break'} onClick={() => takeBreak(breakOptions[0])}>Break 24h</button>
+        <button type="button" aria-pressed={restriction?.type === 'exclusion'} onClick={() => selfExclude(exclusionOptions[0])}>Self-excluded</button>
+      </div>
+      <p className="nv-demo-title">Shortcuts</p>
+      <div className="nv-demo-options">
+        <button type="button" disabled={!settings.pendingLimit} onClick={demo.applyPendingLimit}>Apply waiting limit now</button>
+        <button type="button" onClick={openReminder}>Show session reminder</button>
+        <button type="button" disabled={!settings.endedSessions.length} onClick={demo.restoreSessions}>Restore demo sessions</button>
+        <button type="button" onClick={demo.reset}>Reset settings</button>
+      </div>
+      <p className="nv-demo-hint">Wrong current password: <code>wrongpass</code> · 2FA test code: <code>{TEST_2FA_CODE}</code>. A restriction blocks games and Deposit on every page.</p>
     </>
   );
 }

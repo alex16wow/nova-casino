@@ -44,6 +44,7 @@ export default function DemoPanel() {
   const onGame = pathname.startsWith('/game/');
   const onCatalog = isCatalog(pathname);
   const onFavorites = pathname === '/favorites';
+  const onRecent = pathname === '/recently-played';
 
   // Read on every render: picks reset when the address changes.
   const { network } = getDemo();
@@ -69,6 +70,8 @@ export default function DemoPanel() {
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
           {onGame ? (
             <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
+          ) : onRecent ? (
+            <RecentStates>{account}</RecentStates>
           ) : onFavorites ? (
             <FavoritesStates>{account}</FavoritesStates>
           ) : onCatalog ? (
@@ -151,6 +154,29 @@ function FavoritesStates({ children }) {
       <div className="nv-demo-options">
         <button type="button" aria-pressed={favorites.length > 0} onClick={fill}>With games</button>
         <button type="button" aria-pressed={!favorites.length} onClick={clearFavorites}>Empty</button>
+      </div>
+    </>
+  );
+}
+
+// Recently Played page: fills or empties the real history (no separate demo data).
+// History is shown only to signed-in players, so "With games" also signs in.
+const sampleRecent = [...gameSets.top.slice(2, 6), ...gameSets.live.slice(0, 2), ...gameSets.fresh.slice(1, 4), ...gameSets.roulette.slice(0, 1)];
+function RecentStates({ children }) {
+  const { recent, setRecentList, clearRecent } = usePlayer();
+  const { user, startSession } = useAuth();
+  const fill = () => {
+    if (!user) startSession({ email: 'player@nova.casino', name: 'player' });
+    setRecentList(sampleRecent.map((g) => g.name));
+  };
+  const filled = Boolean(user) && recent.length > 0;
+  return (
+    <>
+      {children}
+      <p className="nv-demo-title">History</p>
+      <div className="nv-demo-options">
+        <button type="button" aria-pressed={filled} onClick={fill}>With games</button>
+        <button type="button" aria-pressed={!filled} onClick={clearRecent}>Empty</button>
       </div>
     </>
   );

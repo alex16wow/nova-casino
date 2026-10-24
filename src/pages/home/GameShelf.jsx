@@ -61,7 +61,9 @@ function useShelfCarousel(rowRef, games) {
 }
 
 // Touch shelves become a scrollable grid: one row on tablets, two mirrored rows on phones.
-function touchGrid(games, mobile, isShows) {
+// `unique` shelves (personal history) show each game once, in one row.
+function touchGrid(games, mobile, isShows, unique) {
+  if (unique) return games.map((game, c) => ({ game, key: game ? game.name : c, style: { gridRow: '1', gridColumn: String(c + 1) } }));
   const sequence = Array.from({ length: isShows ? 4 : mobile ? 8 : 16 }, (_, i) => games[i % games.length]);
   const rows = mobile ? [sequence, [...sequence].reverse()] : [sequence];
   return rows.flatMap((cards, r) => cards.map((game, c) => ({ game, key: `${r}-${c}`, style: { gridRow: String(r + 1), gridColumn: String(c + 1) } })));
@@ -87,13 +89,13 @@ export default function GameShelf({ shelf, mobile, touch, status = 'ready', game
   useEffect(() => reset(), [layout]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const source = loading ? placeholders : games;
-  const cards = touch ? touchGrid(source, mobile, shelf.kind === 'shows') : loading ? placeholders.map((_, i) => ({ key: i })) : carousel.cards;
+  const cards = touch ? touchGrid(source, mobile, shelf.kind === 'shows', shelf.unique) : loading ? placeholders.map((_, i) => ({ key: i })) : carousel.cards;
   const sectionClass = ['section', touch && `${layout}-games-section`].filter(Boolean).join(' ');
   const rowClass = ['game-row', shelf.eight && 'eight', carousel.moving && 'is-moving', touch && `${layout}-game-grid`].filter(Boolean).join(' ');
 
   return (
     <section className={sectionClass} id={shelf.id}>
-      <SectionHead icon={shelf.icon} title={shelf.title} sub={shelf.sub} to={`/${shelf.page}`}>
+      <SectionHead icon={shelf.icon} glyph={shelf.glyph} title={shelf.title} sub={shelf.sub} to={`/${shelf.page}`}>
         <div className="row-controls">
           <button className="row-arrow" data-carousel={shelf.rowId} data-direction="previous" aria-label={`Previous ${shelf.label}`} aria-controls={shelf.rowId} disabled={carousel.atStart || loading || !hasCards} aria-disabled={carousel.atStart || loading || !hasCards} onClick={() => carousel.step(-1)}><ChevronLeft /></button>
           <button className="row-arrow" data-carousel={shelf.rowId} data-direction="next" aria-label={`Next ${shelf.label}`} aria-controls={shelf.rowId} disabled={loading || !hasCards} onClick={() => carousel.step(1)}><ChevronRight /></button>

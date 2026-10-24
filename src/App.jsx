@@ -7,6 +7,7 @@ import CatalogPage from './pages/catalog/CatalogPage.jsx';
 import FavoritesPage from './pages/favorites/FavoritesPage.jsx';
 import GamePage from './pages/game/GamePage.jsx';
 import HomePage from './pages/home/HomePage.jsx';
+import RecentPage from './pages/recent/RecentPage.jsx';
 import NotFoundPage from './pages/not-found/NotFoundPage.jsx';
 
 // Relative-base preview builds (vite build --base ./) are opened from unknown URLs, so they keep routes in memory.
@@ -26,6 +27,7 @@ export default function App() {
                 <Route index element={<HomePage />} />
                 <Route path="game/:slug" element={<GamePage />} />
                 <Route path="favorites" element={<FavoritesPage />} />
+                <Route path="recently-played" element={<RecentPage />} />
                 <Route path="providers/:provider" element={<CatalogPage />} />
                 <Route path=":category" element={<CatalogPage />} />
                 <Route path="*" element={<NotFoundPage />} />

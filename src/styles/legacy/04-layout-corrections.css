@@ -72,9 +72,6 @@
 .row-arrow:disabled{opacity:.25;pointer-events:none;box-shadow:none!important}
 @media(prefers-reduced-motion:reduce){.row-arrow,.bets-tabs button:not(.selected){transition:none!important}}
 
-/* Demo shares the activity and arrow button treatment. */
-.game-card .demo-game{background:#101329!important;border-color:#45377d!important;border-radius:9px;color:#fff!important;box-shadow:none!important;transform:none!important;filter:none!important;transition:background .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease!important}.game-card .demo-game:hover,.game-card .demo-game:focus-visible{background:#101329!important;border-color:#b051ff!important;color:#f5cbff!important;box-shadow:0 0 13px #9d42ff55!important;transform:none!important;filter:none!important}@media(prefers-reduced-motion:reduce){.game-card .demo-game{transition:none!important}}
-
 /* Round notification and account controls share the secondary button palette. */
 .top-actions>.icon-button,.top-actions>.profile{background:#101329!important;border-color:#45377d!important;border-radius:50%;color:#fff!important;box-shadow:none!important;transform:none!important;transition:background .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease!important}.top-actions>.icon-button:hover,.top-actions>.icon-button:focus-visible,.top-actions>.profile:hover,.top-actions>.profile:focus-visible{background:#101329!important;border-color:#b051ff!important;color:#f5cbff!important;box-shadow:0 0 13px #9d42ff55!important;transform:none!important}@media(prefers-reduced-motion:reduce){.top-actions>.icon-button,.top-actions>.profile{transition:none!important}}
 
@@ -184,7 +181,6 @@ body{overflow-x:clip}
 .main .hero-arrow:not(:hover):not(:focus-visible),
 .main .bets-tabs button:not(.selected):not(:hover):not(:focus-visible),
 .main .section-head .view-all:not(:hover):not(:focus-visible),
-.main .game-card .demo-game:not(:hover):not(:focus-visible),
 .main .game-card .heart:not(:hover):not(:focus-visible){border-color:#30345a!important}
 
 /* Subtle resting elevation above the ambient video. */

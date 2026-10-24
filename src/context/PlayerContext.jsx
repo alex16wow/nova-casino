@@ -19,6 +19,14 @@ const initialFavorites = () => {
   return Array.isArray(saved) ? [...new Set(saved)].filter((slug) => findGame(slug)) : [];
 };
 
+// Recently played: slugs of opened games, newest first, no repeats, capped. Same tab-only storage as favorites.
+const RECENT_KEY = 'nova-recent';
+export const RECENT_LIMIT = 24;
+const initialRecent = () => {
+  const saved = readJSON(RECENT_KEY, [], { session: true });
+  return Array.isArray(saved) ? [...new Set(saved)].filter((slug) => findGame(slug)).slice(0, RECENT_LIMIT) : [];
+};
+
 export function PlayerProvider({ children }) {
   const [currencyCode, setCurrencyCode] = useState(currencies[0].code);
   const [balances, setBalances] = useState(initialBalances);
@@ -26,12 +34,14 @@ export function PlayerProvider({ children }) {
   const [notifications, setNotifications] = useState(() => (getDemo().network === 'empty' ? [] : sampleNotifications));
   const [rewards, setRewards] = useState(levelRewards);
   const [favorites, setFavorites] = useState(initialFavorites);
+  const [recent, setRecent] = useState(initialRecent);
 
   // Mirror of the list so back-to-back toggles in one tick see each other's result.
   const favoritesRef = useRef(favorites);
   const saveFavorites = useCallback((list) => { favoritesRef.current = list; setFavorites(list); }, []);
 
   useEffect(() => { writeJSON(FAVORITES_KEY, favorites, { session: true }); }, [favorites]);
+  useEffect(() => { writeJSON(RECENT_KEY, recent, { session: true }); }, [recent]);
 
   const markRead = useCallback((id) => setNotifications((list) => list.map((n) => (id == null || n.id === id ? { ...n, unread: false } : n))), []);
   const claimReward = useCallback((id) => setRewards((list) => list.map((r) => (r.id === id ? { ...r, claimed: true } : r))), []);
@@ -49,6 +59,13 @@ export function PlayerProvider({ children }) {
     return saved;
   }, [saveFavorites]);
   const clearFavorites = useCallback(() => saveFavorites([]), [saveFavorites]);
+  // Opening a game moves it to the front of the history.
+  const addRecent = useCallback((name) => {
+    const slug = gameSlug(name);
+    setRecent((list) => (list[0] === slug ? list : [slug, ...list.filter((s) => s !== slug)].slice(0, RECENT_LIMIT)));
+  }, []);
+  const setRecentList = useCallback((names) => setRecent(names.map(gameSlug).slice(0, RECENT_LIMIT)), []);
+  const clearRecent = useCallback(() => setRecent([]), []);
 
   const value = useMemo(() => {
     const wallet = currencies.map((c) => ({ ...c, amount: balances[c.code], balance: formatAmount(c.code, balances[c.code]) }));
@@ -69,8 +86,12 @@ export function PlayerProvider({ children }) {
       isFavorite,
       toggleFavorite,
       clearFavorites,
+      recent,
+      addRecent,
+      setRecentList,
+      clearRecent,
     };
-  }, [currencyCode, balances, deposit, depositOpen, openDeposit, closeDeposit, notifications, markRead, rewards, claimReward, favorites, isFavorite, toggleFavorite, clearFavorites]);
+  }, [currencyCode, balances, deposit, depositOpen, openDeposit, closeDeposit, notifications, markRead, rewards, claimReward, favorites, isFavorite, toggleFavorite, clearFavorites, recent, addRecent, setRecentList, clearRecent]);
 
   return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>;
 }

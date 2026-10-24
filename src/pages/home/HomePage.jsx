@@ -1,4 +1,6 @@
-import { shelves } from '../../data/games.js';
+import { useAuth } from '../../context/AuthContext.jsx';
+import { usePlayer } from '../../context/PlayerContext.jsx';
+import { findGame, recentShelf, shelves } from '../../data/games.js';
 import { useLobbyData } from '../../hooks/useLobbyData.js';
 import { useBreakpoint } from '../../hooks/useMediaQuery.js';
 import ActivityTable from './ActivityTable.jsx';
@@ -14,12 +16,16 @@ import RightRail from './RightRail.jsx';
 export default function HomePage() {
   const { mobile, tablet, touch } = useBreakpoint();
   const lobby = useLobbyData();
+  const { isGuest } = useAuth();
+  const { recent } = usePlayer();
+  const recentGames = isGuest ? [] : recent.map(findGame).filter(Boolean);
   const shelf = (key) => (
     <GameShelf shelf={shelves[key]} mobile={mobile} touch={touch} status={lobby.status} games={lobby.data?.games[shelves[key].kind]} onRetry={lobby.reload} />
   );
   return (
     <>
       <HeroSection mobile={mobile} touch={touch} />
+      {recentGames.length > 0 && <GameShelf shelf={recentShelf} mobile={mobile} touch={touch} games={recentGames} />}
       {shelf('top')}
       {shelf('fresh')}
       <PromoGrid tablet={tablet} />

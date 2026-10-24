@@ -27,7 +27,7 @@ export const sidebarGroups = [
     label: 'Personal',
     links: [
       { page: 'favorites', label: 'Favorites', icon: 'favorites', wrap: true },
-      { page: 'recent', label: 'Recently Played', icon: 'recent', wrap: true },
+      { page: 'recently-played', label: 'Recently Played', icon: 'recent', wrap: true },
     ],
   },
 ];
@@ -54,5 +54,5 @@ export const paymentMethods = ['VISA', 'Mastercard', 'Skrill', 'NETELLER', 'Cryp
 export const socialLinks = ['Discord', 'Telegram', 'X', 'YouTube'];
 
 // Pages that exist. Other nav slugs keep a placeholder address and do nothing on click.
-export const livePages = new Set(['lobby', 'top-games', 'new-games', 'live-games', 'table-games', 'roulette', 'game-shows', 'favorites']);
+export const livePages = new Set(['lobby', 'top-games', 'new-games', 'live-games', 'table-games', 'roulette', 'game-shows', 'favorites', 'recently-played']);
 export const pageHref = (page) => (livePages.has(page) ? `/${page}` : `pages/${page}.html`);

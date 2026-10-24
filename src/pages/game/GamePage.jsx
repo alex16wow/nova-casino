@@ -82,9 +82,11 @@ export default function GamePage() {
 function GameFrame({ game }) {
   const frame = useRef(null);
   const fullscreen = useFullscreen(frame);
-  const { isFavorite, toggleFavorite, openDeposit } = usePlayer();
+  const { isFavorite, toggleFavorite, openDeposit, addRecent } = usePlayer();
   const gate = useAccountAction();
   const { isGuest } = useAuth();
+  // Only signed-in players get the game itself, so only they build a Recently Played history.
+  useEffect(() => { if (!isGuest) addRecent(game.name); }, [isGuest, game.name, addRecent]);
   const saved = isFavorite(game.name);
   const note = useFavoriteNote();
 

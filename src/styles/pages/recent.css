@@ -1,0 +1,9 @@
+/* Recently Played page (/recently-played) and the Lobby "Continue Playing" shelf.
+   The page reuses the Favorites layout (.nv-favorites); only the clock badge is its own. */
+
+/* Sidebar outline icon used as a section title badge, glowing like the Favorites heart. */
+.section-title-with-icon .nv-title-glyph { display: grid; place-items: center; }
+.nv-title-glyph svg { display: block; width: 80%; height: 80%; stroke-width: 1.6; color: #e4ceff; filter: drop-shadow(0 0 7px #ab54ff); }
+
+/* Personal history shelf on phones: one row instead of the two mirrored rows of category shelves. */
+.mobile-games-section #continue-row.mobile-game-grid { grid-template-rows: auto; }

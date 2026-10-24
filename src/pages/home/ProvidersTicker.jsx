@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { providers } from '../../data/lobby.jsx';
 import { asset } from '../../lib/asset.js';
 import { SectionTitle } from '../../components/ui/SectionHead.jsx';
@@ -13,9 +14,9 @@ export default function ProvidersTicker() {
       <div className="provider-window">
         <div className="provider-track" id="providerTrack">
           {[...providers, ...providers].map(([name, file], i) => (
-            <a key={i} className="provider" href={`pages/providers/${file}.html`} data-provider={file} aria-label={`Games by ${name}`} onClick={(e) => e.preventDefault()}>
+            <Link key={i} className="provider" to={`/providers/${file}`} data-provider={file} aria-label={`Games by ${name}`} tabIndex={i >= providers.length ? -1 : undefined} aria-hidden={i >= providers.length || undefined}>
               <span className="provider-logo" role="img" aria-label={name} style={{ '--provider-logo': `url('${asset(`provider-${file}.svg`)}')` }} />
-            </a>
+            </Link>
           ))}
         </div>
       </div>

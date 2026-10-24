@@ -1,5 +1,6 @@
 // Fake backend for the prototype. Responses are sample data with a short delay;
 // the demo panel can make them slow, empty or failing.
+import { MAX_PAGES, categoryPage, fillGames, pageSize, providerPage } from '../data/catalog.js';
 import { findGame, gameDetails, gameSets, similarGames } from '../data/games.js';
 import { activityTabs } from '../data/lobby.jsx';
 import { getDemo } from './demo.js';
@@ -32,6 +33,15 @@ export const fetchGame = (slug) =>
     const game = findGame(slug);
     if (!game) throw new ApiError('not_found', 'Game not found');
     return { game: { ...game, ...gameDetails(game) }, similar: empty ? [] : similarGames(game) };
+  });
+
+// Category / provider page: the first `pages` screens of cards. Unknown pages fail with "not_found".
+export const fetchCatalog = (page, pages = 1) =>
+  respond((empty) => {
+    const info = page.startsWith('providers/') ? providerPage(page.slice(10)) : categoryPage(page);
+    if (!info) throw new ApiError('not_found', 'Page not found');
+    const size = pageSize(info.kind);
+    return { games: empty ? [] : fillGames(info.games, size * pages), more: !empty && pages < MAX_PAGES };
   });
 
 // Accounts: any well-formed email works. "taken@nova.casino" is already registered;

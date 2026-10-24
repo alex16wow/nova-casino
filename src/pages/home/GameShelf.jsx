@@ -93,7 +93,7 @@ export default function GameShelf({ shelf, mobile, touch, status = 'ready', game
 
   return (
     <section className={sectionClass} id={shelf.id}>
-      <SectionHead icon={shelf.icon} title={shelf.title} sub={shelf.sub} href={`#${shelf.id}`}>
+      <SectionHead icon={shelf.icon} title={shelf.title} sub={shelf.sub} to={`/${shelf.page}`}>
         <div className="row-controls">
           <button className="row-arrow" data-carousel={shelf.rowId} data-direction="previous" aria-label={`Previous ${shelf.label}`} aria-controls={shelf.rowId} disabled={carousel.atStart || loading || !hasCards} aria-disabled={carousel.atStart || loading || !hasCards} onClick={() => carousel.step(-1)}><ChevronLeft /></button>
           <button className="row-arrow" data-carousel={shelf.rowId} data-direction="next" aria-label={`Next ${shelf.label}`} aria-controls={shelf.rowId} disabled={loading || !hasCards} onClick={() => carousel.step(1)}><ChevronRight /></button>

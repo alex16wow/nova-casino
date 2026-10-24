@@ -87,12 +87,12 @@ export const categoryKeywords = {
 
 // Home page shelves, in page order. Promotions and providers sit between them.
 export const shelves = {
-  top: { id: 'top-games', rowId: 'top-row', kind: 'top', title: 'Top Games', sub: 'The games everyone is playing', icon: 'category-top-games.webp', label: 'top games' },
-  fresh: { id: 'new-games', rowId: 'new-row', kind: 'fresh', title: 'New Games', sub: 'Fresh drops, just added', icon: 'category-new-games.webp', label: 'new games' },
-  live: { id: 'live-games', rowId: 'live-row', kind: 'live', title: 'Live Games', sub: 'Join the table in real time', icon: 'category-live-games.webp', label: 'live games', eight: true },
-  table: { id: 'table-games', rowId: 'table-row', kind: 'table', title: 'Table Games', sub: 'Classic games, new energy', icon: 'category-table-games.webp', label: 'table games', eight: true },
-  roulette: { id: 'roulette', rowId: 'roulette-row', kind: 'roulette', title: 'Roulette', sub: 'Take a spin', icon: 'category-roulette.webp', label: 'roulette games', eight: true },
-  shows: { id: 'game-shows', rowId: 'shows-row', kind: 'shows', title: 'Game Shows', sub: 'Big lights. Bigger moments.', icon: 'category-game-shows.webp', label: 'game shows' },
+  top: { page: 'top-games', id: 'top-games', rowId: 'top-row', kind: 'top', title: 'Top Games', sub: 'The games everyone is playing', icon: 'category-top-games.webp', label: 'top games' },
+  fresh: { page: 'new-games', id: 'new-games', rowId: 'new-row', kind: 'fresh', title: 'New Games', sub: 'Fresh drops, just added', icon: 'category-new-games.webp', label: 'new games' },
+  live: { page: 'live-games', id: 'live-games', rowId: 'live-row', kind: 'live', title: 'Live Games', sub: 'Join the table in real time', icon: 'category-live-games.webp', label: 'live games', eight: true },
+  table: { page: 'table-games', id: 'table-games', rowId: 'table-row', kind: 'table', title: 'Table Games', sub: 'Classic games, new energy', icon: 'category-table-games.webp', label: 'table games', eight: true },
+  roulette: { page: 'roulette', id: 'roulette', rowId: 'roulette-row', kind: 'roulette', title: 'Roulette', sub: 'Take a spin', icon: 'category-roulette.webp', label: 'roulette games', eight: true },
+  shows: { page: 'game-shows', id: 'game-shows', rowId: 'shows-row', kind: 'shows', title: 'Game Shows', sub: 'Big lights. Bigger moments.', icon: 'category-game-shows.webp', label: 'game shows' },
 };
 
 // Game page: URL slug, lookup and sample details.

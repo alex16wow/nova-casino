@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { heroSlides, lobbyCategories } from '../../data/lobby.jsx';
-import { pageHref } from '../../data/navigation.js';
+import { heroSlides } from '../../data/lobby.jsx';
 import { usePreviewAction } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
 import { preloadImages } from '../../lib/preload.js';
-import ScrollIndicator from '../../components/ui/ScrollIndicator.jsx';
+import CategoryNav from '../../components/ui/CategoryNav.jsx';
 import { ChevronLeft, ChevronRight } from '../../components/ui/icons.jsx';
 import RightRail from './RightRail.jsx';
 
@@ -111,54 +110,6 @@ function Hero({ carousel, mobile, children }) {
   );
 }
 
-const ignore = (e) => e.preventDefault();
-
-function Categories({ touch }) {
-  const nav = useRef(null), down = useRef(null), timer = useRef();
-  // Brief highlight on tap, since touch has no hover.
-  const flash = (el) => {
-    if (!touch) return;
-    clearTimeout(timer.current);
-    nav.current.querySelectorAll('.is-tapped').forEach((e) => e.classList.remove('is-tapped'));
-    el.classList.add('is-tapped');
-    timer.current = setTimeout(() => el.classList.remove('is-tapped'), 240);
-  };
-  useEffect(() => { if (!touch) nav.current.querySelectorAll('.is-tapped').forEach((e) => e.classList.remove('is-tapped')); }, [touch]);
-
-  const categories = (
-    <nav
-      ref={nav}
-      className="categories"
-      aria-label="Game categories"
-      id="gameCategories"
-      onPointerDown={(e) => { if (touch) down.current = { x: e.clientX, y: e.clientY, target: e.target.closest('.category') }; }}
-      onPointerUp={(e) => {
-        const d = down.current;
-        if (!d) return;
-        down.current = null;
-        if (Math.abs(e.clientX - d.x) < 12 && Math.abs(e.clientY - d.y) < 12 && d.target) flash(d.target);
-      }}
-      onPointerCancel={() => { down.current = null; }}
-      onClick={(e) => { if (e.detail === 0) { const el = e.target.closest('.category'); if (el) flash(el); } }}
-    >
-      {lobbyCategories.map((c) => (
-        <a key={c.page} className="category" href={pageHref(c.page)} data-future-page={c.page} onClick={ignore}>
-          <span className="category-icon-frame"><img className="category-icon" src={asset(c.icon)} alt="" width="60" height="60" /></span>
-          {c.label}
-        </a>
-      ))}
-    </nav>
-  );
-
-  if (!touch) return categories;
-  return (
-    <div className="mobile-category-scroll">
-      {categories}
-      <ScrollIndicator targetRef={nav} label="Scroll game categories" controls="gameCategories" />
-    </div>
-  );
-}
-
 // Banner carousel, tournaments/winners rail (desktop) and the category strip.
 export default function HeroSection({ mobile, touch }) {
   const carousel = useHeroCarousel();
@@ -177,7 +128,7 @@ export default function HeroSection({ mobile, touch }) {
         <Hero carousel={carousel}>{controls}</Hero>
       )}
       {!touch && <RightRail />}
-      <Categories touch={touch} />
+      <CategoryNav touch={touch} />
     </section>
   );
 }

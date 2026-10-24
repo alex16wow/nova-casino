@@ -1,4 +1,4 @@
-// Site navigation. `page` slugs are the future routes; they are inert until each page exists.
+// Site navigation. `page` slugs are routes; links to pages that don't exist yet stay inert (see `livePages`).
 
 export const sidebarGroups = [
   {
@@ -34,9 +34,9 @@ export const sidebarGroups = [
 export const supportLink = { page: 'support', label: 'Support', icon: 'support', wrap: true };
 
 export const mobileNav = [
-  { href: '#top', label: 'Lobby', icon: 'dockLobby' },
-  { href: '#top-games', label: 'Top games', icon: 'dockTop' },
-  { href: '#live-games', label: 'Live', icon: 'dockLive' },
+  { to: '/lobby', label: 'Lobby', icon: 'dockLobby' },
+  { to: '/top-games', label: 'Top games', icon: 'dockTop' },
+  { to: '/live-games', label: 'Live', icon: 'dockLive' },
   { href: '#favorites', label: 'Favorites', icon: 'dockFavorites' },
   { href: '#top', label: 'Account', icon: 'dockAccount' },
 ];
@@ -52,5 +52,6 @@ export const paymentMethods = ['VISA', 'Mastercard', 'Skrill', 'NETELLER', 'Cryp
 
 export const socialLinks = ['Discord', 'Telegram', 'X', 'YouTube'];
 
-// Future page path for a nav slug. Pages are not implemented yet, so links stay inert.
-export const pageHref = (page) => `pages/${page}.html`;
+// Pages that exist. Other nav slugs keep a placeholder address and do nothing on click.
+export const livePages = new Set(['lobby', 'top-games', 'new-games', 'live-games', 'table-games', 'roulette', 'game-shows']);
+export const pageHref = (page) => (livePages.has(page) ? `/${page}` : `pages/${page}.html`);

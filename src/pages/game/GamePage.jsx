@@ -42,7 +42,7 @@ export default function GamePage() {
       <nav className="nv-crumbs" aria-label="Breadcrumbs">
         <Link to="/" className="nv-crumbs-back"><Back />Home</Link>
         <span aria-hidden="true">/</span>
-        {game ? <><span>{categoryKeywords[kind][0]}</span><span aria-hidden="true">/</span><span aria-current="page">{game.name}</span></> : <SkeletonLine width="120px" />}
+        {game ? <><Link to={`/${shelves[kind].page}`} className="nv-crumbs-back">{categoryKeywords[kind][0]}</Link><span aria-hidden="true">/</span><span aria-current="page">{game.name}</span></> : <SkeletonLine width="120px" />}
       </nav>
 
       {status === 'ready' ? (

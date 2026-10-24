@@ -12,18 +12,5 @@
 /* Oversized scene art must not be capped by host img resets (e.g. preview wrappers injecting img{max-width:100%}). */
 .hero-scene, .bonus-scene, .hero-glow, .bonus-object { max-width: none; }
 
-/* Slow artwork drifts snap to whole pixels on some screens and jitter; 3D transforms keep them on the GPU with subpixel motion. */
-.hero-scene, .hero-character, .hero-gifts, .hero-glow, .bonus-scene, .bonus-object { backface-visibility: hidden; }
-@keyframes heroSceneDrift { from { transform: translate3d(-16.666667%, 0, 0) scale(1); } to { transform: translate3d(-10.833333%, 0, 0) scale(.9); } }
-@keyframes heroForegroundDrift { from { transform: translate3d(25px, 0, 0); } to { transform: translate3d(-25px, 0, 0); } }
-@keyframes heroGlowDrift { from { transform: translate3d(25px, -50%, 0); } to { transform: translate3d(-25px, -50%, 0); } }
-@keyframes mobileHeroCharacterDrift { from { transform: translate3d(8px, 0, 0); } to { transform: translate3d(-10px, 0, 0); } }
-@keyframes mobileHeroGlowDrift { from { transform: translate3d(8px, -50%, 0); } to { transform: translate3d(-10px, -50%, 0); } }
-@keyframes mobileBonusArtworkDrift { from { transform: translate3d(-8px, 0, 0); } to { transform: translate3d(24px, 0, 0); } }
-@keyframes mobileBonusCenteredDrift { from { transform: translate3d(calc(-50% + 20px), 0, 0); } to { transform: translate3d(calc(-50% - 20px), 0, 0); } }
-@keyframes mobileBonusSceneDrift { from { transform: translate3d(-16.666667%, 0, 0) scale(1); } to { transform: translate3d(-6%, 0, 0) scale(.94); } }
-@keyframes tabletBonusArtworkDrift { from { transform: translate3d(12px, 0, 0); } to { transform: translate3d(-20px, 0, 0); } }
-@keyframes tabletBonusLowerDrift { from { transform: translate3d(38px, 0, 0); } to { transform: translate3d(-8px, 0, 0); } }
-
 /* Promo titles: accent word on its own line so the text clears the artwork. */
 .promo-copy h3 span { display: block; }

@@ -49,6 +49,7 @@ export default function DemoPanel() {
   const onRecent = pathname === '/recently-played';
   const onProfile = pathname === '/account/profile';
   const onWallet = pathname === '/account/wallet';
+  const onBonuses = pathname === '/account/bonuses';
 
   // Read on every render: picks reset when the address changes.
   const { network } = getDemo();
@@ -74,6 +75,8 @@ export default function DemoPanel() {
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
           {onGame ? (
             <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
+          ) : onBonuses ? (
+            <BonusesStates network={network} chooseNetwork={chooseNetwork}>{account}</BonusesStates>
           ) : onWallet ? (
             <WalletStates network={network} chooseNetwork={chooseNetwork}>{account}</WalletStates>
           ) : onProfile ? (
@@ -252,6 +255,35 @@ function WalletStates({ network, chooseNetwork, children }) {
         <button type="button" onClick={resetWallet}>Reset balances and history</button>
       </div>
       <p className="nv-demo-hint">Withdrawals need Verified. Fail makes deposits and withdrawals fail without changing balances.</p>
+    </>
+  );
+}
+
+// Bonuses: page data, wagering progress of the active money bonus (set, not animated) and a reset.
+const wagerSteps = [[0, '0%'], [0.35, '35%'], [0.9, '90%'], [1, 'Complete']];
+function BonusesStates({ network, chooseNetwork, children }) {
+  const { activeMoneyBonus, setWagerProgress, resetBonuses } = usePlayer();
+  const share = activeMoneyBonus ? activeMoneyBonus.wagered / (activeMoneyBonus.amount * activeMoneyBonus.wager) : null;
+  return (
+    <>
+      {children}
+      <p className="nv-demo-title">Bonus data</p>
+      <div className="nv-demo-options">
+        {networkModes.map(([mode, label]) => (
+          <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{label}</button>
+        ))}
+      </div>
+      <p className="nv-demo-title">Wagering (active bonus)</p>
+      <div className="nv-demo-options">
+        {wagerSteps.map(([value, label]) => (
+          <button key={label} type="button" disabled={!activeMoneyBonus} aria-pressed={share != null && Math.abs(share - value) < 0.005} onClick={() => setWagerProgress(value)}>{label}</button>
+        ))}
+      </div>
+      <p className="nv-demo-title">Demo bonuses</p>
+      <div className="nv-demo-options">
+        <button type="button" onClick={resetBonuses}>Reset bonuses and rewards</button>
+      </div>
+      <p className="nv-demo-hint">Working promo code: <code>NOVA25</code>. Complete moves the bonus funds to the real balance.</p>
     </>
   );
 }

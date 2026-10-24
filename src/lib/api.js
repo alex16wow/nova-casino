@@ -108,3 +108,6 @@ export async function processWithdrawal() {
   if (payment === 'fail') throw new ApiError('rejected', 'The payment system rejected this request. Nothing was reserved.');
   return true;
 }
+
+// Bonuses page: loading follows the data mode ("empty" shows every tab empty).
+export const fetchBonuses = () => respond((empty) => ({ empty }));

@@ -12,6 +12,7 @@ import GamePage from './pages/game/GamePage.jsx';
 import HomePage from './pages/home/HomePage.jsx';
 import ProfilePage from './pages/profile/ProfilePage.jsx';
 import WalletPage from './pages/wallet/WalletPage.jsx';
+import BonusesPage from './pages/bonuses/BonusesPage.jsx';
 import RecentPage from './pages/recent/RecentPage.jsx';
 import NotFoundPage from './pages/not-found/NotFoundPage.jsx';
 
@@ -42,6 +43,7 @@ export default function App() {
                       <Route index element={<Navigate to="profile" replace />} />
                       <Route path="profile" element={<ProfilePage />} />
                       <Route path="wallet" element={<WalletPage />} />
+                      <Route path="bonuses" element={<BonusesPage />} />
                     </Route>
                     <Route path="providers/:provider" element={<CatalogPage />} />
                     <Route path=":category" element={<CatalogPage />} />

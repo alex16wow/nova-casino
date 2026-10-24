@@ -120,7 +120,7 @@ function GameFrame({ game }) {
           {!isGuest && <Button size="sm" onClick={deposit}>Deposit</Button>}
         </div>
       </div>
-      <GameStage game={game} onDeposit={deposit} />
+      <GameStage game={game} />
     </section>
   );
 }

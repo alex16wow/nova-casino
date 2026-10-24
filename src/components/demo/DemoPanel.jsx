@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { usePlayer } from '../../context/PlayerContext.jsx';
 import { demoEnabled, getDemo, setDemo } from '../../lib/demo.js';
 
 const networkModes = [
@@ -11,10 +10,9 @@ const networkModes = [
   ['empty', 'Empty'],
 ];
 
-const outcomes = [
-  ['random', 'Random'],
-  ['win', 'Always win'],
-  ['lose', 'Always lose'],
+const providerModes = [
+  ['up', 'Game loads'],
+  ['down', 'Game fails'],
 ];
 
 // Prototype-only switcher for reviewing states. Shown in preview builds or with ?demo in the URL.
@@ -24,8 +22,7 @@ export default function DemoPanel() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [network, setNetwork] = useState(() => getDemo().network);
-  const [outcome, setOutcome] = useState(() => getDemo().outcome);
-  const { currency, deposit } = usePlayer();
+  const [provider, setProvider] = useState(() => getDemo().provider);
   const onGame = pathname.startsWith('/game/');
   if (!demoEnabled()) return null;
 
@@ -35,9 +32,10 @@ export default function DemoPanel() {
     location.reload();
   };
 
-  const chooseOutcome = (mode) => {
-    setOutcome(mode);
-    setDemo({ outcome: mode });
+  const chooseProvider = (mode) => {
+    setProvider(mode);
+    setDemo({ provider: mode });
+    location.reload();
   };
 
   return (
@@ -67,10 +65,9 @@ export default function DemoPanel() {
             <>
               <p className="nv-demo-title">Game</p>
               <div className="nv-demo-options">
-                {outcomes.map(([mode, label]) => (
-                  <button key={mode} type="button" aria-pressed={outcome === mode} onClick={() => chooseOutcome(mode)}>{label}</button>
+                {providerModes.map(([mode, label]) => (
+                  <button key={mode} type="button" aria-pressed={provider === mode} onClick={() => chooseProvider(mode)}>{label}</button>
                 ))}
-                {user && <button type="button" onClick={() => deposit(currency.code, -currency.amount)}>Zero balance</button>}
               </div>
             </>
           )}

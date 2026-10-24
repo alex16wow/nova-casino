@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { tournaments, winners } from '../../data/lobby.jsx';
-import { usePreviewAction } from '../../context/ToastContext.jsx';
+import { useAccountPreview } from '../../context/AuthContext.jsx';
 import { asset } from '../../lib/asset.js';
 import RotatingStage from '../../components/ui/RotatingStage.jsx';
 
@@ -33,7 +33,7 @@ function Countdown({ end, now }) {
 
 function TournamentCard() {
   const now = useNow(1000);
-  const preview = usePreviewAction();
+  const preview = useAccountPreview();
   return (
     <article className="rail-card tournament-card" aria-label="Tournaments">
       <RotatingStage

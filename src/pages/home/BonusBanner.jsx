@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { bonusSlides } from '../../data/lobby.jsx';
+import { useAccountPreview } from '../../context/AuthContext.jsx';
 import { usePreviewAction } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
 import RotatingStage from '../../components/ui/RotatingStage.jsx';
@@ -7,6 +8,8 @@ import RotatingStage from '../../components/ui/RotatingStage.jsx';
 // Rotating bonus banner. On phones its button sits below the banner.
 export default function BonusBanner({ mobile }) {
   const preview = usePreviewAction();
+  const accountPreview = useAccountPreview();
+  const actionFor = (b) => (b.needsAccount ? accountPreview : preview);
   const [current, setCurrent] = useState(0);
   const banner = (
     <section className="bonus" aria-label="Bonuses">
@@ -24,7 +27,7 @@ export default function BonusBanner({ mobile }) {
             </div>
             <div className="bonus-copy">
               <div><h2>{b.title} <span>{b.accent}</span></h2><p>{b.copy}</p></div>
-              <button className="primary action-toast" onClick={preview}>{b.action}</button>
+              <button className="primary action-toast" onClick={actionFor(b)}>{b.action}</button>
             </div>
           </>
         )}
@@ -35,7 +38,7 @@ export default function BonusBanner({ mobile }) {
   return (
     <div className="mobile-bonus-stack">
       {banner}
-      <button type="button" className="primary mobile-bonus-cta action-toast" onClick={preview}>{bonusSlides[current].action}</button>
+      <button type="button" className="primary mobile-bonus-cta action-toast" onClick={actionFor(bonusSlides[current])}>{bonusSlides[current].action}</button>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { flushSync } from 'react-dom';
 import { profileMenu } from '../../data/account.js';
+import { useAuth } from '../../context/AuthContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
 import { useDismiss } from '../../hooks/useDismiss.js';
 import { asset } from '../../lib/asset.js';
@@ -9,6 +10,7 @@ import { MenuIcon } from '../ui/icons.jsx';
 // Avatar button with the account menu.
 export default function ProfileMenu({ open, setOpen }) {
   const toast = useToast();
+  const { openAuth } = useAuth();
   const toggle = useRef(null), menu = useRef(null);
   const items = () => [...menu.current.querySelectorAll('[role="menuitem"]')];
 
@@ -26,10 +28,11 @@ export default function ProfileMenu({ open, setOpen }) {
     const list = items(), i = list.indexOf(document.activeElement);
     list[(i + (e.key === 'ArrowDown' ? 1 : -1) + list.length) % list.length].focus();
   };
-  const choose = (label) => {
+  const choose = (item) => {
     setOpen(false);
     toggle.current.focus();
-    toast(`${label}: coming soon`);
+    if (item.signout) openAuth('logout');
+    else toast(`${item.label}: coming soon`);
   };
 
   return (
@@ -39,7 +42,7 @@ export default function ProfileMenu({ open, setOpen }) {
       </button>
       <div ref={menu} className="profile-menu" id="profileMenu" role="menu" aria-label="Account" hidden={!open} onKeyDown={onMenuKey}>
         {profileMenu.map((item) => (
-          <button key={item.label} type="button" role="menuitem" className="profile-menu-item" data-signout={item.signout ? 'true' : undefined} onClick={() => choose(item.label)}>
+          <button key={item.label} type="button" role="menuitem" className="profile-menu-item" data-signout={item.signout ? 'true' : undefined} onClick={() => choose(item)}>
             <MenuIcon name={item.icon} /><span>{item.label}</span>
           </button>
         ))}

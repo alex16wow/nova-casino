@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { flushSync } from 'react-dom';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { useDismiss } from '../../hooks/useDismiss.js';
+import StateMessage from '../ui/StateMessage.jsx';
 import { Bell, MenuIcon } from '../ui/icons.jsx';
 
 // Bell button with the unread badge and the notifications popup.
@@ -56,6 +57,7 @@ export default function Notifications({ open, setOpen }) {
           <button ref={markAll} type="button" className="notifications-mark-all" disabled={!unread} onClick={() => markRead(null)}>Mark all as read</button>
         </div>
         <div className="notifications-list">
+          {!notifications.length && <StateMessage compact kind="empty" title="No notifications yet" text="News about rewards and tournaments will show up here." role="status" />}
           {notifications.map((n) => (
             <button key={n.id} type="button" className={`notification-item${n.unread ? ' is-unread' : ''}`} aria-label={n.unread ? `${n.title}. Unread` : n.title} onClick={() => markRead(n.id)}>
               <span className="notification-icon"><MenuIcon name={n.icon} /></span>

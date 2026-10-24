@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import { promos } from '../../data/lobby.jsx';
-import { usePreviewAction } from '../../context/ToastContext.jsx';
+import { useAccountPreview } from '../../context/AuthContext.jsx';
 import { asset } from '../../lib/asset.js';
 import ScrollIndicator from '../../components/ui/ScrollIndicator.jsx';
 
 export default function PromoGrid({ tablet }) {
-  const preview = usePreviewAction();
+  const preview = useAccountPreview();
   const row = useRef(null);
   return (
     <section className="section" id="promotions">

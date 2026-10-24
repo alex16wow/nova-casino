@@ -26,16 +26,25 @@ src/
   components/
     layout/           AppLayout (header, sidebar, footer, dock) shared by all pages
     header/           search, wallet, notifications, level rewards, profile menu
-    ui/               reusable pieces: GameCard, SectionHead, RotatingStage, ScrollIndicator, icons
+    ui/               reusable pieces: GameCard, Modal, Button, fields, StateMessage, Skeleton, icons
+    auth/             login, sign-up, password reset and logout dialogs
+    demo/             States switcher (prototype only)
   pages/home/         lobby sections
-  context/            ToastContext, PlayerContext (wallet, notifications, rewards, favorites)
+  pages/not-found/    404
+  context/            ToastContext, AuthContext (session, dialogs), PlayerContext (wallet, notifications, rewards, favorites)
+  lib/                fake API, storage, demo modes
   hooks/              breakpoints, popup dismissal, scroll indicators
   data/               sample content
   styles/
     tokens.css        design tokens for all new UI
+    components/       token-based styles for new UI (controls, overlays)
     legacy/           lobby styles carried over from the static page
 docs/                 design references
 ```
+
+## States demo
+
+Add `?demo` to the URL (or build with `VITE_DEMO_PANEL=1`) to show the **States** switcher: guest / signed in, data mode (normal, slow, error, empty) and the account dialogs. Test values: password `wrongpass` fails login, email `taken@nova.casino` is already registered.
 
 ## Adding a page
 

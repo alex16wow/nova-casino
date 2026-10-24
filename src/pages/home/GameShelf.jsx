@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { gameSets } from '../../data/games.js';
 import { TOUCH, matches } from '../../hooks/useMediaQuery.js';
 import GameCard from '../../components/ui/GameCard.jsx';
+import { SkeletonCard } from '../../components/ui/Skeleton.jsx';
+import StateMessage from '../../components/ui/StateMessage.jsx';
 import ScrollIndicator from '../../components/ui/ScrollIndicator.jsx';
 import SectionHead from '../../components/ui/SectionHead.jsx';
 import { ChevronLeft, ChevronRight } from '../../components/ui/icons.jsx';
@@ -27,6 +28,7 @@ function useShelfCarousel(rowRef, games) {
 
   useLayoutEffect(() => {
     const row = rowRef.current;
+    if (!row) return;
     if (!move) { row.scrollLeft = 0; return; }
     // One temporary edge copy makes the wrap continuous while the real cards keep their state.
     const cards = row.children, distance = cards[1].offsetLeft - cards[0].offsetLeft;
@@ -65,15 +67,27 @@ function touchGrid(games, mobile, isShows) {
   return rows.flatMap((cards, r) => cards.map((game, c) => ({ game, key: `${r}-${c}`, style: { gridRow: String(r + 1), gridColumn: String(c + 1) } })));
 }
 
-export default function GameShelf({ shelf, mobile, touch }) {
+const placeholders = Array.from({ length: 8 }, () => null);
+
+function ShelfBody({ status, shelf, onRetry }) {
+  if (status === 'error') {
+    return <StateMessage compact kind="error" title={`Couldn’t load ${shelf.title}`} text="Check your connection and try again." action="Try again" onAction={onRetry} />;
+  }
+  return <StateMessage compact kind="empty" title="No games here yet" text="New titles are added every week. Check back soon." />;
+}
+
+// Game shelf: skeleton cards while loading, a message when it failed or is empty.
+export default function GameShelf({ shelf, mobile, touch, status = 'ready', games = [], onRetry }) {
   const row = useRef(null);
-  const games = gameSets[shelf.kind];
+  const loading = status === 'loading';
+  const hasCards = loading || (status === 'ready' && games.length > 0);
   const carousel = useShelfCarousel(row, games);
   const layout = touch ? (mobile ? 'mobile' : 'tablet') : 'desktop';
   const { reset } = carousel;
   useEffect(() => reset(), [layout]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const cards = touch ? touchGrid(games, mobile, shelf.kind === 'shows') : carousel.cards;
+  const source = loading ? placeholders : games;
+  const cards = touch ? touchGrid(source, mobile, shelf.kind === 'shows') : loading ? placeholders.map((_, i) => ({ key: i })) : carousel.cards;
   const sectionClass = ['section', touch && `${layout}-games-section`].filter(Boolean).join(' ');
   const rowClass = ['game-row', shelf.eight && 'eight', carousel.moving && 'is-moving', touch && `${layout}-game-grid`].filter(Boolean).join(' ');
 
@@ -81,14 +95,18 @@ export default function GameShelf({ shelf, mobile, touch }) {
     <section className={sectionClass} id={shelf.id}>
       <SectionHead icon={shelf.icon} title={shelf.title} sub={shelf.sub} href={`#${shelf.id}`}>
         <div className="row-controls">
-          <button className="row-arrow" data-carousel={shelf.rowId} data-direction="previous" aria-label={`Previous ${shelf.label}`} aria-controls={shelf.rowId} disabled={carousel.atStart} aria-disabled={carousel.atStart} onClick={() => carousel.step(-1)}><ChevronLeft /></button>
-          <button className="row-arrow" data-carousel={shelf.rowId} data-direction="next" aria-label={`Next ${shelf.label}`} aria-controls={shelf.rowId} onClick={() => carousel.step(1)}><ChevronRight /></button>
+          <button className="row-arrow" data-carousel={shelf.rowId} data-direction="previous" aria-label={`Previous ${shelf.label}`} aria-controls={shelf.rowId} disabled={carousel.atStart || loading || !hasCards} aria-disabled={carousel.atStart || loading || !hasCards} onClick={() => carousel.step(-1)}><ChevronLeft /></button>
+          <button className="row-arrow" data-carousel={shelf.rowId} data-direction="next" aria-label={`Next ${shelf.label}`} aria-controls={shelf.rowId} disabled={loading || !hasCards} onClick={() => carousel.step(1)}><ChevronRight /></button>
         </div>
       </SectionHead>
-      <div className={rowClass} id={shelf.rowId} ref={row} key={layout}>
-        {cards.map((c) => <GameCard key={c.key} game={c.game} copy={c.copy} style={c.style} />)}
-      </div>
-      {touch && <ScrollIndicator targetRef={row} className="mobile-game-scrollbar" label={`Scroll ${shelf.title} games`} controls={shelf.rowId} hideWhenFits={!mobile} key={`bar-${layout}`} />}
+      {hasCards ? (
+        <div className={rowClass} id={shelf.rowId} ref={row} key={layout} aria-busy={loading || undefined}>
+          {cards.map((c) => (loading ? <SkeletonCard key={c.key} style={c.style} /> : <GameCard key={c.key} game={c.game} copy={c.copy} style={c.style} />))}
+        </div>
+      ) : (
+        <ShelfBody status={status} shelf={shelf} onRetry={onRetry} />
+      )}
+      {touch && hasCards && <ScrollIndicator targetRef={row} className="mobile-game-scrollbar" label={`Scroll ${shelf.title} games`} controls={shelf.rowId} hideWhenFits={!mobile} key={`bar-${layout}`} />}
     </section>
   );
 }

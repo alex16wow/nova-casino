@@ -4,3 +4,7 @@
 @import './legacy/02-rail.css';
 @import './legacy/03-revision-2.css';
 @import './legacy/04-layout-corrections.css';
+
+/* New components (token-based). */
+@import './components/controls.css';
+@import './components/overlays.css';

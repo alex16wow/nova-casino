@@ -1,3 +1,4 @@
+import { useAccountAction } from '../../context/AuthContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
@@ -9,6 +10,7 @@ const badges = { live: ['badge-live', 'LIVE'], fresh: ['tag-new', 'NEW'] };
 export default function GameCard({ game, copy, style }) {
   const { favorites, toggleFavorite } = usePlayer();
   const toast = useToast();
+  const gate = useAccountAction();
   const saved = favorites.has(game.name);
   const [badgeClass, badgeText] = badges[game.kind] ?? ['tag-new', ''];
 
@@ -30,12 +32,12 @@ export default function GameCard({ game, copy, style }) {
             className={`heart${saved ? ' saved' : ''}`}
             aria-label={`Add ${game.name} to favorites`}
             aria-pressed={saved}
-            onClick={() => toast(toggleFavorite(game.name) ? 'Added to favorites' : 'Removed from favorites')}
+            onClick={gate(() => toast(toggleFavorite(game.name) ? 'Added to favorites' : 'Removed from favorites'), 'login')}
           >
             <Heart />
           </button>
         )}
-        <div className="card-actions"><button className="play-game" data-game={game.name} onClick={() => toast(`Play: ${game.name}`)}>Play</button></div>
+        <div className="card-actions"><button className="play-game" data-game={game.name} onClick={gate(() => toast(`Play: ${game.name}`), 'login')}>Play</button></div>
       </div>
     </article>
   );

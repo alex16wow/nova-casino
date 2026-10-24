@@ -88,7 +88,7 @@ export const activityTabs = [
 ];
 
 export const bonusSlides = [
-  { title: 'Super bonus on deposit', accent: 'up to €50', copy: 'Boost your balance and discover more games.', action: 'Deposit now', art: 'first' },
+  { title: 'Super bonus on deposit', accent: 'up to €50', copy: 'Boost your balance and discover more games.', action: 'Deposit now', art: 'first', needsAccount: true },
   { title: 'Your next adventure', accent: 'starts here', copy: 'Explore new tables and find your next favorite.', action: 'Explore games', art: 'second' },
 ];
 

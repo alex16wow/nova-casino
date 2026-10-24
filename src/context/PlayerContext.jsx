@@ -1,12 +1,13 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { currencies, levelRewards, notifications as initialNotifications, playerLevel } from '../data/account.js';
+import { currencies, levelRewards, notifications as sampleNotifications, playerLevel } from '../data/account.js';
+import { getDemo } from '../lib/demo.js';
 
 // Signed-in player state shared by the header, the mobile dock and future account pages.
 const PlayerContext = createContext(null);
 
 export function PlayerProvider({ children }) {
   const [currencyCode, setCurrencyCode] = useState(currencies[0].code);
-  const [notifications, setNotifications] = useState(initialNotifications);
+  const [notifications, setNotifications] = useState(() => (getDemo().network === 'empty' ? [] : sampleNotifications));
   const [rewards, setRewards] = useState(levelRewards);
   const [favorites, setFavorites] = useState(() => new Set());
 

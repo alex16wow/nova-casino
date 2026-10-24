@@ -13,7 +13,7 @@ export const offers = {
   l12: {
     id: 'l12', rewardId: 'l12', kind: 'money', type: 'Level reward', cta: 'claim',
     title: 'Level 12 reward', short: 'A €10 bonus to celebrate your latest level.',
-    code: 'EUR', amount: 10, wager: 10, maxBet: 5, days: 7, availableDays: 10, image: 'hero-nova-gifts.webp',
+    code: 'EUR', amount: 10, wager: 10, maxBet: 5, days: 7, availableDays: 10,
   },
   spins20: {
     id: 'spins20', rewardId: 'spins20', kind: 'spins', type: 'Free spins', cta: 'claim',
@@ -23,12 +23,12 @@ export const offers = {
   deposit100: {
     id: 'deposit100', kind: 'money', type: 'Deposit bonus', cta: 'deposit',
     title: 'Super bonus on deposit', short: '100% of your next deposit, up to 50.',
-    match: 100, cap: 50, minDeposit: 10, currencies: ['USDT', 'USDC', 'EUR'], wager: 25, maxBet: 5, days: 14, availableDays: 30, image: 'bonus-first-object.webp',
+    match: 100, cap: 50, minDeposit: 10, currencies: ['USDT', 'USDC', 'EUR'], wager: 25, maxBet: 5, days: 14, availableDays: 30,
   },
   cashback: {
     id: 'cashback', kind: 'money', type: 'Cashback', cta: 'details', opensInDays: 2,
     title: 'Weekend cashback', short: '10% back on weekend net losses, up to 100 USDT.',
-    code: 'USDT', percent: 10, cap: 100, wager: 1, maxBet: 5, days: 3, availableDays: 4, image: 'bonus-second-object.webp',
+    code: 'USDT', percent: 10, cap: 100, wager: 1, maxBet: 5, days: 3, availableDays: 4,
   },
 };
 

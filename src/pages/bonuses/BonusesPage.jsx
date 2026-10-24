@@ -6,9 +6,7 @@ import StateMessage from '../../components/ui/StateMessage.jsx';
 import { MenuIcon } from '../../components/ui/icons.jsx';
 import { formatAmount, usePlayer } from '../../context/PlayerContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
-import { findGame, gameSlug } from '../../data/games.js';
 import { offerExpiry, offers } from '../../data/bonuses.js';
-import { asset } from '../../lib/asset.js';
 import { fetchBonuses } from '../../lib/api.js';
 import StatusBadge from '../profile/StatusBadge.jsx';
 import ActiveBonus from './ActiveBonus.jsx';
@@ -127,14 +125,23 @@ export default function BonusesPage() {
   );
 }
 
+// Vector badge per offer type, drawn over a CSS background (no images).
+const offerIcons = {
+  'Level reward': <><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3Z" /><path d="M8 21h8" /></>,
+  'Free spins': <><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="2.5" /><path d="M12 3.5v6M12 14.5v6M3.5 12h6M14.5 12h6" /></>,
+  'Deposit bonus': <><rect x="3" y="6" width="18" height="13" rx="2.5" /><path d="M3 10h18M15 15h3" /><path d="M12 2.5v5m-2.5-2.5h5" /></>,
+  Cashback: <><path d="M20 12a8 8 0 1 1-2.3-5.6" /><path d="M20 4v4h-4" /><path d="M12 8v8m2.5-6.2c-.4-.8-1.4-1.3-2.5-1.3-1.4 0-2.5.8-2.5 1.8 0 2.4 5 1.2 5 3.6 0 1-1.1 1.8-2.5 1.8-1.1 0-2.1-.5-2.5-1.3" /></>,
+};
+const artClass = { 'Level reward': 'is-level', 'Free spins': 'is-spins', 'Deposit bonus': 'is-deposit', Cashback: 'is-cashback' };
+
 function OfferCard({ offer, until, cta, onDetails }) {
-  const game = offer.game && findGame(gameSlug(offer.game));
-  const image = offer.image ?? game?.image;
   const upcoming = offer.cta === 'details';
   return (
     <article className={`nv-offer${upcoming ? ' is-upcoming' : ''}`}>
-      <div className="nv-offer-art">
-        {image ? <img src={asset(image)} alt="" className={game ? 'is-game' : ''} /> : <MenuIcon name="gift" />}
+      <div className={`nv-offer-art ${artClass[offer.type] ?? 'is-level'}`}>
+        <span className="nv-offer-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{offerIcons[offer.type] ?? offerIcons['Level reward']}</svg>
+        </span>
         <span className="nv-offer-type">{offer.type}</span>
       </div>
       <div className="nv-offer-body">
@@ -145,8 +152,8 @@ function OfferCard({ offer, until, cta, onDetails }) {
         <p className="nv-offer-until">{upcoming ? `Opens ${shortDate(new Date(Date.now() + offer.opensInDays * DAY).toISOString())}` : `Available until ${shortDate(until)}`}</p>
       </div>
       <div className="nv-offer-actions">
-        {cta}
-        <Button variant={upcoming ? 'primary' : 'ghost'} onClick={onDetails}>View details</Button>
+        {cta ?? <Button disabled>Coming soon</Button>}
+        <button type="button" className="nv-offer-details" onClick={onDetails}>View details</button>
       </div>
     </article>
   );

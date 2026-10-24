@@ -1,7 +1,6 @@
 import Button from '../../components/ui/Button.jsx';
 import { formatAmount } from '../../context/PlayerContext.jsx';
 import { wagerTarget } from '../../data/bonuses.js';
-import { asset } from '../../lib/asset.js';
 import StatusBadge from '../profile/StatusBadge.jsx';
 import { daysLeft, shortDate } from './terms.js';
 
@@ -26,7 +25,6 @@ export default function ActiveBonus({ bonus, onTerms, onGames, onCancel, onBrows
 
   return (
     <section className="nv-panel nv-active-bonus" aria-labelledby="activeBonusTitle">
-      <img className="nv-active-bonus-art" src={asset('hero-nova-gifts.webp')} alt="" />
       <div className="nv-active-bonus-top">
         <span className="nv-active-bonus-eyebrow">Active bonus · {bonus.type}</span>
         <StatusBadge tone="success">Active</StatusBadge>

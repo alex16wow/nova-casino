@@ -18,6 +18,7 @@
 @import './pages/favorites.css';
 @import './pages/recent.css';
 @import './pages/profile.css';
+@import './pages/wallet.css';
 
 /* Oversized scene art must not be capped by host img resets (e.g. preview wrappers injecting img{max-width:100%}). */
 .hero-scene, .bonus-scene, .hero-glow, .bonus-object { max-width: none; }

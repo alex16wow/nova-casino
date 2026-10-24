@@ -32,6 +32,7 @@ src/
     demo/             States switcher (shown on every page)
   pages/home/         lobby sections
   pages/profile/      My profile (/account/profile)
+  pages/wallet/       Wallet (/account/wallet): balances, deposit, withdraw, transactions
   pages/not-found/    404
   context/            ToastContext, AuthContext (session, dialogs), PlayerContext (wallet, notifications, rewards, favorites), ProfileContext (demo player profile)
   lib/                fake API, storage, demo modes

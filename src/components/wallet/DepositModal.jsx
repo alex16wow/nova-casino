@@ -246,7 +246,7 @@ export default function DepositModal() {
     setSession((n) => n + 1);
   };
   const done = (result) => {
-    deposit(result.code, result.amount);
+    deposit(result.code, result.amount, { id: result.id, method: result.method, bonus: result.bonus, network: result.method === 'crypto' ? depositRules[result.code].network : null });
     setCurrencyCode(result.code);
     setStep({ view: 'done', result });
   };

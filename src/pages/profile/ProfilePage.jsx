@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SkeletonLine } from '../../components/ui/Skeleton.jsx';
 import StateMessage from '../../components/ui/StateMessage.jsx';
 import { fetchProfile } from '../../lib/api.js';
@@ -16,6 +17,13 @@ export default function ProfilePage() {
     fetchProfile().then(() => setStatus('ready'), () => setStatus('error'));
   }, []);
   useEffect(load, [load]);
+
+  // /account/profile#verification (e.g. from Wallet → Withdraw) scrolls to the Verification block.
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (status !== 'ready' || !hash) return;
+    document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [status, hash]);
 
   if (status === 'error') {
     return <StateMessage kind="error" title="Couldn’t Load Your Profile" text="Connection problem. Check your internet and try again." action="Try again" onAction={load} />;

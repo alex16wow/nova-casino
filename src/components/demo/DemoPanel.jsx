@@ -48,6 +48,7 @@ export default function DemoPanel() {
   const onFavorites = pathname === '/favorites';
   const onRecent = pathname === '/recently-played';
   const onProfile = pathname === '/account/profile';
+  const onWallet = pathname === '/account/wallet';
 
   // Read on every render: picks reset when the address changes.
   const { network } = getDemo();
@@ -73,6 +74,8 @@ export default function DemoPanel() {
         <div className="nv-demo-panel" role="group" aria-label="Prototype states">
           {onGame ? (
             <GameStates network={network} chooseNetwork={chooseNetwork} missing={pathname === MISSING_GAME} navigate={navigate}>{account}</GameStates>
+          ) : onWallet ? (
+            <WalletStates network={network} chooseNetwork={chooseNetwork}>{account}</WalletStates>
           ) : onProfile ? (
             <ProfileStates network={network} chooseNetwork={chooseNetwork}>{account}</ProfileStates>
           ) : onRecent ? (
@@ -214,6 +217,41 @@ function ProfileStates({ network, chooseNetwork, children }) {
       <div className="nv-demo-options">
         <button type="button" onClick={resetProfile}>Reset to defaults</button>
       </div>
+    </>
+  );
+}
+
+// Wallet: page data, payment outcome (no reload) and the verification gate for withdrawals.
+function WalletStates({ network, chooseNetwork, children }) {
+  const { profile, setVerification } = useProfile();
+  const { resetWallet } = usePlayer();
+  const [payment, setPayment] = useState(() => getDemo().payment);
+  const choosePayment = (mode) => { setDemo({ payment: mode }); setPayment(mode); };
+  return (
+    <>
+      {children}
+      <p className="nv-demo-title">Wallet data</p>
+      <div className="nv-demo-options">
+        {networkModes.map(([mode, label]) => (
+          <button key={mode} type="button" aria-pressed={network === mode} onClick={() => chooseNetwork(mode)}>{mode === 'empty' ? 'No history' : label}</button>
+        ))}
+      </div>
+      <p className="nv-demo-title">Payments</p>
+      <div className="nv-demo-options">
+        <button type="button" aria-pressed={payment === 'ok'} onClick={() => choosePayment('ok')}>Succeed</button>
+        <button type="button" aria-pressed={payment === 'fail'} onClick={() => choosePayment('fail')}>Fail</button>
+      </div>
+      <p className="nv-demo-title">Verification</p>
+      <div className="nv-demo-options">
+        {Object.entries(verificationStatus).map(([id, { label }]) => (
+          <button key={id} type="button" aria-pressed={profile.verification === id} onClick={() => setVerification(id)}>{label}</button>
+        ))}
+      </div>
+      <p className="nv-demo-title">Demo wallet</p>
+      <div className="nv-demo-options">
+        <button type="button" onClick={resetWallet}>Reset balances and history</button>
+      </div>
+      <p className="nv-demo-hint">Withdrawals need Verified. Fail makes deposits and withdrawals fail without changing balances.</p>
     </>
   );
 }

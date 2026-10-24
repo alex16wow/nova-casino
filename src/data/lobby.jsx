@@ -109,7 +109,7 @@ export const providers = [
 ];
 
 export const lobbyCategories = [
-  { page: 'lobby', label: 'Lobby', icon: 'category-lobby.webp' },
+  { page: 'lobby', label: 'All Games', icon: 'category-lobby.webp' },
   { page: 'top-games', label: 'Top Games', icon: 'category-top-games.webp' },
   { page: 'new-games', label: 'New Games', icon: 'category-new-games.webp' },
   { page: 'live-games', label: 'Live Games', icon: 'category-live-games.webp' },

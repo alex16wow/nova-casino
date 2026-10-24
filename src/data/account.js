@@ -36,8 +36,7 @@ export const accountSections = [
   { id: 'profile', label: 'My profile', icon: 'user', to: '/account/profile', live: true },
   { id: 'wallet', label: 'Wallet', icon: 'wallet', to: '/account/wallet', live: true },
   { id: 'bonuses', label: 'Bonuses', icon: 'gift', to: '/account/bonuses', live: true },
-  { id: 'history', label: 'Game history', icon: 'history', to: '/account/game-history' },
-  { id: 'settings', label: 'Settings', icon: 'settings', to: '/account/settings' },
+  { id: 'settings', label: 'Settings', icon: 'settings', to: '/account/settings', live: true },
 ];
 export const accountSection = (id) => accountSections.find((s) => s.id === id);
 

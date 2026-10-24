@@ -23,10 +23,6 @@
 .nv-active-bonus.is-empty h2 { font-size: var(--font-size-lg); }
 .nv-active-bonus.is-empty p { margin: 4px 0 0; font-size: var(--font-size-sm); color: var(--color-text-muted); }
 
-.nv-btn--danger { border-color: #ff8da2; background: linear-gradient(110deg, #e2456a, #b0285a); box-shadow: 0 0 8px #ff5c7a66; }
-.nv-btn--danger:hover:not(:disabled) { filter: brightness(1.1); }
-.nv-btn--danger-text { color: #ff8da2; }
-.nv-btn--danger-text:hover:not(:disabled) { color: #ffc2cd; }
 
 /* Promo code */
 .nv-promo { display: grid; gap: var(--space-3); }

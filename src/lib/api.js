@@ -111,3 +111,20 @@ export async function processWithdrawal() {
 
 // Bonuses page: loading follows the data mode ("empty" shows every tab empty).
 export const fetchBonuses = () => respond((empty) => ({ empty }));
+
+// Settings page. The password check is a demo: the value is compared and dropped, never stored or sent anywhere.
+// "wrongpass" as the current password is rejected, like on the login form.
+export const fetchSettings = () => respond(() => true);
+
+export async function changePassword({ current }) {
+  await wait(1000);
+  if (getDemo().network === 'error') throw new ApiError('network', 'Connection problem. Your password was not changed. Try again.');
+  if (current === 'wrongpass') throw new ApiError('credentials', 'Current password is incorrect.');
+  return true;
+}
+
+export async function saveSetting() {
+  await wait(600);
+  if (getDemo().network === 'error') throw new ApiError('network', 'Connection problem. Your changes were not saved. Try again.');
+  return true;
+}

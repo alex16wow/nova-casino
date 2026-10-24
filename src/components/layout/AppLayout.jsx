@@ -5,6 +5,7 @@ import { useBreakpoint } from '../../hooks/useMediaQuery.js';
 import AuthModal from '../auth/AuthModal.jsx';
 import DemoPanel from '../demo/DemoPanel.jsx';
 import DepositModal from '../wallet/DepositModal.jsx';
+import SessionReminder from '../account/SessionReminder.jsx';
 import AccountDock from './AccountDock.jsx';
 import AmbientVideo from './AmbientVideo.jsx';
 import SupportWidget from '../support/SupportWidget.jsx';
@@ -78,6 +79,7 @@ export default function AppLayout() {
       {showDock && <AccountDock mobile={mobile} popups={popups} />}
       <DrawerScrollIndicator open={drawerOpen} />
       <AuthModal />
+      <SessionReminder />
       {!isGuest && <DepositModal />}
       <SupportWidget />
       <DemoPanel />

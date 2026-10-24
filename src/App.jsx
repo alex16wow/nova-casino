@@ -2,6 +2,7 @@ import { BrowserRouter, MemoryRouter, Navigate, Route, Routes } from 'react-rout
 import AppLayout from './components/layout/AppLayout.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { PlayerProvider } from './context/PlayerContext.jsx';
+import { SettingsProvider } from './context/SettingsContext.jsx';
 import { ProfileProvider } from './context/ProfileContext.jsx';
 import { SupportProvider } from './context/SupportContext.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
@@ -13,6 +14,7 @@ import HomePage from './pages/home/HomePage.jsx';
 import ProfilePage from './pages/profile/ProfilePage.jsx';
 import WalletPage from './pages/wallet/WalletPage.jsx';
 import BonusesPage from './pages/bonuses/BonusesPage.jsx';
+import SettingsPage from './pages/settings/SettingsPage.jsx';
 import RecentPage from './pages/recent/RecentPage.jsx';
 import NotFoundPage from './pages/not-found/NotFoundPage.jsx';
 
@@ -30,29 +32,32 @@ export default function App() {
     <Router {...routerProps}>
       <ToastProvider>
         <AuthProvider>
-          <PlayerProvider>
-            <ProfileProvider>
-              <SupportProvider>
-                <Routes>
-                  <Route element={<AppLayout />}>
-                    <Route index element={<HomePage />} />
-                    <Route path="game/:slug" element={<GamePage />} />
-                    <Route path="favorites" element={<FavoritesPage />} />
-                    <Route path="recently-played" element={<RecentPage />} />
-                    <Route path="account" element={<AccountLayout />}>
-                      <Route index element={<Navigate to="profile" replace />} />
-                      <Route path="profile" element={<ProfilePage />} />
-                      <Route path="wallet" element={<WalletPage />} />
-                      <Route path="bonuses" element={<BonusesPage />} />
+          <SettingsProvider>
+            <PlayerProvider>
+              <ProfileProvider>
+                <SupportProvider>
+                  <Routes>
+                    <Route element={<AppLayout />}>
+                      <Route index element={<HomePage />} />
+                      <Route path="game/:slug" element={<GamePage />} />
+                      <Route path="favorites" element={<FavoritesPage />} />
+                      <Route path="recently-played" element={<RecentPage />} />
+                      <Route path="account" element={<AccountLayout />}>
+                        <Route index element={<Navigate to="profile" replace />} />
+                        <Route path="profile" element={<ProfilePage />} />
+                        <Route path="wallet" element={<WalletPage />} />
+                        <Route path="bonuses" element={<BonusesPage />} />
+                        <Route path="settings" element={<SettingsPage />} />
+                      </Route>
+                      <Route path="providers/:provider" element={<CatalogPage />} />
+                      <Route path=":category" element={<CatalogPage />} />
+                      <Route path="*" element={<NotFoundPage />} />
                     </Route>
-                    <Route path="providers/:provider" element={<CatalogPage />} />
-                    <Route path=":category" element={<CatalogPage />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                  </Route>
-                </Routes>
-              </SupportProvider>
-            </ProfileProvider>
-          </PlayerProvider>
+                  </Routes>
+                </SupportProvider>
+              </ProfileProvider>
+            </PlayerProvider>
+          </SettingsProvider>
         </AuthProvider>
       </ToastProvider>
     </Router>

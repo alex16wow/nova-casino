@@ -1,0 +1,121 @@
+/* Settings page (/account/settings) and the shared restriction notice. Built on tokens.css. */
+
+.nv-settings { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+@media (min-width: 1100px) {
+  .nv-settings { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nv-settings-card { align-content: start; }
+  .nv-settings-card--wide { grid-column: 1 / -1; }
+}
+
+.nv-settings-card { display: grid; gap: 0; padding: var(--space-5) var(--space-6); }
+.nv-settings-head { display: grid; gap: 4px; padding-bottom: var(--space-3); }
+.nv-settings-head p { margin: 0; font-size: var(--font-size-sm); color: var(--color-text-subtle); }
+.nv-settings-skeleton { height: 44px; margin-top: var(--space-3); border-radius: var(--radius-sm); }
+
+/* Setting row: copy on the left, control on the right; rows separated by a hairline. */
+.nv-setting { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-5); padding: var(--space-4) 0; border-top: 1px solid var(--color-line-muted); }
+.nv-settings-head + .nv-setting, .nv-settings-split > div > .nv-setting:first-child { border-top: 0; }
+.nv-setting-copy { flex: 1 1 260px; min-width: 0; display: grid; gap: 4px; }
+.nv-setting-copy strong { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: var(--font-size-md); font-weight: 650; color: #fff; }
+.nv-setting-copy p { margin: 0; font-size: var(--font-size-sm); line-height: 1.5; color: var(--color-text-subtle); }
+.nv-setting-copy b { color: #e9e4ff; font-weight: 650; }
+.nv-setting-control { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-2); }
+.nv-setting-value { font-size: var(--font-size-md); font-weight: 600; color: #e9e4ff; }
+.nv-setting-actions { flex-basis: 100%; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
+.nv-setting--form .nv-form-alert { flex-basis: 100%; margin: 0; }
+.nv-setting--form .nv-field { min-width: 190px; }
+.nv-setting--stack { flex-direction: column; align-items: stretch; }
+.nv-setting--stack .nv-setting-copy { flex: none; }
+.nv-setting--stack .nv-setting-control { justify-content: flex-start; }
+.nv-setting--danger { margin-top: var(--space-2); padding-top: var(--space-5); border-top: 1px solid #ff5c7a33; }
+
+/* Visually hidden label (the row title already names the field). */
+.nv-sr-label > label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Two columns inside a wide card. */
+.nv-settings-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 var(--space-8); }
+@media (min-width: 900px) {
+  .nv-settings-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+.nv-settings-demo { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border: 1px solid #8b35ff66; border-radius: var(--radius-pill); background: #8b35ff1a; font-size: 11px; font-weight: 650; color: #d6b8ff; width: fit-content; }
+
+/* Switch: track + thumb with an On / Off word. */
+.nv-switch { display: inline-flex; align-items: center; gap: var(--space-2); padding: 4px; border: 0; border-radius: var(--radius-pill); background: none; color: var(--color-text-muted); font: inherit; font-size: var(--font-size-sm); font-weight: 600; cursor: pointer; }
+.nv-switch-track { position: relative; width: 42px; height: 24px; border: 1px solid var(--color-line-muted); border-radius: var(--radius-pill); background: #1a1d3a; transition: background var(--duration-fast), border-color var(--duration-fast); }
+.nv-switch-thumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #9aa2c7; transition: transform var(--duration-fast), background var(--duration-fast); }
+.nv-switch[aria-checked="true"] { color: #f4c3ff; }
+.nv-switch[aria-checked="true"] .nv-switch-track { border-color: #c56bff; background: var(--gradient-primary); }
+.nv-switch[aria-checked="true"] .nv-switch-thumb { transform: translateX(18px); background: #fff; }
+.nv-switch-text { min-width: 22px; text-align: left; }
+.nv-switch:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.nv-switch:disabled { cursor: not-allowed; opacity: .6; }
+
+/* Segmented choice. */
+.nv-segmented { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid var(--color-line-muted); border-radius: var(--radius-sm); background: var(--color-surface-sunken); width: fit-content; max-width: 100%; }
+.nv-segmented button { min-height: 32px; padding: 0 var(--space-3); border: 1px solid transparent; border-radius: 6px; background: none; color: #c3c5e2; font: inherit; font-size: var(--font-size-sm); font-weight: 600; cursor: pointer; transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast); }
+.nv-segmented button:hover:not(:disabled) { color: #fff; background: #171632; }
+.nv-segmented button.is-selected { border-color: #9b45ff; background: linear-gradient(100deg, #5620a7aa, #311a6e55); color: #fff; }
+.nv-segmented button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
+.nv-segmented button:disabled { cursor: not-allowed; opacity: .5; }
+
+/* Active sessions. */
+.nv-sessions { padding: var(--space-4) 0; }
+.nv-sessions-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-height: 36px; margin-bottom: var(--space-2); }
+.nv-sessions-head strong { font-size: var(--font-size-md); font-weight: 650; color: #fff; }
+.nv-sessions ul { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.nv-session { display: flex; align-items: center; gap: var(--space-3); min-height: 56px; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-line-muted); border-radius: var(--radius-sm); background: var(--color-surface-sunken); }
+.nv-session.is-current { border-color: #42e6b244; }
+.nv-session-icon { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: #8b35ff1f; color: #cfa9ff; }
+.nv-session-main { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.nv-session-main strong { overflow: hidden; font-size: var(--font-size-sm); font-weight: 650; color: #fff; text-overflow: ellipsis; white-space: nowrap; }
+.nv-session-main small { overflow: hidden; font-size: 12px; color: var(--color-text-subtle); text-overflow: ellipsis; white-space: nowrap; }
+.nv-sessions-note { margin: var(--space-3) 0 0; font-size: var(--font-size-sm); color: var(--color-text-subtle); }
+
+/* Responsible gaming. */
+.nv-rg-active { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-bottom: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid #ffc45144; border-radius: var(--radius-sm); background: #ffc4510f; }
+.nv-rg-active p { flex: 1 1 280px; margin: 0; font-size: var(--font-size-sm); line-height: 1.5; color: #f3dcb5; }
+.nv-rg-limit { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-4) 0; }
+.nv-rg-limit .nv-form-alert, .nv-rg-limit .nv-note, .nv-rg-limit .nv-field-hint { margin: 0; }
+.nv-rg-limit-fields { display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: var(--space-3); align-items: start; }
+.nv-rg-limit .nv-setting-actions { margin-top: var(--space-1); }
+.nv-text-link { padding: 0; border: 0; background: none; color: #f4c3ff; font: inherit; font-weight: 650; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.nv-text-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: 4px; }
+
+/* Dialogs. */
+.nv-modal-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-1); }
+.nv-pass-rules { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: -6px 0 0; padding: 0; list-style: none; font-size: 12px; color: var(--color-text-subtle); }
+.nv-pass-rules li::before { content: "○"; margin-right: 6px; }
+.nv-pass-rules li.is-met { color: var(--color-success); }
+.nv-pass-rules li.is-met::before { content: "✓"; }
+.nv-settings-result { display: grid; justify-items: center; gap: var(--space-3); padding: var(--space-2) 0; text-align: center; }
+.nv-settings-result strong { font-size: var(--font-size-lg); color: #fff; }
+.nv-settings-result p { margin: 0; font-size: var(--font-size-md); color: #d7d1f7; }
+.nv-settings-result-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; }
+.nv-settings-result-icon.is-success { color: var(--color-success); background: #42e6b21c; box-shadow: 0 0 0 1px #42e6b244; }
+.nv-2fa-scan { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3); border: 1px dashed var(--color-line-muted); border-radius: var(--radius-sm); }
+.nv-2fa-scan p { margin: 0; font-size: var(--font-size-sm); line-height: 1.5; color: var(--color-text-subtle); }
+.nv-demo-qr { flex: none; width: 104px; height: 104px; opacity: .85; }
+
+/* Restriction notice: game window, Wallet → Deposit, deposit dialog. */
+.nv-restriction { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-3) var(--space-4); padding: var(--space-5); border: 1px solid #ffc45144; border-radius: var(--radius-md); background: linear-gradient(135deg, #2a2110cc, #11122a); }
+.nv-restriction-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #ffc4511f; color: var(--color-warning); }
+.nv-restriction-copy { display: grid; gap: 6px; align-content: center; }
+.nv-restriction-copy strong { font-size: var(--font-size-lg); color: #fff; }
+.nv-restriction-copy p { margin: 0; font-size: var(--font-size-sm); line-height: 1.5; color: #e9dcc2; }
+.nv-restriction-actions { grid-column: 2; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.nv-restriction.is-compact { max-width: 520px; margin: 0 auto; text-align: left; }
+
+@media (max-width: 680px) {
+  .nv-settings-card { padding: var(--space-4); }
+  .nv-setting-copy { flex-basis: 180px; }
+  .nv-setting-actions { justify-content: stretch; }
+  .nv-setting-actions .nv-btn { flex: 1 1 auto; }
+  .nv-setting--form .nv-setting-control, .nv-setting--form .nv-field { width: 100%; }
+  .nv-rg-limit-fields { grid-template-columns: minmax(0, 1fr) 104px; }
+  .nv-modal-actions .nv-btn { flex: 1 1 auto; }
+  .nv-2fa-scan { flex-direction: column; text-align: center; }
+  .nv-restriction { grid-template-columns: minmax(0, 1fr); padding: var(--space-4); }
+  .nv-restriction-actions { grid-column: 1; }
+  .nv-restriction-actions > * { flex: 1 1 auto; }
+}

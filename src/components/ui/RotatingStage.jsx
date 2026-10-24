@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSettings } from '../../context/SettingsContext.jsx';
 
-// Cycles panels horizontally: the next panel slides in while the old one slides out.
+// Cycles panels horizontally: the next panel slides in while the old one slides out. Holds still with reduced motion.
 export default function RotatingStage({ id, items, period, panelClass, render, onChange }) {
   const [panels, setPanels] = useState([{ key: 0, index: 0, phase: 'current' }]);
   const state = useRef({ index: 0, key: 0, busy: false });
   const changed = useRef(onChange);
   changed.current = onChange;
+  const { reduceMotion } = useSettings();
 
   useEffect(() => {
+    if (reduceMotion) return;
     let cleanup;
     const timer = setInterval(() => {
       const s = state.current;
@@ -23,7 +26,7 @@ export default function RotatingStage({ id, items, period, panelClass, render, o
       }, 820);
     }, period);
     return () => { clearInterval(timer); clearTimeout(cleanup); };
-  }, [items.length, period]);
+  }, [items.length, period, reduceMotion]);
 
   return (
     <div className="rotation-stage" id={id}>

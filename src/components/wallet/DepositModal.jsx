@@ -6,6 +6,8 @@ import { makeDeposit } from '../../lib/api.js';
 import Button from '../ui/Button.jsx';
 import { Checkbox, TextField } from '../ui/Field.jsx';
 import Modal from '../ui/Modal.jsx';
+import RestrictionNotice from '../account/RestrictionNotice.jsx';
+import useDepositGuard from '../../hooks/useDepositGuard.js';
 
 const parseAmount = (v) => Number(String(v).replace(',', '.'));
 const digits = (v) => v.replace(/\D/g, '');
@@ -73,7 +75,8 @@ function DepositForm({ wallet, initial, onAddress, onDone }) {
     setServerError('');
   };
 
-  const amountError = validateAmount(amount, rules, code);
+  const { limitError } = useDepositGuard();
+  const amountError = validateAmount(amount, rules, code) || limitError(code, parseAmount(amount));
   const cardErrors = method === 'card' ? validateCard(card) : {};
   const shown = (key, error) => (touched[key] ? error : '');
   const value = amountError ? 0 : parseAmount(amount);
@@ -244,6 +247,7 @@ export default function DepositModal() {
   const { depositOpen, closeDeposit, currencies, currency, deposit, setCurrencyCode, activateDepositBonus } = usePlayer();
   const [step, setStep] = useState({ view: 'form' });
   const [session, setSession] = useState(0);
+  const { restriction } = useDepositGuard();
 
   const close = () => {
     closeDeposit();
@@ -260,8 +264,9 @@ export default function DepositModal() {
   const [title, subtitle] = titles[step.view];
   return (
     <Modal open={depositOpen} onClose={close} title={title} subtitle={subtitle} focusKey={step.view}>
-      {step.view === 'form' && <DepositForm key={session} wallet={currencies} initial={step.order ?? { code: currency.code }} onAddress={(order) => setStep({ view: 'address', order })} onDone={done} />}
-      {step.view === 'address' && <AddressStep order={step.order} onBack={() => setStep({ view: 'form', order: step.order })} onDone={done} />}
+      {restriction && step.view !== 'done' && <RestrictionNotice restriction={restriction} what="Deposits are" />}
+      {!restriction && step.view === 'form' && <DepositForm key={session} wallet={currencies} initial={step.order ?? { code: currency.code }} onAddress={(order) => setStep({ view: 'address', order })} onDone={done} />}
+      {!restriction && step.view === 'address' && <AddressStep order={step.order} onBack={() => setStep({ view: 'form', order: step.order })} onDone={done} />}
       {step.view === 'done' && <DoneStep result={step.result} balance={currencies.find((c) => c.code === step.result.code).balance} onClose={close} />}
     </Modal>
   );

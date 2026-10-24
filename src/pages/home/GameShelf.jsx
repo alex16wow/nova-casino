@@ -5,6 +5,7 @@ import { SkeletonCard } from '../../components/ui/Skeleton.jsx';
 import StateMessage from '../../components/ui/StateMessage.jsx';
 import ScrollIndicator from '../../components/ui/ScrollIndicator.jsx';
 import SectionHead from '../../components/ui/SectionHead.jsx';
+import { motionReduced } from '../../context/SettingsContext.jsx';
 import { ChevronLeft, ChevronRight } from '../../components/ui/icons.jsx';
 
 const rotate = (list, n) => {
@@ -34,7 +35,7 @@ function useShelfCarousel(rowRef, games) {
     const cards = row.children, distance = cards[1].offsetLeft - cards[0].offsetLeft;
     row.scrollLeft = move > 0 ? 0 : distance;
     const from = row.scrollLeft, to = move > 0 ? distance : 0;
-    const duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 420;
+    const duration = motionReduced() ? 0 : 420;
     let started, frame;
     const tick = (now) => {
       started ??= now;

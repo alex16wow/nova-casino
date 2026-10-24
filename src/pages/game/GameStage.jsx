@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import Button from '../../components/ui/Button.jsx';
 import StateMessage from '../../components/ui/StateMessage.jsx';
+import RestrictionNotice from '../../components/account/RestrictionNotice.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useSettings } from '../../context/SettingsContext.jsx';
 import { asset } from '../../lib/asset.js';
 import { getDemo } from '../../lib/demo.js';
 
@@ -13,16 +15,19 @@ const NO_DEMO_MS = 2500;
 // Provider game window: sign-in prompt for guests, then the game iframe behind a loading screen.
 export default function GameStage({ game }) {
   const { isGuest, openAuth } = useAuth();
+  // A break or self-exclusion (Settings → Responsible gaming) keeps games from starting.
+  const { restriction } = useSettings();
+  const blocked = !isGuest && Boolean(restriction);
   const [phase, setPhase] = useState('loading');
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    if (isGuest) return;
+    if (isGuest || blocked) return;
     if (getDemo().provider === 'down') { setPhase('error'); return; }
     setPhase('loading');
     const timer = setTimeout(() => setPhase((p) => (p === 'loading' ? 'error' : p)), game.demo ? TIMEOUT_MS : NO_DEMO_MS);
     return () => clearTimeout(timer);
-  }, [isGuest, attempt, game.demo]);
+  }, [isGuest, blocked, attempt, game.demo]);
 
   if (isGuest) {
     return (
@@ -37,6 +42,15 @@ export default function GameStage({ game }) {
             <Button onClick={() => openAuth('register')}>Sign up</Button>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (blocked) {
+    return (
+      <div className="nv-game-stage is-gate">
+        <img className="nv-game-backdrop" src={asset(game.image)} alt="" aria-hidden="true" />
+        <div className="nv-game-gate"><RestrictionNotice restriction={restriction} compact /></div>
       </div>
     );
   }

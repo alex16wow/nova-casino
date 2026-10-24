@@ -5,6 +5,7 @@ import { depositBonusAmount, makeBonus, offers, promoCodes, seedBonuses, wagerTa
 import { seedTransactions } from '../data/wallet.js';
 import { getDemo } from '../lib/demo.js';
 import { readJSON, writeJSON } from '../lib/storage.js';
+import { useSettings } from './SettingsContext.jsx';
 
 // Signed-in player state shared by the header, the mobile dock and future account pages.
 // Balances are numbers; `balance` on each currency is the formatted string the UI shows.
@@ -53,7 +54,9 @@ const initialRecent = () => {
 };
 
 export function PlayerProvider({ children }) {
-  const [currencyCode, setCurrencyCode] = useState(currencies[0].code);
+  // The session starts on the default currency from Settings; the header switch changes it for now.
+  const { settings } = useSettings();
+  const [currencyCode, setCurrencyCode] = useState(() => (currencies.some((c) => c.code === settings.defaultCurrency) ? settings.defaultCurrency : currencies[0].code));
   const [wallet, setWallet] = useState(initialWallet);
   const { balances, transactions } = wallet;
   const [bonusState, setBonusState] = useState(initialBonuses);

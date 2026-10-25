@@ -15,7 +15,8 @@ export default function PlayerLevel({ open, setOpen }) {
   const goBonuses = () => { setOpen(false); navigate('/account/bonuses?tab=available'); };
   const toggle = useRef(null), panel = useRef(null);
   const available = rewards.filter((r) => !r.claimed).length;
-  const percent = Math.round((level.xp / level.xpMax) * 100);
+  // Progress within the current level: from its start (xpMin) to the next level (xpMax).
+  const percent = Math.round(((level.xp - (level.xpMin ?? 0)) / (level.xpMax - (level.xpMin ?? 0))) * 100);
 
   useDismiss(open, () => setOpen(false), [toggle, panel], { onEscape: () => toggle.current?.focus() });
 
@@ -84,7 +85,7 @@ export default function PlayerLevel({ open, setOpen }) {
             </article>
           ))}
         </div>
-        <button type="button" className="nv-btn nv-btn--secondary nv-btn--sm nv-btn--block rewards-view-all" onClick={goBonuses}><span className="nv-btn-label">View all bonuses</span></button>
+        <button type="button" className="nv-btn nv-btn--primary nv-btn--md rewards-view-all" onClick={goBonuses}><span className="nv-btn-label">View all bonuses</span></button>
       </section>
     </div>
   );

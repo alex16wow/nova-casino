@@ -10,6 +10,7 @@ export const currencies = [
 
 export const playerLevel = {
   level: 12,
+  xpMin: 1750,
   xp: 1880,
   xpMax: 2000,
   next: { level: 13, reward: '€15 Bonus + 25 Free Spins', xpLeft: '120' },

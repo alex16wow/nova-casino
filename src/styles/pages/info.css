@@ -43,3 +43,13 @@
   .nv-info-job { grid-template-columns: 1fr; gap: var(--space-3); }
   .nv-info-job .nv-btn { justify-self: start; }
 }
+
+/* Accent note inside long text (key explanations, contact tips). */
+.nv-info-section .nv-info-callout { margin: var(--space-4) 0; padding: var(--space-3) var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-md); background: #8b35ff14; color: #e4ddff; }
+.nv-info-email { color: #e5a8ff; font-size: var(--font-size-md); font-weight: 600; word-break: break-all; }
+.nv-info-section .faq-list { margin-top: var(--space-1); }
+.nv-info-socials { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.nv-info-socials a { display: inline-flex; align-items: center; gap: var(--space-2); height: 40px; padding: 0 var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); font-size: var(--font-size-md); transition: border-color .2s, box-shadow .2s; }
+.nv-info-socials a:hover { border-color: var(--color-line-strong); box-shadow: var(--shadow-hover-glow); }
+.nv-info-socials svg { width: 18px; height: 18px; fill: currentColor; filter: drop-shadow(0 0 5px #9d53ff70); }
+.nv-info-contact { grid-template-rows: auto 1fr auto auto; }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { heroSlides } from '../../data/lobby.jsx';
 import { useSettings } from '../../context/SettingsContext.jsx';
-import { usePreviewAction } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
 import { preloadImages } from '../../lib/preload.js';
 import CategoryNav from '../../components/ui/CategoryNav.jsx';
@@ -13,7 +13,7 @@ const SLIDE_MS = 6000;
 preloadImages(heroSlides.flatMap(({ art }) => [art.background, art.gifts, art.glow, art.character].filter(Boolean).map(asset)));
 
 function HeroSlide({ slide, phase }) {
-  const preview = usePreviewAction();
+  const navigate = useNavigate();
   const { art } = slide;
   const cls = ['hero-slide', 'hero-slide--layered', art.variant && `hero-slide--${art.variant}`, phase === 'enter' && 'enter-right', phase === 'leave' && 'leave-left'].filter(Boolean).join(' ');
   return (
@@ -29,7 +29,7 @@ function HeroSlide({ slide, phase }) {
         <div className="eyebrow">{slide.eyebrow}</div>
         <h1>{slide.title}</h1>
         <p>{slide.subtitle}</p>
-        <button className="primary hero-cta action-toast" onClick={preview}>{slide.action}</button>
+        <button className="primary hero-cta" onClick={() => navigate(slide.to)}>{slide.action}</button>
       </div>
     </div>
   );
@@ -116,7 +116,7 @@ function Hero({ carousel, mobile, children }) {
 // Banner carousel, tournaments/winners rail (desktop) and the category strip.
 export default function HeroSection({ mobile, touch }) {
   const carousel = useHeroCarousel();
-  const preview = usePreviewAction();
+  const navigate = useNavigate();
   const controls = <HeroControls slide={carousel.slide} cycle={carousel.cycle} go={carousel.go} />;
 
   return (
@@ -124,7 +124,7 @@ export default function HeroSection({ mobile, touch }) {
       {mobile ? (
         <div className="mobile-hero-stack">
           <Hero carousel={carousel} mobile />
-          <button type="button" className="primary mobile-hero-cta action-toast" onClick={preview}>{heroSlides[carousel.slide].action}</button>
+          <button type="button" className="primary mobile-hero-cta" onClick={() => navigate(heroSlides[carousel.slide].to)}>{heroSlides[carousel.slide].action}</button>
           {controls}
         </div>
       ) : (

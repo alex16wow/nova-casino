@@ -6,6 +6,7 @@ export const heroSlides = [
     title: <>NOVA <em>CASINO</em></>,
     subtitle: 'PLAY BIGGER. HIGHER. BRIGHTER.',
     action: 'Explore games',
+    to: '/lobby',
     art: { variant: 'nova', background: 'hero-nova-bg.webp', gifts: 'hero-nova-gifts.webp', glow: 'hero-nova-glow.webp', character: 'hero-nova-character.webp' },
   },
   {
@@ -13,6 +14,7 @@ export const heroSlides = [
     title: <>CHASE <em>THE GLOW</em></>,
     subtitle: 'FIND YOUR GAME. MAKE IT YOURS.',
     action: 'Discover games',
+    to: '/top-games',
     art: { variant: 'chase', background: 'hero-chase-bg.webp', glow: 'hero-chase-glow.webp', character: 'hero-chase-character.webp' },
   },
   {
@@ -20,6 +22,7 @@ export const heroSlides = [
     title: <><span className="mobile-play-without-line">PLAY <em>WITHOUT</em></span> <em className="mobile-limits-line">LIMITS</em></>,
     subtitle: 'BIG ENERGY. BRIGHTER MOMENTS.',
     action: 'See what’s new',
+    to: '/new-games',
     art: { background: 'hero-without-limits-bg.webp', glow: 'hero-without-limits-glow.webp', character: 'hero-without-limits-character.webp' },
   },
 ];
@@ -88,14 +91,14 @@ export const activityTabs = [
 ];
 
 export const bonusSlides = [
-  { title: 'Super bonus on deposit', accent: 'up to €50', copy: 'Boost your balance and discover more games.', action: 'Deposit now', art: 'first', needsAccount: true },
-  { title: 'Your next adventure', accent: 'starts here', copy: 'Explore new tables and find your next favorite.', action: 'Explore games', art: 'second' },
+  { title: 'Super bonus on deposit', accent: 'up to €50', copy: 'Boost your balance and discover more games.', action: 'Deposit now', to: '/account/wallet?tab=deposit', art: 'first', needsAccount: true },
+  { title: 'Your next adventure', accent: 'starts here', copy: 'Explore new tables and find your next favorite.', action: 'Explore games', to: '/lobby', art: 'second' },
 ];
 
 export const promos = [
-  { title: 'Original', accent: 'Games', copy: 'Unique games only on NOVA Casino', action: 'Play now', image: 'body-original.webp', alt: 'Purple crystal game artwork' },
-  { title: 'Daily', accent: 'Missions', copy: 'Complete tasks and earn rewards', action: 'View missions', image: 'body-missions.webp', alt: 'Neon mission artwork' },
-  { title: 'Season', accent: 'Adventure', copy: 'Win amazing prizes this season', action: 'Join now', image: 'body-season.webp', alt: 'Seasonal tournament trophy' },
+  { title: 'Table', accent: 'Games', copy: 'Discover blackjack, baccarat and more', action: 'Explore games', to: '/table-games', image: 'body-original.webp', alt: 'Purple crystal game artwork' },
+  { title: 'Bonuses &', accent: 'Rewards', copy: 'Explore your bonuses and rewards', action: 'View bonuses', to: '/account/bonuses', needsAccount: true, image: 'body-missions.webp', alt: 'Neon mission artwork' },
+  { title: 'Casino', accent: 'Tournaments', copy: 'Explore tournaments and prize pools', action: 'View tournaments', to: '/tournaments', image: 'body-season.webp', alt: 'Seasonal tournament trophy' },
 ];
 
 export const providers = [

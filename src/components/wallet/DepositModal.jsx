@@ -157,11 +157,9 @@ function DepositForm({ wallet, initial, onAddress, onDone }) {
         </div>
       )}
 
-      {bonusOpen && (activeMoneyBonus ? (
-        <p className="nv-note">The deposit bonus can’t be added while {activeMoneyBonus.title} is active.</p>
-      ) : (
+      {bonusOpen && !activeMoneyBonus && (
         <Checkbox checked={bonus} onChange={(e) => setBonus(e.target.checked)} label={<>Get a 100% deposit bonus up to {rules.bonusCap} {code}</>} />
-      ))}
+      )}
 
       <dl className="nv-summary">
         <div><dt>You deposit</dt><dd>{value ? `${formatAmount(code, value)} ${code}` : '—'}</dd></div>

@@ -27,7 +27,7 @@ const initialWallet = () => {
 };
 // Bonuses: the player's bonus records, claimed level rewards and used promo codes. The Wallet bonus balance
 // is the active money bonus; the header counter is the number of unclaimed level rewards.
-const BONUS_KEY = 'nova-bonuses';
+const BONUS_KEY = 'nova-bonuses-v2';
 const freshBonuses = () => ({ bonuses: seedBonuses(), claimed: [], usedCodes: [], since: new Date().toISOString() });
 const initialBonuses = () => {
   const saved = readJSON(BONUS_KEY, null);

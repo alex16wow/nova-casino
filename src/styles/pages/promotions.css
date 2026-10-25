@@ -295,3 +295,4 @@ button.nv-status { font: inherit; color: inherit; cursor: pointer; }
 .nv-status.is-active { border-color: #c56bff; background: linear-gradient(160deg, #2a1650, #12152f); box-shadow: 0 0 16px #a742ff44; }
 .nv-status:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 img.nv-status-badge { width: 96px; height: 96px; object-fit: contain; filter: drop-shadow(0 0 10px #a742ff55); }
+.rewards-view-all { margin-top: 12px; }

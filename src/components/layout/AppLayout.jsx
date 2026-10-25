@@ -14,7 +14,7 @@ import Footer from './Footer.jsx';
 import Header from './Header.jsx';
 import Sidebar, { DrawerScrollIndicator } from './Sidebar.jsx';
 
-const closed = { currency: false, notifications: false, profile: false };
+const closed = { currency: false, notifications: false, profile: false, rewards: false };
 
 // Shared page frame: header, sidebar/drawer, footer and bottom dock. Pages render into <Outlet />.
 export default function AppLayout() {

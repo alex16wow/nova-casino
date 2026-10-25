@@ -79,7 +79,7 @@ const navIcons = {
   home: <svg {...nav20}><path d="M3 10.5 12 3l9 7.5v10H3z" /><path d="M9 20v-6h6v6M7 7.4V5h3" /></svg>,
   lobby: <svg {...nav20}><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>,
   topGames: <svg {...nav20}><path d="m12 2 2.8 6.4L22 9l-5.3 4.8 1.5 7L12 17.2 5.8 21l1.5-7L2 9l7.2-.6z" /></svg>,
-  newGames: <svg {...nav20}><path d="M12 2.5c3 2.2 4.5 5.4 4.5 9.2l-1.7 4.3H9.2l-1.7-4.3c0-3.8 1.5-7 4.5-9.2z" /><circle cx="12" cy="9.5" r="1.8" /><path d="m7.5 11.7-3 2.8 1 4 3.7-2.5M16.5 11.7l3 2.8-1 4-3.7-2.5M10.5 19l1.5 2.5 1.5-2.5" /></svg>,
+  newGames: <svg {...nav20}><g transform="rotate(45 12 12)"><path d="M12 2.5c3 2.2 4.5 5.4 4.5 9.2l-1.7 4.3H9.2l-1.7-4.3c0-3.8 1.5-7 4.5-9.2z" /><circle cx="12" cy="9.5" r="1.8" /><path d="m7.5 11.7-3 2.8 1 4 3.7-2.5M16.5 11.7l3 2.8-1 4-3.7-2.5M10.5 19l1.5 2.5 1.5-2.5" /></g></svg>,
   liveGames: <svg {...nav20}><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m10 9 5 3-5 3zM7 3h10" /></svg>,
   tableGames: <svg {...nav20}><path d="m5 4 5 2-2 5-5-2zM14 3l5 2-2 5-5-2zM8 14l5-2 2 5-5 2zM17 13l4 3-3 5-4-3z" /></svg>,
   roulette: <svg {...nav20}><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3" /><path d="M12 3v6m0 6v6m9-9h-6m-6 0H3m15.4-6.4-4.2 4.2m-4.4 4.4-4.2 4.2m0-12.8 4.2 4.2m4.4 4.4 4.2 4.2" /></svg>,

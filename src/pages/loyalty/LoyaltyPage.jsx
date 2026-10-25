@@ -3,7 +3,7 @@ import Button from '../../components/ui/Button.jsx';
 import HeroBanner from '../../components/ui/HeroBanner.jsx';
 import { loyaltyFaq, loyaltyLevels, statuses } from '../../data/promotions.js';
 import { ChevronDown } from '../../components/ui/icons.jsx';
-import StatusBadge from './StatusBadge.jsx';
+import { asset } from '../../lib/asset.js';
 import { PageTitle } from '../promotions/PromotionsPage.jsx';
 
 const PAGE = 10;
@@ -25,12 +25,12 @@ export default function LoyaltyPage() {
 
       <h2 className="nv-promo-subtitle">Statuses</h2>
       <div className="nv-status-row">
-        {statuses.map((s) => (
-          <div key={s.id} className={`nv-status nv-status--${s.id}`}>
-            <StatusBadge tier={s.id} />
+        {statuses.map((s, i) => (
+          <button key={s.id} type="button" className={`nv-status nv-status--${s.id}${page === i ? ' is-active' : ''}`} aria-pressed={page === i} onClick={() => setPage(i)}>
+            <img className="nv-status-badge" src={asset(`status-${s.id}.webp`)} alt="" draggable="false" />
             <strong>{s.name}</strong>
             <span>Level {s.range}</span>
-          </div>
+          </button>
         ))}
       </div>
 

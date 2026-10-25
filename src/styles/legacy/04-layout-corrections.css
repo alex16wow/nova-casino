@@ -1135,7 +1135,7 @@ body{overflow-x:clip}
  .sidebar{height:var(--mobile-drawer-scroll-height,calc(100dvh - 141px));max-height:var(--mobile-drawer-scroll-height,calc(100dvh - 141px));min-height:0;bottom:auto;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:20px}
  .sidebar::-webkit-scrollbar{display:none}
  .sidebar>.nav-group,.sidebar>.sidebar-note{flex-shrink:0}
- .mobile-drawer-scroll-indicator{position:fixed;z-index:55;width:3px;border-radius:2px;background:#ffffff0d;pointer-events:none;user-select:none}
+ .mobile-drawer-scroll-indicator{position:fixed;z-index:55;width:3px;border-radius:2px;background:#ffffff0d;pointer-events:none;user-select:none;opacity:0;transition:opacity .3s ease}.mobile-drawer-scroll-indicator.is-shown{opacity:1}
  .mobile-drawer-scroll-indicator>span{display:block;position:absolute;top:0;left:0;width:3px;border-radius:2px;background:#c4a3e766}
 }
 .mobile-drawer-scroll-indicator[hidden]{display:none!important}

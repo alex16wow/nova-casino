@@ -116,7 +116,11 @@ export function DrawerScrollIndicator({ open }) {
     viewport?.addEventListener('resize', schedule, { passive: true });
     mobile.addEventListener('change', schedule);
     schedule();
+    // Fade in half a second after the drawer opens, once it has slid into place.
+    el.classList.remove('is-shown');
+    const reveal = open ? setTimeout(() => el.classList.add('is-shown'), 500) : 0;
     return () => {
+      clearTimeout(reveal);
       cancelAnimationFrame(frame);
       observer.disconnect();
       drawer.removeEventListener('scroll', schedule);

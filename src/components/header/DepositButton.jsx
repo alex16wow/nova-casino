@@ -1,10 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { usePlayer } from '../../context/PlayerContext.jsx';
 import { Plus } from '../ui/icons.jsx';
 
-// Full "Deposit" button on desktop, a compact plus inside the wallet on touch layouts. Both open Wallet on the Deposit tab.
+// Full "Deposit" button on desktop, a compact plus inside the wallet on touch layouts. Both open the deposit dialog.
 export default function DepositButton({ compact }) {
-  const navigate = useNavigate();
-  const open = () => navigate('/account/wallet?tab=deposit');
+  const { openDeposit: open } = usePlayer();
   return compact ? (
     <button className="primary mobile-deposit" aria-label="Deposit" onClick={open}><Plus /></button>
   ) : (

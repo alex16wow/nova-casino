@@ -247,3 +247,4 @@ table.nv-levels th:last-child, table.nv-levels td:last-child { text-align: right
   .nv-tour-art .hero-slide--nova .hero-character { right: max(-14%, calc(100% - 470px)); }
   .nv-tour-art .hero-slide--nova .hero-glow { right: max(-8%, calc(100% - 440px)); }
 }
+table.nv-tour-board tr, table.nv-levels tr { background: none !important; }

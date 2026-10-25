@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useSupport } from '../../context/SupportContext.jsx';
 import { footerColumns, paymentMethods, socialLinks } from '../../data/navigation.js';
 
@@ -23,7 +24,9 @@ export default function Footer() {
       {footerColumns.map((col) => (
         <div key={col.title}>
           <h4>{col.title}</h4>
-          {col.links.map(([label, href]) => <a key={label} href={href} onClick={onLink(label)}>{label}</a>)}
+          {col.links.map(([label, href]) => (href.startsWith('/')
+            ? <Link key={label} to={href}>{label}</Link>
+            : <a key={label} href={href} onClick={onLink(label)}>{label}</a>))}
         </div>
       ))}
       <div className="footer-payments">

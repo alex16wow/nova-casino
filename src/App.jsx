@@ -19,6 +19,7 @@ import RecentPage from './pages/recent/RecentPage.jsx';
 import PromotionsPage from './pages/promotions/PromotionsPage.jsx';
 import TournamentsPage from './pages/tournaments/TournamentsPage.jsx';
 import LoyaltyPage from './pages/loyalty/LoyaltyPage.jsx';
+import InfoPage from './pages/info/InfoPage.jsx';
 import NotFoundPage from './pages/not-found/NotFoundPage.jsx';
 
 // Relative-base preview builds (vite build --base ./) are opened from unknown URLs, so they keep routes in memory.
@@ -48,6 +49,14 @@ export default function App() {
                       <Route path="promotions" element={<PromotionsPage />} />
                       <Route path="tournaments" element={<TournamentsPage />} />
                       <Route path="vip" element={<LoyaltyPage />} />
+                      <Route path="about" element={<InfoPage key="about" page="about" />} />
+                      <Route path="responsible-gaming" element={<InfoPage key="responsible-gaming" page="responsible-gaming" />} />
+                      <Route path="careers" element={<InfoPage key="careers" page="careers" />} />
+                      <Route path="faq" element={<InfoPage key="faq" page="faq" />} />
+                      <Route path="contact" element={<InfoPage key="contact" page="contact" />} />
+                      <Route path="terms" element={<InfoPage key="terms" page="terms" />} />
+                      <Route path="privacy" element={<InfoPage key="privacy" page="privacy" />} />
+                      <Route path="fair-play" element={<InfoPage key="fair-play" page="fair-play" />} />
                       <Route path="account" element={<AccountLayout />}>
                         <Route index element={<Navigate to="profile" replace />} />
                         <Route path="profile" element={<ProfilePage />} />

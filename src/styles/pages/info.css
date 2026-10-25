@@ -1,0 +1,45 @@
+/* Footer information pages (About us, FAQ, Terms, …): one readable column. */
+.nv-info { max-width: 760px; margin: 0 0 var(--space-10); padding-top: var(--space-2); color: var(--color-text-subtle); font-size: 15px; line-height: 1.7; }
+.nv-info h1 { margin: 0; color: var(--color-text); font-size: 30px; font-weight: 760; letter-spacing: -.025em; line-height: 1.2; }
+.nv-info-intro { margin: var(--space-4) 0 0; padding: var(--space-4) var(--space-5); border-left: 3px solid var(--color-violet); border-radius: 0 var(--radius-md) var(--radius-md) 0; background: var(--gradient-surface); color: #d9d6f5; font-size: 16px; }
+.nv-info-note { margin: var(--space-3) 0 0; color: var(--color-text-muted); font-size: var(--font-size-sm); font-style: italic; }
+
+.nv-info-section { margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-line-muted); }
+.nv-info-section h2 { margin: 0 0 var(--space-3); color: var(--color-text); font-size: 20px; font-weight: 720; line-height: 1.3; }
+.nv-info-section p { margin: 0 0 var(--space-3); }
+.nv-info-section > :last-child { margin-bottom: 0; }
+
+.nv-info-list { margin: 0 0 var(--space-3); padding: 0; list-style: none; }
+.nv-info-list li { position: relative; margin: var(--space-2) 0; padding-left: var(--space-6); }
+.nv-info-list li::before { content: ""; position: absolute; left: 4px; top: .7em; width: 7px; height: 7px; border-radius: 50%; background: var(--color-pink); box-shadow: 0 0 8px #ef43e799; }
+
+.nv-info-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin-bottom: var(--space-4); }
+.nv-info-card { display: grid; align-content: start; gap: var(--space-2); padding: var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--color-surface); }
+.nv-info-card h3 { margin: 0; color: var(--color-text); font-size: 15px; font-weight: 700; }
+.nv-info-card p { margin: 0; font-size: var(--font-size-md); line-height: 1.6; }
+.nv-info-card .nv-btn { justify-self: start; margin-top: var(--space-2); }
+
+.nv-info-jobs { display: grid; gap: var(--space-3); }
+.nv-info-job { grid-template-columns: 1fr auto; align-items: center; gap: var(--space-5); }
+.nv-info-job h3 { margin-bottom: 2px; }
+.nv-info-meta { display: block; margin-bottom: var(--space-2); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.nv-info-job .nv-btn { margin-top: 0; min-width: 96px; }
+
+.nv-info-qa { margin: 0; }
+.nv-info-qa > div { padding: var(--space-3) 0; }
+.nv-info-qa > div + div { border-top: 1px dashed var(--color-line-muted); }
+.nv-info-qa dt { color: var(--color-text); font-weight: 650; }
+.nv-info-qa dd { margin: var(--space-1) 0 0; }
+
+@media (max-width: 1279px) {
+  .nv-info-cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  .nv-info { font-size: 14px; }
+  .nv-info h1 { font-size: 24px; }
+  .nv-info-intro { padding: var(--space-3) var(--space-4); font-size: 15px; }
+  .nv-info-section { margin-top: var(--space-6); padding-top: var(--space-5); }
+  .nv-info-section h2 { font-size: 18px; }
+  .nv-info-job { grid-template-columns: 1fr; gap: var(--space-3); }
+  .nv-info-job .nv-btn { justify-self: start; }
+}

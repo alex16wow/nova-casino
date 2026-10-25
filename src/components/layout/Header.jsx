@@ -52,7 +52,7 @@ export default function Header({ popups, drawerOpen, onBurger, searchOpen, setSe
         <Burger />
       </button>
       <Brand />
-      {!mobile && !isGuest && <PlayerLevel />}
+      {!mobile && !isGuest && <PlayerLevel open={popups.rewards} setOpen={popups.set('rewards')} />}
       <div className={`top-actions${isGuest ? ' is-guest' : ''}`}>
         <HeaderSearch open={searchOpen} setOpen={setSearchOpen} wrapRef={search} slotRef={slot} closeOnOutsideClick={touch} />
         {isGuest ? (

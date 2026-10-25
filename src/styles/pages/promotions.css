@@ -289,3 +289,10 @@ table.nv-tour-board tr, table.nv-levels tr { background: none !important; }
 .nv-promos > .nv-promo-hero.hero { order: -1; }
 .nv-promos > .nv-promo-hero.hero { grid-area: auto; }
 .nv-hero-banner.hero { grid-area: auto; }
+
+/* Status cards pick the level page; the selected one stays highlighted. */
+button.nv-status { font: inherit; color: inherit; cursor: pointer; }
+.nv-status.is-active { border-color: #c56bff; background: linear-gradient(160deg, #2a1650, #12152f); box-shadow: 0 0 16px #a742ff44; }
+.nv-status:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+img.nv-status-badge { width: 96px; height: 96px; object-fit: contain; filter: drop-shadow(0 0 10px #a742ff55); }
+.rewards-view-all { display: flex; width: calc(100% - 32px); margin: 12px 16px 16px; }

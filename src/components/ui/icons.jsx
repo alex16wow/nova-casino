@@ -1,3 +1,4 @@
+import { asset } from '../../lib/asset.js';
 // Inline SVG icon set. Each icon keeps the exact geometry of the original lobby markup.
 
 const stroke = { fill: 'none', stroke: 'currentColor' };
@@ -47,16 +48,9 @@ export const Close = () => (
 export const CurrencyChevron = () => (
   <svg className="currency-chevron" viewBox="0 0 16 16" width="13" height="13" fill="none" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.7" {...round} /></svg>
 );
+// Player level emblem: the current (Silver) status artwork from the Loyalty Club.
 export const LevelEmblem = () => (
-  <svg className="level-emblem" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="levelPurple" x1="8" y1="3" x2="35" y2="45" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#e3a2ff" /><stop offset=".5" stopColor="#a15aff" /><stop offset="1" stopColor="#6530c8" />
-      </linearGradient>
-    </defs>
-    <path d="m24 3 10 18-10 15-10-15L24 3ZM4 19l10 7 10 17L9 35 4 19Zm40 0-10 7-10 17 15-8 5-16Z" fill="url(#levelPurple)" />
-    <path d="m24 12 5 9-5 8-5-8 5-9Z" fill="#30165b" />
-  </svg>
+  <img className="level-emblem" src={asset('status-silver.webp')} alt="" aria-hidden="true" draggable="false" style={{ objectFit: 'contain' }} />
 );
 export const RewardChest = () => (
   <svg viewBox="0 0 32 32" {...stroke} strokeWidth="1.7" {...round} aria-hidden="true">
@@ -84,8 +78,8 @@ export const MenuIcon = ({ name }) => <svg {...menu20}><path d={menuPaths[name]}
 const navIcons = {
   home: <svg {...nav20}><path d="M3 10.5 12 3l9 7.5v10H3z" /><path d="M9 20v-6h6v6M7 7.4V5h3" /></svg>,
   lobby: <svg {...nav20}><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" /></svg>,
-  topGames: <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="m12 2.5 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z" /></svg>,
-  newGames: <svg {...nav20}><path d="m12 2 2.8 6.4L22 9l-5.3 4.8 1.5 7L12 17.2 5.8 21l1.5-7L2 9l7.2-.6z" /></svg>,
+  topGames: <svg {...nav20}><path d="m12 2 2.8 6.4L22 9l-5.3 4.8 1.5 7L12 17.2 5.8 21l1.5-7L2 9l7.2-.6z" /></svg>,
+  newGames: <svg {...nav20}><g transform="rotate(45 12 12)"><path d="M12 2.5c3 2.2 4.5 5.4 4.5 9.2l-1.7 4.3H9.2l-1.7-4.3c0-3.8 1.5-7 4.5-9.2z" /><circle cx="12" cy="9.5" r="1.8" /><path d="m7.5 11.7-3 2.8 1 4 3.7-2.5M16.5 11.7l3 2.8-1 4-3.7-2.5M10.5 19l1.5 2.5 1.5-2.5" /></g></svg>,
   liveGames: <svg {...nav20}><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m10 9 5 3-5 3zM7 3h10" /></svg>,
   tableGames: <svg {...nav20}><path d="m5 4 5 2-2 5-5-2zM14 3l5 2-2 5-5-2zM8 14l5-2 2 5-5 2zM17 13l4 3-3 5-4-3z" /></svg>,
   roulette: <svg {...nav20}><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3" /><path d="M12 3v6m0 6v6m9-9h-6m-6 0H3m15.4-6.4-4.2 4.2m-4.4 4.4-4.2 4.2m0-12.8 4.2 4.2m4.4 4.4 4.2 4.2" /></svg>,

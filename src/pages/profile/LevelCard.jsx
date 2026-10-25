@@ -13,7 +13,7 @@ export default function LevelCard() {
   const navigate = useNavigate();
   const toast = useToast();
   const bonuses = accountSection('bonuses');
-  const percent = Math.round((level.xp / level.xpMax) * 100);
+  const percent = Math.round(((level.xp - (level.xpMin ?? 0)) / (level.xpMax - (level.xpMin ?? 0))) * 100);
 
   const openBonuses = () => (bonuses.live ? navigate(bonuses.to) : toast(`${bonuses.label}: coming soon`));
 

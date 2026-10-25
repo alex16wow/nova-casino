@@ -203,3 +203,47 @@ table.nv-levels th:last-child, table.nv-levels td:last-child { text-align: right
   .nv-hero-banner .hero-slide--chase .hero-character, .nv-hero-banner .hero-slide--limits .hero-character { right: -22%; }
   .nv-hero-banner .hero-slide--chase .hero-glow, .nv-hero-banner .hero-slide--limits .hero-glow { width: 70%; right: -22%; }
 }
+
+/* Tournament banners (Figma "Tournaments"): eyebrow, title, prize pool and D / H / M timer chips. */
+.nv-tour-art.hero { height: 240px; }
+.nv-tour-art .hero-copy { left: 70px; max-width: 55%; }
+.nv-tour-art .eyebrow { margin-bottom: 14px; font-size: 18px; letter-spacing: .22em; color: #d9d4f5; }
+.nv-tour-art h1 { margin: 0 0 14px; font-size: 40px; font-weight: 900; letter-spacing: -.01em; line-height: 1.05; }
+.nv-tour-art .nv-tour-facts { margin: 0 0 16px; font-size: 20px; letter-spacing: .12em; line-height: 1.2; color: #ece8ff; }
+.nv-tour-art .nv-tour-facts b { color: var(--color-warning); }
+.nv-tour-timer { display: flex; gap: 12px; }
+.nv-tour-timer span { display: inline-flex; align-items: baseline; gap: 4px; height: 30px; padding: 0 8px; align-items: center; border: 1px solid #3a3d63; border-radius: 6px; background: #0c0f26cc; font-size: 10px; color: var(--color-text-subtle); }
+.nv-tour-timer b { font-size: 13px; font-weight: 500; color: #e8e6f8; font-variant-numeric: tabular-nums; }
+.nv-tour-art .hero-slide--nova .hero-character { right: 13%; height: 108%; }
+.nv-tour-art .hero-slide--nova .hero-glow { right: 15%; width: 22%; }
+.nv-tour-art .hero-slide--chase .hero-character { right: 0; height: 100%; -webkit-mask-image: none; mask-image: none; }
+.nv-tour-art .hero-slide--chase .hero-glow { right: 0; width: 38%; }
+.nv-tour-art .hero-slide--limits .hero-character { right: 13%; height: 108%; }
+.nv-tour-art .hero-slide--limits .hero-glow { right: 15%; width: 22%; }
+.nv-tour-toggle { padding: 14px 16px; font-size: 16px; }
+
+@media (max-width: 1279px) {
+  .nv-tour-art .hero-copy { left: 32px; }
+  .nv-tour-art .hero-slide--nova .hero-character, .nv-tour-art .hero-slide--limits .hero-character { right: 2%; }
+  .nv-tour-art .hero-slide--nova .hero-glow, .nv-tour-art .hero-slide--limits .hero-glow { right: 4%; width: 36%; }
+}
+@media (max-width: 680px) {
+  .nv-tour-art.hero { height: 220px; }
+  .nv-tour-art .hero-copy { left: 18px; max-width: 52%; }
+  .nv-tour-art .eyebrow { margin-bottom: 8px; font-size: 10px; letter-spacing: .2em; }
+  .nv-tour-art h1 { margin-bottom: 14px; font-size: 24px; line-height: 1.05; }
+  .nv-tour-art h1 { word-spacing: 100vw; }
+  .nv-tour-art .nv-tour-facts { margin-bottom: 18px; font-size: 11px; letter-spacing: .02em; }
+  .nv-tour-timer { gap: 12px; }
+  .nv-tour-timer span { height: 30px; padding: 0 8px; }
+  .nv-tour-art .hero-slide--nova .hero-character, .nv-tour-art .hero-slide--limits .hero-character { right: max(-30%, calc(100% - 520px)); height: 104%; }
+  .nv-tour-art .hero-slide--nova .hero-glow, .nv-tour-art .hero-slide--limits .hero-glow { right: max(-22%, calc(100% - 470px)); width: 70%; }
+  .nv-tour-art .hero-slide--chase .hero-character { right: max(-48%, calc(100% - 560px)); height: 86%; }
+  .nv-tour-art .hero-slide--chase .hero-glow { right: -30%; width: 90%; }
+  .nv-tour-art .hero-art-frame::after { background: linear-gradient(90deg, #070920f0 0%, #070920a0 45%, transparent 75%); }
+  .nv-tour-toggle { padding: 14px 16px; }
+}
+@media (max-width: 680px) {
+  .nv-tour-art .hero-slide--nova .hero-character { right: max(-14%, calc(100% - 470px)); }
+  .nv-tour-art .hero-slide--nova .hero-glow { right: max(-8%, calc(100% - 440px)); }
+}

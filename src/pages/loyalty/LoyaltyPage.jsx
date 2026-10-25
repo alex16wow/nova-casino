@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from '../../components/ui/Button.jsx';
 import HeroBanner from '../../components/ui/HeroBanner.jsx';
 import { loyaltyFaq, loyaltyLevels, statuses } from '../../data/promotions.js';
+import { ChevronDown } from '../../components/ui/icons.jsx';
 import StatusBadge from './StatusBadge.jsx';
 import { PageTitle } from '../promotions/PromotionsPage.jsx';
 
@@ -10,7 +11,6 @@ const PAGE = 10;
 // Loyalty Club (/vip): banner, statuses, level table (10 per page) and FAQ. Demo content only.
 export default function LoyaltyPage() {
   const [page, setPage] = useState(0);
-  const [faq, setFaq] = useState(null);
   const pages = loyaltyLevels.length / PAGE;
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -52,12 +52,12 @@ export default function LoyaltyPage() {
       </div>
 
       <h2 className="nv-promo-subtitle">FAQ</h2>
-      <div className="nv-faq-list">
-        {loyaltyFaq.map(([q, a], i) => (
-          <div key={q} className={`nv-panel nv-faq-item${faq === i ? ' is-open' : ''}`}>
-            <button type="button" aria-expanded={faq === i} onClick={() => setFaq(faq === i ? null : i)}>{q}<span aria-hidden="true">▼</span></button>
-            {faq === i && <p>{a}</p>}
-          </div>
+      <div className="faq-list">
+        {loyaltyFaq.map(([q, a]) => (
+          <details key={q} className="faq-item">
+            <summary><span className="faq-question">{q}</span><span className="faq-arrow"><ChevronDown /></span></summary>
+            <div className="faq-answer"><p>{a}</p></div>
+          </details>
         ))}
       </div>
     </div>

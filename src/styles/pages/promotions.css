@@ -288,3 +288,4 @@ table.nv-tour-board tr, table.nv-levels tr { background: none !important; }
 }
 .nv-promos > .nv-promo-hero.hero { order: -1; }
 .nv-promos > .nv-promo-hero.hero { grid-area: auto; }
+.nv-hero-banner.hero { grid-area: auto; }

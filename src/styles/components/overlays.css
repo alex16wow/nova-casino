@@ -61,7 +61,8 @@ html.modal-open { overflow: hidden; }
 @keyframes nv-rise { from { opacity: 0; transform: translateY(14px) scale(.98); } }
 
 @media (max-width: 680px) {
-  .nv-modal-backdrop { padding: 0; place-items: stretch; }
+  /* Block layout so a tall sheet grows with its content instead of the grid row clipping its background. */
+  .nv-modal-backdrop { display: block; padding: 0; }
   .nv-modal {
     max-width: none;
     min-height: 100%;
@@ -71,7 +72,7 @@ html.modal-open { overflow: hidden; }
   }
   .nv-modal-close { top: 16px; right: 16px; }
   .nv-modal-head { margin-right: 0; }
-  .nv-modal-backdrop:has(.nv-modal--confirm) { padding: var(--space-4); place-items: center; }
+  .nv-modal-backdrop:has(.nv-modal--confirm) { display: grid; padding: var(--space-4); place-items: center; }
   .nv-modal--confirm { min-height: 0; padding: var(--space-5); border: 1px solid #5b3ea8; border-radius: var(--radius-lg); }
   .nv-modal--confirm .nv-modal-head { margin-right: 36px; }
 }

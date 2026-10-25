@@ -28,13 +28,13 @@ export default function PromotionsPage() {
           <Filters items={promoFilters} value={filter} onChange={setFilter} />
           <div className="nv-promo-grid">
             {list.map((p) => (
-              <article key={p.id} className="nv-promo-card">
+              <article key={p.id} className={`nv-promo-card nv-promo-card--${p.id}`}>
                 <span className="nv-promo-tag">{p.type}</span>
                 <HeroBanner design={promotions.indexOf(p)} className="nv-promo-card-art" />
                 <div className="nv-promo-card-body">
                   <h2>{p.title}</h2>
                   <p>{p.offer}</p>
-                  <Button variant="secondary" size="sm" block onClick={() => setOpenId(p.id)}>View details</Button>
+                  <Button size="sm" block onClick={() => setOpenId(p.id)}>View details</Button>
                 </div>
               </article>
             ))}

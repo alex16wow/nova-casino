@@ -8,8 +8,17 @@ import { Filters, PageTitle } from '../promotions/PromotionsPage.jsx';
 const pad = (n) => String(n).padStart(2, '0');
 const left = (end, now) => {
   const s = Math.max(0, Math.floor((end - now) / 1000));
-  return `${Math.floor(s / 86400)}d ${pad(Math.floor(s / 3600) % 24)}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+  return [[Math.floor(s / 86400), 'D'], [Math.floor(s / 3600) % 24, 'H'], [Math.floor(s / 60) % 60, 'M']];
 };
+
+function Countdown({ end, now }) {
+  const parts = left(end, now);
+  return (
+    <div className="nv-tour-timer" role="timer" aria-label={`Ends in ${parts.map(([v, u]) => `${v}${u.toLowerCase()}`).join(' ')}`}>
+      {parts.map(([v, u]) => <span key={u}><b>{pad(v)}</b>{u}</span>)}
+    </div>
+  );
+}
 
 // Tournaments (/tournaments): wide banners with a countdown; See details opens participants, terms and leaderboard.
 export default function TournamentsPage() {
@@ -40,7 +49,8 @@ function Tournament({ t, now, design, open, onToggle }) {
       <HeroBanner design={design} className="nv-tour-art">
         <div className="eyebrow">{t.type.toUpperCase()}</div>
         <h1>{t.name}</h1>
-        <p className="nv-tour-facts">Prize pool: <b>{t.prize}</b><br />Ends in <b>{left(t.end, now)}</b></p>
+        <p className="nv-tour-facts">Prize pool: <b>{t.prize}</b></p>
+        <Countdown end={t.end} now={now} />
       </HeroBanner>
       <button type="button" className="nv-tour-toggle" aria-expanded={open} onClick={onToggle}>
         {open ? 'Hide' : 'See details'}<span aria-hidden="true">{open ? '▲' : '▼'}</span>

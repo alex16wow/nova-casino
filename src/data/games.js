@@ -95,9 +95,6 @@ export const shelves = {
   shows: { page: 'game-shows', id: 'game-shows', rowId: 'shows-row', kind: 'shows', title: 'Game Shows', sub: 'Big lights. Bigger moments.', icon: 'category-game-shows.webp', label: 'game shows' },
 };
 
-// Lobby shelf with the player's own history (signed in, at least one game opened). Shown before Top Games.
-export const recentShelf = { page: 'recently-played', id: 'continue-playing', rowId: 'continue-row', kind: 'recent', title: 'Continue Playing', sub: 'Jump back into your recent games', glyph: 'recent', label: 'recent games', unique: true };
-
 // Game page: URL slug, lookup and sample details.
 export const gameSlug = (name) => name.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 

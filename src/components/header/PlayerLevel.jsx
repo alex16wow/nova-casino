@@ -16,7 +16,7 @@ export default function PlayerLevel() {
       <div className="level-details">
         <div className="level-label">Level {level.level}</div>
         <div className="level-xp">{format(level.xp)} / {format(level.xpMax)} XP</div>
-        <div className="level-progress" role="progressbar" aria-label="Experience" aria-valuemin="0" aria-valuemax={level.xpMax} aria-valuenow={level.xp}><span /></div>
+        <div className="level-progress" role="progressbar" aria-label="Experience" aria-valuemin="0" aria-valuemax={level.xpMax} aria-valuenow={level.xp}><span style={{ width: `${Math.round((level.xp / level.xpMax) * 100)}%` }} /></div>
       </div>
       <button
         className="level-rewards"

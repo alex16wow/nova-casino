@@ -1,3 +1,4 @@
+import { asset } from '../../lib/asset.js';
 // Inline SVG icon set. Each icon keeps the exact geometry of the original lobby markup.
 
 const stroke = { fill: 'none', stroke: 'currentColor' };
@@ -47,16 +48,9 @@ export const Close = () => (
 export const CurrencyChevron = () => (
   <svg className="currency-chevron" viewBox="0 0 16 16" width="13" height="13" fill="none" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.7" {...round} /></svg>
 );
+// Player level emblem: the current (Silver) status artwork from the Loyalty Club.
 export const LevelEmblem = () => (
-  <svg className="level-emblem" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="levelPurple" x1="8" y1="3" x2="35" y2="45" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#e3a2ff" /><stop offset=".5" stopColor="#a15aff" /><stop offset="1" stopColor="#6530c8" />
-      </linearGradient>
-    </defs>
-    <path d="m24 3 10 18-10 15-10-15L24 3ZM4 19l10 7 10 17L9 35 4 19Zm40 0-10 7-10 17 15-8 5-16Z" fill="url(#levelPurple)" />
-    <path d="m24 12 5 9-5 8-5-8 5-9Z" fill="#30165b" />
-  </svg>
+  <img className="level-emblem" src={asset('status-silver.webp')} alt="" aria-hidden="true" draggable="false" style={{ objectFit: 'contain' }} />
 );
 export const RewardChest = () => (
   <svg viewBox="0 0 32 32" {...stroke} strokeWidth="1.7" {...round} aria-hidden="true">

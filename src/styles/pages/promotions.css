@@ -91,7 +91,7 @@
 }
 
 /* ---- Polish ---- */
-.nv-promos .nv-catalog-head, .nv-tournaments .nv-catalog-head { margin-bottom: 0; }
+.nv-promos .nv-catalog-head, .nv-tournaments .nv-catalog-head, .nv-loyalty .nv-catalog-head { margin-bottom: 0; }
 .nv-page-filters { margin-top: calc(-1 * var(--space-1)); }
 .nv-page-filters .nv-chip { min-width: 0; padding: 0 18px; }
 

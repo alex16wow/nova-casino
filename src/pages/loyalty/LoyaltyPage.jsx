@@ -3,6 +3,7 @@ import Button from '../../components/ui/Button.jsx';
 import HeroBanner from '../../components/ui/HeroBanner.jsx';
 import { loyaltyFaq, loyaltyLevels, statuses } from '../../data/promotions.js';
 import StatusBadge from './StatusBadge.jsx';
+import { PageTitle } from '../promotions/PromotionsPage.jsx';
 
 const PAGE = 10;
 
@@ -15,6 +16,7 @@ export default function LoyaltyPage() {
 
   return (
     <div className="nv-loyalty">
+      <PageTitle icon="vip">VIP Club</PageTitle>
       <HeroBanner design={1} className="nv-loyalty-hero">
         <div className="eyebrow">LOYALTY CLUB</div>
         <h1>Build your <em>progress</em></h1>

@@ -20,7 +20,7 @@
 .nv-info-card .nv-btn { justify-self: start; margin-top: var(--space-2); }
 
 .nv-info-jobs { display: grid; gap: var(--space-3); }
-.nv-info-job { grid-template-columns: 1fr auto; align-items: center; gap: var(--space-5); }
+.nv-info-job { grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-5); }
 .nv-info-job h3 { margin-bottom: 2px; }
 .nv-info-meta { display: block; margin-bottom: var(--space-2); color: var(--color-text-muted); font-size: var(--font-size-sm); }
 .nv-info-job .nv-btn { margin-top: 0; min-width: 96px; }
@@ -40,8 +40,8 @@
   .nv-info-intro { padding: var(--space-3) var(--space-4); font-size: 15px; }
   .nv-info-section { margin-top: var(--space-6); padding-top: var(--space-5); }
   .nv-info-section h2 { font-size: 18px; }
-  .nv-info-job { grid-template-columns: 1fr; gap: var(--space-3); }
-  .nv-info-job .nv-btn { justify-self: start; }
+  .nv-info-job { grid-template-columns: auto 1fr; gap: var(--space-3) var(--space-4); align-items: start; }
+  .nv-info-job .nv-btn { grid-column: 1 / -1; justify-self: stretch; }
 }
 
 /* Accent note inside long text (key explanations, contact tips). */
@@ -52,4 +52,9 @@
 .nv-info-socials a { display: inline-flex; align-items: center; gap: var(--space-2); height: 40px; padding: 0 var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); font-size: var(--font-size-md); transition: border-color .2s, box-shadow .2s; }
 .nv-info-socials a:hover { border-color: var(--color-line-strong); box-shadow: var(--shadow-hover-glow); }
 .nv-info-socials svg { width: 18px; height: 18px; fill: currentColor; filter: drop-shadow(0 0 5px #9d53ff70); }
-.nv-info-contact { grid-template-rows: auto 1fr auto auto; }
+.nv-info-contact { grid-template-rows: auto auto 1fr auto auto; }
+
+/* Icon tile on job and contact cards. */
+.nv-info-icon { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--color-line-strong); border-radius: var(--radius-md); background: linear-gradient(145deg, #2a1857, #141433); box-shadow: inset 0 0 12px #a653e833; color: #e4ceff; }
+.nv-info-icon svg { width: 24px; height: 24px; filter: drop-shadow(0 0 6px #ab54ff); }
+.nv-info-contact .nv-info-icon { margin-bottom: var(--space-1); }

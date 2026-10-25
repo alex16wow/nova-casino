@@ -41,9 +41,9 @@ export const infoPages = {
     sections: [
       { title: 'How we work', text: ['Remote-first, small teams, short feedback loops. Designers, engineers and support work side by side and ship together.'] },
       { title: 'Open positions', jobs: [
-        { title: 'Senior Frontend Engineer', meta: 'Engineering · Remote · Full-time', text: 'Build the lobby, game pages and account area in React with a focus on speed and polish.' },
-        { title: 'Product Designer', meta: 'Design · Remote · Full-time', text: 'Own flows from sign-up to withdrawal and keep the NOVA design system consistent.' },
-        { title: 'Player Support Specialist', meta: 'Support · Remote · Shifts', text: 'Help players with accounts, payments and bonuses through live chat and email.' },
+        { title: 'Senior Frontend Engineer', icon: 'code', meta: 'Engineering · Remote · Full-time', text: 'Build the lobby, game pages and account area in React with a focus on speed and polish.' },
+        { title: 'Product Designer', icon: 'design', meta: 'Design · Remote · Full-time', text: 'Own flows from sign-up to withdrawal and keep the NOVA design system consistent.' },
+        { title: 'Player Support Specialist', icon: 'headset', meta: 'Support · Remote · Shifts', text: 'Help players with accounts, payments and bonuses through live chat and email.' },
       ] },
       { title: 'What we offer', list: ['Flexible hours and remote work', 'Learning budget and conference days', 'Modern equipment of your choice'] },
     ],
@@ -89,9 +89,9 @@ export const infoPages = {
     note: 'Email addresses on this page are for demonstration only.',
     sections: [
       { title: 'Get in touch', contacts: [
-        { title: 'General enquiries', text: 'Questions about NOVA, feedback and anything that doesn’t fit elsewhere.', email: 'hello@nova.example' },
-        { title: 'Customer support', text: 'Help with your account, payments, bonuses and games.', email: 'support@nova.example' },
-        { title: 'Business & partnerships', text: 'Affiliates, game providers, media and other partnership ideas.', email: 'partners@nova.example' },
+        { title: 'General enquiries', icon: 'chat', text: 'Questions about NOVA, feedback and anything that doesn’t fit elsewhere.', email: 'hello@nova.example' },
+        { title: 'Customer support', icon: 'headset', text: 'Help with your account, payments, bonuses and games.', email: 'support@nova.example' },
+        { title: 'Business & partnerships', icon: 'briefcase', text: 'Affiliates, game providers, media and other partnership ideas.', email: 'partners@nova.example' },
       ] },
       { title: 'Need an answer now?', text: ['Live chat in Support is the fastest way to reach us. Most questions are answered within a few minutes.'], support: true },
       { title: 'Before you write', tip: 'Include your Player ID and a short description of the issue: what happened, when, and which game or payment it concerns. For payments, add the amount and method. You can find your Player ID in My profile.' },
@@ -173,13 +173,44 @@ export const infoPages = {
 
   privacy: {
     title: 'Privacy policy',
-    intro: 'This policy explains what data NOVA Casino collects, why we need it and how you can control it.',
+    intro: 'Your privacy matters to us. This policy explains what personal data NOVA Casino collects, why we need it, how long we keep it and how you can stay in control of it.',
     note: LEGAL_NOTE,
     sections: [
-      { title: 'Data we collect', list: ['Account details: email, name, date of birth and contact information', 'Verification documents you upload', 'Payment and transaction history', 'Technical data such as device, browser and IP address'] },
-      { title: 'How we use it', text: ['To run your account, process payments, prevent fraud, meet legal requirements and improve the site. We do not sell your personal data.'] },
-      { title: 'Cookies', text: ['We use cookies to keep you logged in, remember your preferences and understand how the site is used.'] },
-      { title: 'Your rights', text: ['You can request a copy of your data, ask us to correct it or delete it, and manage notifications in Settings. Contact Support for any privacy request.'] },
+      { title: 'Data we collect', body: [
+        'We collect only the data needed to run your account, keep it secure and meet our legal obligations:',
+        { list: ['Account details: email, username, name, date of birth, country and phone number', 'Verification documents you upload, such as an ID or proof of address', 'Payment data: deposits, withdrawals and the payment methods you use', 'Gaming activity: bets, results, bonuses and session times', 'Technical data: device type, browser, IP address and approximate location', 'Messages you send to Support'] },
+        'We never ask for your full card details in chat or by email. Card payments are processed directly by our payment providers.',
+      ] },
+      { title: 'How we use your data', body: [
+        'Your data is used to create and manage your account, process payments, verify your identity and age, and provide customer support. We also use it to personalise your lobby, for example by showing recently played games, and to offer bonuses that match your activity.',
+        'Gaming and payment data helps us detect fraud, prevent money laundering and spot signs of problem gambling, so we can step in when needed.',
+        { callout: 'We do not sell your personal data, and we never share it with advertisers for their own purposes.' },
+      ] },
+      { title: 'Sharing with third parties', body: [
+        'We share data only with partners who help us run the service, and only as much as each of them needs:',
+        { list: ['payment providers, to process deposits and withdrawals', 'game providers, to run game sessions and settle rounds', 'identity verification services, to check documents', 'hosting and analytics providers, to keep the site fast and reliable'] },
+        'These partners must protect your data and may not use it for anything else. We may also disclose data when required by law, for example at the request of a regulator or the police.',
+      ] },
+      { title: 'Cookies and tracking', body: [
+        'Cookies are small files stored in your browser. We use essential cookies to keep you logged in and protect your session, preference cookies to remember settings such as your currency, and analytics cookies to understand which pages work well.',
+        'You can block or delete cookies in your browser settings. Essential cookies are required for the site to work, so blocking them may log you out or stop some features.',
+      ] },
+      { title: 'How long we keep data', body: [
+        'We keep your data while your account is open. After it is closed, some records, such as transactions and verification documents, are kept for the period required by anti-money-laundering rules and then deleted or anonymised.',
+        { callout: 'Closing your account does not erase all data immediately: some records must be kept for a legally required period.' },
+      ] },
+      { title: 'How we protect your data', body: [
+        'All connections to NOVA are encrypted. Access to personal data is limited to staff who need it for their work, and every access is logged. Verification documents are stored separately from the rest of your account data.',
+        'You can add an extra layer of protection by turning on two-factor authentication in Settings → Security.',
+      ] },
+      { title: 'Your rights', body: [
+        'You stay in control of your data. At any time you can ask us to:',
+        { list: ['send you a copy of the personal data we hold about you', 'correct details that are inaccurate or out of date', 'delete your data, where we are not required to keep it', 'stop using your data for marketing'] },
+        'Marketing emails and notifications can also be switched off in Settings → Notifications. To make any other request, contact Support; we will confirm your identity first and reply within 30 days.',
+      ] },
+      { title: 'Changes to this policy', body: [
+        'We may update this policy when our services or legal requirements change. If the changes are significant, we will let you know by email or with a notice on the site before they take effect.',
+      ] },
     ],
   },
 

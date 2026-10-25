@@ -44,9 +44,9 @@ export const mobileNav = [
 
 export const footerColumns = [
   { title: 'Resources', links: [['Promotions', '#promotions'], ['VIP Club', '#promotions'], ['Tournaments', '#top-games']] },
-  { title: 'Company', links: [['About us', '#top'], ['Responsible gaming', '#top'], ['Careers', '#top']] },
-  { title: 'Help', links: [['Support', '#top'], ['FAQ', '#top'], ['Contact us', '#top']] },
-  { title: 'Legal', links: [['Terms & Conditions', '#top'], ['Privacy policy', '#top'], ['Fair play', '#top']] },
+  { title: 'Company', links: [['About us', '/about'], ['Responsible gaming', '/responsible-gaming'], ['Careers', '/careers']] },
+  { title: 'Help', links: [['Support', '#top'], ['FAQ', '/faq'], ['Contact us', '/contact']] },
+  { title: 'Legal', links: [['Terms & Conditions', '/terms'], ['Privacy policy', '/privacy'], ['Fair play', '/fair-play']] },
 ];
 
 export const paymentMethods = ['VISA', 'Mastercard', 'Skrill', 'NETELLER', 'Crypto'];

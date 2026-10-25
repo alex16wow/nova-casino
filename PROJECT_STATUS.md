@@ -2,7 +2,7 @@
 
 Память о ходе разработки. Обновляется после каждого крупного этапа.
 
-_Последнее обновление: 25.10.2026 — баннеры Tournaments и Promotions по Figma (таймер D/H/M), заголовок и FAQ на VIP Club. Ранее — страницы Promotions (`/promotions`), Tournaments (`/tournaments`), Loyalty Club (`/vip`). Ранее — страница Settings (`/account/settings`), Game history убран из кабинета. Ранее — страница Bonuses (`/account/bonuses`). Ранее — страница Wallet (`/account/wallet`). Ранее — страница My profile (`/account/profile`) и общий каркас кабинета. Ранее — виджет поддержки (Support в боковом меню). Ранее — страница Recently Played (`/recently-played`) и полка «Continue Playing» на Lobby. Ранее — страница Favorites и общее избранное (sessionStorage), фавикон сайта (`public/favicon.*`, `apple-touch-icon.png`). Ранее — страницы категорий и провайдеров (Lobby, Top/New/Live/Table Games, Roulette, Game Shows, /providers/:provider). Ранее — страница игры (`/game/:slug`) с демо Gates of Olympus, States по страницам. Ранее — главная утверждена и выложена: состояния, модалки аккаунта, пополнение, 404, панель States._
+_Последнее обновление: 25.10.2026 — информационные страницы футера (About us, Responsible gaming, Careers, FAQ, Contact us, Terms & Conditions, Privacy policy, Fair play). Ранее — баннеры Tournaments и Promotions по Figma (таймер D/H/M), заголовок и FAQ на VIP Club. Ранее — страницы Promotions (`/promotions`), Tournaments (`/tournaments`), Loyalty Club (`/vip`). Ранее — страница Settings (`/account/settings`), Game history убран из кабинета. Ранее — страница Bonuses (`/account/bonuses`). Ранее — страница Wallet (`/account/wallet`). Ранее — страница My profile (`/account/profile`) и общий каркас кабинета. Ранее — виджет поддержки (Support в боковом меню). Ранее — страница Recently Played (`/recently-played`) и полка «Continue Playing» на Lobby. Ранее — страница Favorites и общее избранное (sessionStorage), фавикон сайта (`public/favicon.*`, `apple-touch-icon.png`). Ранее — страницы категорий и провайдеров (Lobby, Top/New/Live/Table Games, Roulette, Game Shows, /providers/:provider). Ранее — страница игры (`/game/:slug`) с демо Gates of Olympus, States по страницам. Ранее — главная утверждена и выложена: состояния, модалки аккаунта, пополнение, 404, панель States._
 
 ## Стек
 
@@ -29,6 +29,7 @@ _Последнее обновление: 25.10.2026 — баннеры Tourname
 | Promotions | `/promotions` | Готова (прототип): фильтры All/Welcome/Reload/Special, 6 карточек, детали акции на месте (шаги, условия Show more/less), Get bonus → Bonuses / вход |
 | Tournaments | `/tournaments` | Готова (прототип): фильтры All/Daily/Weekly/Monthly, 3 баннера с таймером, See details / Hide: участники, условия, Explore games → All Games, лидерборд на 5 |
 | Loyalty Club | `/vip` (VIP Club в меню) | Готова (прототип): баннер, 5 статусов Bronze–Diamond (SVG-медали), таблица уровней по 10 (до 50), FAQ |
+| Страницы футера | `/about`, `/responsible-gaming`, `/careers`, `/faq`, `/contact`, `/terms`, `/privacy`, `/fair-play` | Готовы (прототип): общий шаблон `InfoPage`, тексты демо; Careers — Apply-заглушки; Contact — Copy email, Open support, соцсети; FAQ — раскрывающиеся блоки |
 
 ## Компоненты
 
@@ -62,7 +63,9 @@ Settings (`src/pages/settings`): `SettingsPage` (загрузка / ошибка
 
 Promotions / Tournaments / Loyalty Club (`src/pages/promotions`, `tournaments`, `loyalty`): данные — `src/data/promotions.js`, стили — `src/styles/pages/promotions.css`. Баннеры — общий `HeroBanner` (`src/components/ui`): статичный слайд из дизайнов главной (без коробок, персонаж и свечение сдвинуты), текст передаёт страница. `PageTitle` и `Filters` экспортируются из `PromotionsPage.jsx`. Статусы — `StatusBadge` (SVG). States на этих страницах — только гость / авторизован. Без механики участия, XP и наград.
 
-Общие (`src/components/ui`): `Avatar` (фото или инициалы на градиенте), `CategoryNav` — полоса категорий главной и страниц категорий.
+Страницы футера (`src/pages/info`): `InfoPage` — один шаблон (заголовок, вводный блок, секции: текст, списки, карточки, акцентные блоки, FAQ, контакты), тексты — `src/data/info.js`, стили — `src/styles/pages/info.css`. Ссылки — `footerColumns` в `src/data/navigation.js`; States — только гость / авторизован.
+
+Общие (`src/components/ui`): `FaqList` (раскрывающиеся вопросы, как в FAQ главной), `Avatar` (фото или инициалы на градиенте), `CategoryNav` — полоса категорий главной и страниц категорий.
 
 Главная (`src/pages/home`): `HeroSection`, `RightRail`, `GameShelf`, `PromoGrid`, `ProvidersTicker`, `ActivityTable`, `BonusBanner`, `FaqSection`.
 
@@ -97,7 +100,7 @@ Promotions / Tournaments / Loyalty Club (`src/pages/promotions`, `tournaments`, 
 
 - Play на карточках и выбор игры в поиске открывают `/game/:slug` (гость с карточки — окно входа; по прямой ссылке гость видит экран «Log in to play»).
 - Join now, кнопки промо и бонусов — показывают сообщение «будет подключено позже».
-- Ссылки футера.
+- Ссылки футера Resources ведут на старые якоря. Apply в Careers — сообщение «Applications will open soon». Соцсети — без адресов.
 - Вход/регистрация — без настоящего сервера: любые корректные данные принимаются.
 - Демо подключены у 7 игр: Gates of Olympus, Sugar Rush 1000, Big Bass Bonanza, Wolf Gold, Wild West Gold, Sweet Bonanza 1000 (Pragmatic Play), Book of Dead (Play’n GO). У остальных (лайв, Hacksaw, NetEnt и др.) открытого демо нет — окно пробует загрузиться и показывает ошибку. Демо не связаны с нашим балансом; RTP, волатильность и т. п. — сгенерированные демо-цифры.
 - Баланс, уровень, история ставок — демо-данные (одинаковые для всех аккаунтов).

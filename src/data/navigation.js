@@ -43,7 +43,7 @@ export const mobileNav = [
 ];
 
 export const footerColumns = [
-  { title: 'Resources', links: [['Promotions', '#promotions'], ['VIP Club', '#promotions'], ['Tournaments', '#top-games']] },
+  { title: 'Resources', links: [['Promotions', '/promotions'], ['VIP Club', '/vip'], ['Tournaments', '/tournaments']] },
   { title: 'Company', links: [['About us', '/about'], ['Responsible gaming', '/responsible-gaming'], ['Careers', '/careers']] },
   { title: 'Help', links: [['Support', '#top'], ['FAQ', '/faq'], ['Contact us', '/contact']] },
   { title: 'Legal', links: [['Terms & Conditions', '/terms'], ['Privacy policy', '/privacy'], ['Fair play', '/fair-play']] },

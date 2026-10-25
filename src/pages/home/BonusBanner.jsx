@@ -1,8 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { bonusSlides } from '../../data/lobby.jsx';
 import { useAccountAction } from '../../context/AuthContext.jsx';
-import { usePlayer } from '../../context/PlayerContext.jsx';
-import { usePreviewAction } from '../../context/ToastContext.jsx';
 import { asset } from '../../lib/asset.js';
 import { preloadImages } from '../../lib/preload.js';
 import RotatingStage from '../../components/ui/RotatingStage.jsx';
@@ -11,10 +10,9 @@ preloadImages(bonusSlides.flatMap((b) => [asset(`bonus-${b.art}-bg.webp`), asset
 
 // Rotating bonus banner. On phones its button sits below the banner.
 export default function BonusBanner({ mobile }) {
-  const preview = usePreviewAction();
+  const navigate = useNavigate();
   const gate = useAccountAction();
-  const { openDeposit } = usePlayer();
-  const actionFor = (b) => (b.needsAccount ? gate(openDeposit) : preview);
+  const actionFor = (b) => (b.needsAccount ? gate(() => navigate(b.to)) : () => navigate(b.to));
   const [current, setCurrent] = useState(0);
   const banner = (
     <section className="bonus" aria-label="Bonuses">
@@ -32,7 +30,7 @@ export default function BonusBanner({ mobile }) {
             </div>
             <div className="bonus-copy">
               <div><h2>{b.title} <span>{b.accent}</span></h2><p>{b.copy}</p></div>
-              <button className="primary action-toast" onClick={actionFor(b)}>{b.action}</button>
+              <button className="primary" onClick={actionFor(b)}>{b.action}</button>
             </div>
           </>
         )}
@@ -43,7 +41,7 @@ export default function BonusBanner({ mobile }) {
   return (
     <div className="mobile-bonus-stack">
       {banner}
-      <button type="button" className="primary mobile-bonus-cta action-toast" onClick={actionFor(bonusSlides[current])}>{bonusSlides[current].action}</button>
+      <button type="button" className="primary mobile-bonus-cta" onClick={actionFor(bonusSlides[current])}>{bonusSlides[current].action}</button>
     </div>
   );
 }

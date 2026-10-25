@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { tournaments, winners } from '../../data/lobby.jsx';
-import { useAccountPreview } from '../../context/AuthContext.jsx';
 import { asset } from '../../lib/asset.js';
 import RotatingStage from '../../components/ui/RotatingStage.jsx';
 
@@ -33,7 +33,7 @@ function Countdown({ end, now }) {
 
 function TournamentCard() {
   const now = useNow(1000);
-  const preview = useAccountPreview();
+  const navigate = useNavigate();
   return (
     <article className="rail-card tournament-card" aria-label="Tournaments">
       <RotatingStage
@@ -47,7 +47,7 @@ function TournamentCard() {
             <h3>{t.name}</h3>
             <div className="prize">{t.prize}</div>
             <Countdown end={t.end} now={now} />
-            <button className="primary action-toast" onClick={preview}>Join now</button>
+            <button className="primary" onClick={() => navigate('/tournaments')}>View tournaments</button>
           </>
         )}
       />

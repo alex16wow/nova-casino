@@ -39,3 +39,6 @@
 @keyframes mobileBonusCenteredDrift { from, to { transform: translateX(calc(-50% - 20px)); } }
 @keyframes tabletBonusArtworkDrift { from, to { transform: translateX(-20px); } }
 @keyframes tabletBonusLowerDrift { from, to { transform: translateX(-8px); } }
+
+/* Category icon glow: a soft gradient instead of a blur filter. Blurred layers inside the scrolling category strip leave faint pink lines on Android. */
+.categories .category .category-icon-frame::before { filter: none; background: radial-gradient(circle, #b251ff80 0%, #9239ee4d 40%, #8430e500 70%); }

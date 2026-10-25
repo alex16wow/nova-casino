@@ -52,10 +52,9 @@ export function makeBonus(offer, { id, amount, code, now = Date.now(), source } 
     : { ...base, code: offer.code, game: offer.game, spins: offer.spins, spinsLeft: offer.spins, spinValue: offer.spinValue, winCap: offer.winCap, winWager: offer.winWager };
 }
 
-// Starting bonuses: one active reload bonus (350 / 1,000 USDT wagered) and a short history.
+// Starting bonuses: history only, so a new player has no active bonus.
 // Names match the claimed level rewards in levelRewards.
 export const seedBonuses = (now = Date.now()) => [
-  { id: 'BN-RL4821', offerId: 'reload', title: 'Weekly reload bonus', type: 'Reload bonus', kind: 'money', source: 'deposit', status: 'active', code: 'USDT', amount: 50, wager: 20, wagered: 350, maxBet: 5, deposit: 100, claimedAt: new Date(now - 2 * DAY).toISOString(), expiresAt: new Date(now + 5 * DAY).toISOString() },
   { id: 'BN-WK3310', offerId: 'weekend', title: 'Weekend reload', type: 'Reload bonus', kind: 'money', source: 'deposit', status: 'cancelled', code: 'USDT', amount: 30, wager: 20, wagered: 120, maxBet: 5, claimedAt: new Date(now - 16 * DAY).toISOString(), expiresAt: new Date(now - 9 * DAY).toISOString(), finishedAt: new Date(now - 14 * DAY).toISOString() },
   { id: 'BN-LV1007', offerId: 'l10', title: 'Level 10 milestone', type: 'Level reward', kind: 'money', source: 'reward', status: 'completed', code: 'EUR', amount: 5, wager: 10, wagered: 50, maxBet: 5, claimedAt: new Date(now - 24 * DAY).toISOString(), expiresAt: new Date(now - 17 * DAY).toISOString(), finishedAt: new Date(now - 20 * DAY).toISOString() },
   { id: 'BN-FS0810', offerId: 'spins10', title: 'Free spins starter pack', type: 'Free spins', kind: 'spins', source: 'reward', status: 'expired', code: 'USDT', game: 'Big Bass Bonanza', spins: 10, spinsLeft: 4, spinValue: 0.2, winCap: 50, winWager: 10, claimedAt: new Date(now - 40 * DAY).toISOString(), expiresAt: new Date(now - 37 * DAY).toISOString(), finishedAt: new Date(now - 37 * DAY).toISOString() },

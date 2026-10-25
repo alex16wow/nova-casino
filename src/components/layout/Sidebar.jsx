@@ -91,7 +91,9 @@ export function DrawerScrollIndicator({ open }) {
     const update = () => {
       frame = 0;
       if (!mobile.matches) { drawer.style.removeProperty('--mobile-drawer-scroll-height'); el.hidden = true; return; }
-      const available = (viewport ? viewport.height : innerHeight) - header.offsetHeight - 73;
+      // The drawer stops above the bottom dock; guests on phones have no dock.
+      const dock = document.documentElement.classList.contains('no-account-dock') ? 0 : 73;
+      const available = (viewport ? viewport.height : innerHeight) - header.offsetHeight - dock;
       drawer.style.setProperty('--mobile-drawer-scroll-height', Math.max(0, available) + 'px');
       const max = drawer.scrollHeight - drawer.clientHeight;
       el.hidden = !drawer.classList.contains('is-mobile-open') || max <= 1;
@@ -108,6 +110,8 @@ export function DrawerScrollIndicator({ open }) {
     const observer = new ResizeObserver(schedule);
     observer.observe(drawer);
     drawer.addEventListener('scroll', schedule, { passive: true });
+    // Measure again once the slide-in ends, so the indicator sits on the drawer's final edge.
+    drawer.addEventListener('transitionend', schedule);
     window.addEventListener('resize', schedule, { passive: true });
     viewport?.addEventListener('resize', schedule, { passive: true });
     mobile.addEventListener('change', schedule);
@@ -116,6 +120,7 @@ export function DrawerScrollIndicator({ open }) {
       cancelAnimationFrame(frame);
       observer.disconnect();
       drawer.removeEventListener('scroll', schedule);
+      drawer.removeEventListener('transitionend', schedule);
       window.removeEventListener('resize', schedule);
       viewport?.removeEventListener('resize', schedule);
       mobile.removeEventListener('change', schedule);
